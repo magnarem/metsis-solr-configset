@@ -144,9 +144,17 @@ for (var k=0; k < related.length; k++) {
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
             batchSize="20"
-            fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
+            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+            <field column="id" name="id"/>
+            <field column="mmd_title" name="ss_title"/>
+            <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
 
+                    url="http://157.249.176.182:8080/solr/adc-l2"
+                    query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
+                    batchSize="20"
+                    fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
 
+    </entity>
   </document>
 </dataConfig>
 <!--
