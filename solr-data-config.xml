@@ -140,11 +140,29 @@ for (var k=0; k < related.length; k++) {
 ]]></script>
   <document>
     <entity name="l1" processor="SolrEntityProcessor" pk="id"
-
+            transformer="script:keywords_level"
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
             batchSize="20"
-            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+            fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
+
+
+  </document>
+</dataConfig>
+<!--
+var related = row.get('mmd_related_information_resource');
+for (var k=0; k < related.length; k++) {
+  var str = new String(related[k]);
+  if(str.search(/User Guide/)) {
+    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+    row.put('related_url_user_guide', url);
+  }
+  if(str.search(/Dataset landing/)) {
+    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+    row.put('related_url_landing_page', url);
+  }
+  transformer="script:keywords_level,script:url_extractor,script:related"
+    transformer="script:keywords_level,script:url_extractor,script:date_range,script:related"
 
     <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
 
@@ -167,20 +185,4 @@ for (var k=0; k < related.length; k++) {
             fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
   </entity>
 
-  </document>
-</dataConfig>
-<!--
-var related = row.get('mmd_related_information_resource');
-for (var k=0; k < related.length; k++) {
-  var str = new String(related[k]);
-  if(str.search(/User Guide/)) {
-    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-    row.put('related_url_user_guide', url);
-  }
-  if(str.search(/Dataset landing/)) {
-    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-    row.put('related_url_landing_page', url);
-  }
-  transformer="script:keywords_level,script:url_extractor,script:related"
-    transformer="script:keywords_level,script:url_extractor,script:date_range,script:related"
 } -->
