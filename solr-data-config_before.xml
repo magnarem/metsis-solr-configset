@@ -35,46 +35,22 @@
             var kstring = '';
 	          for (var i=0; i < pieces.length; i++) {
               j = i+1;
-              eval('keywords_level' + j).add(pieces[i]);
+              eval('keywords_level' + j).add('keywords_level' + j, pieces[i]);
 		          kstring = kstring + i + '/' + pieces[i].trim() + ',';
 		        }
-            keywords_bread.add(kstring);
+            keywords_bread.add('keywords_bread', kstring);
          }
         }
 	    }
     }
-  var breadMap = new java.util.HashMap();
-  breadMap.put('set', keywords_bread);
-  row.put('keywords_bread', breadMap);
-
-  var key1Map = new java.util.HashMap();
-  key1Map.put('set', keywords_level1);
-  row.put('keywords_level1', key1Map);
-
-  var key2Map = new java.util.HashMap();
-  key2Map.put('set', keywords_level2);
-  row.put('keywords_level2', key2Map);
-
-  var key3Map = new java.util.HashMap();
-  key3Map.put('set', keywords_level3);
-  row.put('keywords_level3', key3Map);
-
-  var key4Map = new java.util.HashMap();
-  key4Map.put('set', keywords_level4);
-  row.put('keywords_level4', key4Map);
-
-  var key5Map = new java.util.HashMap();
-  key5Map.put('set', keywords_level5);
-  row.put('keywords_level5', key5Map);
-
-  var key6Map = new java.util.HashMap();
-  key6Map.put('set', keywords_level6);
-  row.put('keywords_level6', key6Map);
-
-  var key7Map = new java.util.HashMap();
-  key7Map.put('set', keywords_level7);
-  row.put('keywords_level7', key7Map);
-
+  row.put('keywords_bread', keywords_bread);
+  row.put('keywords_level1', keywords_level1);
+  row.put('keywords_level2', keywords_level2);
+  row.put('keywords_level3', keywords_level3);
+  row.put('keywords_level4', keywords_level4);
+  row.put('keywords_level5', keywords_level5);
+  row.put('keywords_level6', keywords_level6);
+  row.put('keywords_level7', keywords_level7);
   return row;
   }
   function date_range(row) {
@@ -139,34 +115,19 @@ for (var k=0; k < related.length; k++) {
 }
 ]]></script>
   <document>
-    <entity name="l1" processor="SolrEntityProcessor" pk="id"
-
+    <entity name="l1" processor="SolrEntityProcessor"
+            transformer="script:keywords_level,script:url_extractor"
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
             batchSize="20"
-            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+            fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
 
-    <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
-
+    <entity name="l2" processor="SolrEntityProcessor"
+            transformer="script:keywords_level,script:url_extractor"
             url="http://157.249.176.182:8080/solr/adc-l2"
-            query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
+            query="*:*"
             batchSize="20"
-            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-            <entity name="thumb-l2" processor="SolrEntityProcessor" pk="id"
-
-                    url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                    query="mmd_metadata_identifier:${l2.mmd_metadata_identifier}"
-                    batchSize="20"
-                    fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-    </entity>
-    <entity name="thumbnail" processor="SolrEntityProcessor" pk="id"
-
-            url="http://157.249.176.182:8080/solr/adc-thumbnail"
-            query="mmd_metadata_identifier:${l1.mmd_metadata_identifier}"
-            batchSize="20"
-            fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-  </entity>
-
+            fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
   </document>
 </dataConfig>
 <!--
@@ -182,5 +143,4 @@ for (var k=0; k < related.length; k++) {
     row.put('related_url_landing_page', url);
   }
   transformer="script:keywords_level,script:url_extractor,script:related"
-    transformer="script:keywords_level,script:url_extractor,script:date_range,script:related"
 } -->

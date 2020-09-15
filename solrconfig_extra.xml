@@ -173,13 +173,6 @@
   </arr>
 </requestHandler>
 
-<!-- Dataimport_handler -->
-<requestHandler name="/dataimport" class="solr.DataImportHandler">
-	  <lst name="defaults">
-    <str name="config">solr-data-config.xml</str>
-  </lst>
-</requestHandler>
-
 <!--
   Special configs for Elevator
   7.0.0
