@@ -242,6 +242,8 @@ row.put('related_url_user_guide', guideMap);
                 onError="skip"
                 fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
   </entity>
+</document>
+<document>
               <entity  name="CHILD" processor="SolrEntityProcessor"
                             transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
                             url="http://157.249.176.182:8080/solr/adc-l2"
