@@ -35,7 +35,7 @@
             var kstring = '';
 	          for (var i=0; i < pieces.length; i++) {
               j = i+1;
-              eval('keywords_level' + j).add(pieces[i]);
+              eval('keywords_level' + j).add(pieces[i].trim());
 		          kstring = kstring + i + '/' + pieces[i].trim() + ',';
 		        }
             keywords_bread.add(kstring);
@@ -86,74 +86,174 @@
       var daterange = new java.util.ArrayList();
       daterange.add(start);
       daterange.add(end);
-      row.put('temporal_extent_period_dr', daterange);
+      var drMap = new java.util.HashMap();
+      drMap.put('set', daterange);
+      row.put('temporal_extent_period_dr', drMap);
     }
     return row;
   }
   function url_extractor(row) {
     var types = row.get('mmd_data_access_type');
     var resources = row.get('mmd_data_access_resource');
+
     var opendap = "OPeNDAP";
     var ogc_wms = "OGC WMS";
+    var ogc_wfs = "OGC WFS";
+    var ogc_wcs = "OGC WCS";
     var http_url = "HTTP";
+    var ftp_url = "FTP";
     var odata = "ODATA";
+
+    var opendapMap = new java.util.HashMap();
+    var ogcwmsMap = new java.util.HashMap();
+    var httpMap = new java.util.HashMap();
+    var odataMap = new java.util.HashMap();
+    var ogcwfsMap = new java.util.HashMap();
+    var ftpMap = new java.util.HashMap();
+    var ogcwcsMap = new java.util.HashMap();
+
+    var opendapList = new java.util.ArrayList();
+    var ogcwmsList = new java.util.ArrayList();
+    var httpList = new java.util.ArrayList();
+    var odataList = new java.util.ArrayList();
+    var ogcwfsList = new java.util.ArrayList();
+    var ftpList = new java.util.ArrayList();
+    var ogcwcsList = new java.util.ArrayList();
+
+
     if (types != null) {
       for (var k=0; k < types.length; k++) {
-
-          if ( types[k].trim() === opendap) {
-            var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-            row.put('data_access_url_opendap', url);
+        var rType = types[k].trim();
+        var rString = resources[k].split('\"').join(' ').trim();
+        print(rString);
+          if ( rType.toLowerCase() === opendap.toLowerCase()) {
+            var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+            if(url != null ) {
+              opendapList.add(url[0]);
             }
-         if ( types[k].trim() === ogc_wms) {
-           var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-           row.put('data_access_url_ogc_wms', url);
+            }
+         if (  rType.toLowerCase() === ogc_wms.toLowerCase()) {
+           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+             if(url != null ) {
+             ogcwmsList.add(url[0]);
+             }
            }
-         if ( types[k].trim() ===  http_url) {
-           var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-           row.put('data_access_url_http', url);
+         if ( rType.toLowerCase() === http_url.toLowerCase()) {
+           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+             if(url != null ) {
+           httpList.add(url[0]);
            }
-        if ( types[k].trim() ===  odata) {
-          var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-          row.put('data_access_url_odata', url);
+           }
+        if (  rType.toLowerCase() === odata.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+            if(url != null ) {
+          odataList.add(url[0]);
+          }
+          }
+        if ( rType.toLowerCase() === ftp_url.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+            if(url != null ) {
+          ftpList.add(url[0]);
+          }
+          }
+        if ( rType.toLowerCase() === ogc_wfs.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+            if(url != null ) {
+          ogcwfsList.add(url[0]);
+          }
+          }
+        if ( rType.toLowerCase() === ogc_wcs.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+            if(url != null ) {
+          ogcwcsList.add(url[0]);
+          }
           }
         }
       }
+      opendapMap.put('set', opendapList);
+      row.put('data_access_url_opendap', opendapMap);
+
+      ogcwmsMap.put('set', ogcwmsList);
+      row.put('data_access_url_ogc_wms', ogcwmsMap);
+
+      odataMap.put('set', odataList);
+      row.put('data_access_url_odata', odataMap);
+
+      httpMap.put('set', httpList);
+      row.put('data_access_url_http', httpMap);
+
+      ftpMap.put('set', ftpList);
+      row.put('data_access_url_ftp', ftpMap);
+
+      ogcwfsMap.put('set', ogcwfsList);
+      row.put('data_access_url_ogc_wfs', ogcwfsMap);
+
+      ogcwcsMap.put('set', ogcwcsList);
+      row.put('data_access_url_ogc_wcs', ogcwcsMap);
     return row;
     }
 function related(row) {
 var related = row.get('mmd_related_information_resource');
+
+var guideMap = new java.util.HashMap();
+var guideList = new java.util.ArrayList();
+
+var landingMap = new java.util.HashMap();
+var landingList = new java.util.ArrayList();
+
 if (related != null) {
 for (var k=0; k < related.length; k++) {
-  var str = new String(related[k]);
+  var str = new String(related[k].split('\"').join(' ').trim());
   if(str.search(/User Guide/)) {
-    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-    row.put('related_url_user_guide', url);
+    var url  = str.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+      if(url != null ) {
+    guideList.add(url[0]);
+    }
   }
   if(str.search(/Dataset landing/)) {
-    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-    row.put('related_url_landing_page', url);
+    var url  = str.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+  if(url != null ) {
+    landingList.add(url[0]);
+    }
   }
  }
  }
+landingMap.put('set', landingList);
+guideMap.put('set', guideList);
+row.put('related_url_landing_page', landingMap);
+row.put('related_url_user_guide', guideMap);
  return row;
 }
 ]]></script>
   <document>
     <entity name="l1" processor="SolrEntityProcessor" pk="id"
-            transformer="script:keywords_level"
+            transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
             batchSize="20"
             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
             <field column="id" name="id"/>
-            <field column="mmd_title" name="ss_title"/>
-            <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
+            <entity name="thumbnail" processor="SolrEntityProcessor" pk="id"
 
-                    url="http://157.249.176.182:8080/solr/adc-l2"
-                    query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
+                    url="http://157.249.176.182:8080/solr/adc-thumbnail"
+                    query="mmd_metadata_identifier:${l1.mmd_metadata_identifier}"
                     batchSize="20"
-                    fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
+                    fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
+                    <document>
+                    <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
+                            transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
+                            url="http://157.249.176.182:8080/solr/adc-l2"
+                            query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
+                            batchSize="20"
+                            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+                            <entity name="thumb-l2" processor="SolrEntityProcessor" pk="id"
 
+                                    url="http://157.249.176.182:8080/solr/adc-thumbnail"
+                                    query="mmd_metadata_identifier:${l2.mmd_metadata_identifier}"
+                                    batchSize="20"
+                                    fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
+                    </entity>
+                  </document>
     </entity>
   </document>
 </dataConfig>
@@ -192,5 +292,18 @@ for (var k=0; k < related.length; k++) {
             batchSize="20"
             fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
   </entity>
+
+  <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
+
+          url="http://157.249.176.182:8080/solr/adc-l2"
+          query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
+          batchSize="20"
+          fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
+          <field column="mmd_title" name="title_txt_en"/>
+          <field column="mmd_abstract" name="abstract_txt_en"/>
+          <field column="mmd_last_metadata_update" name="ds_last_update"/>
+          <field column="mmd_collection" name="ms_collection"/>
+          <field column="mmd_iso_topic_category" name="ms_isotopic_category"/>
+
 
 } -->

@@ -124,6 +124,7 @@
   -->
   <field name="_root_" type="string" indexed="true" stored="false" docValues="false"/>
 
+
   <!-- Only remove the "id" field if you have a very good reason to. While not strictly
   required, it is highly recommended. A <uniqueKey> is present in almost all Solr
   installations. See the <uniqueKey> declaration below where <uniqueKey> is set to "id".
@@ -259,6 +260,9 @@
        It supports doc values but in that case the field needs to be
        single-valued and either required or have a default value.
       -->
+      <fieldType name="nest_path" class="solr.NestPathField" />
+      <field name="_nest_path_" type="nest_path" />
+      <field name="_nest_parent_" type="string" indexed="true" stored="true"/>
     <fieldType name="string" class="solr.StrField"/>
 
     <!-- boolean type: "true" or "false" -->
@@ -700,12 +704,15 @@
       <!-- Custom fields for keywords faceting -->
       <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
       <!-- Process data access url resources -->
-      <field name="data_access_url_opendap" type="string" indexed="true" stored="true"/>
-      <field name="data_access_url_ogc_wms" type="string" indexed="true" stored="true"/>
-      <field name="data_access_url_http" type="string" indexed="true" stored="true"/>
-      <field name="data_access_url_odata" type="string" indexed="true" stored="true"/>
-      <field name="related_url_landing_page" type="string" indexed="true" stored="true"/>
-      <field name="related_url_user_guide" type="string" indexed="true" stored="true"/>
+      <field name="data_access_url_opendap" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_ogc_wms" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_ogc_wfs" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_ogc_wcs" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_http" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_odata" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_ftp" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="related_url_landing_page" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="related_url_user_guide" type="string" indexed="true" stored="true" multiValued="true"/>
 
       <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
       <field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
