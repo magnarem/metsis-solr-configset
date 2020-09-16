@@ -226,7 +226,7 @@ row.put('related_url_user_guide', guideMap);
 }
 ]]></script>
   <document>
-    <entity name="l1" processor="SolrEntityProcessor" pk="id"
+    <entity name="PARENT" processor="SolrEntityProcessor" pk="id"
             transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
@@ -236,24 +236,24 @@ row.put('related_url_user_guide', guideMap);
             <entity name="thumbnail" processor="SolrEntityProcessor" pk="id"
 
                     url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                    query="mmd_metadata_identifier:${l1.mmd_metadata_identifier}"
+                    query="mmd_metadata_identifier:'${PARENT.mmd_metadata_identifier}'"
                     batchSize="20"
                     fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-                    <document>
-                    <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
+
+                    <entity child="true" name="CHILD" processor="SolrEntityProcessor" pk="id"
                             transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
                             url="http://157.249.176.182:8080/solr/adc-l2"
-                            query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
+                            query="mmd_related_dataset:'${PARENT.mmd_metadata_identifier}'"
                             batchSize="20"
                             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
                             <entity name="thumb-l2" processor="SolrEntityProcessor" pk="id"
 
                                     url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                                    query="mmd_metadata_identifier:${l2.mmd_metadata_identifier}"
+                                    query="mmd_metadata_identifier:'${CHILD.mmd_metadata_identifier}'"
                                     batchSize="20"
                                     fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
                     </entity>
-                  </document>
+                  
     </entity>
   </document>
 </dataConfig>
