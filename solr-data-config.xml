@@ -231,6 +231,7 @@ row.put('related_url_user_guide', guideMap);
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
             batchSize="20"
+            onError="skip"
             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
             <field column="id" name="id"/>
             <entity name="thumbnail" processor="SolrEntityProcessor"
@@ -246,6 +247,7 @@ row.put('related_url_user_guide', guideMap);
                             url="http://157.249.176.182:8080/solr/adc-l2"
                             query="mmd_related_dataset:${PARENT.mmd_metadata_identifier}"
                             batchSize="20"
+                            onError="skip"
                             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
                             <entity name="thumb-l2" processor="SolrEntityProcessor"
 
