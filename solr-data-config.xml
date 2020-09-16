@@ -226,31 +226,33 @@ row.put('related_url_user_guide', guideMap);
 }
 ]]></script>
   <document>
-    <entity name="PARENT" processor="SolrEntityProcessor" pk="id"
+    <entity name="PARENT" processor="SolrEntityProcessor"
             transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
             url="http://157.249.176.182:8080/solr/adc-l1"
             query="*:*"
             batchSize="20"
             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
             <field column="id" name="id"/>
-            <entity name="thumbnail" processor="SolrEntityProcessor" pk="id"
+            <entity name="thumbnail" processor="SolrEntityProcessor"
 
                     url="http://157.249.176.182:8080/solr/adc-thumbnail"
                     query="mmd_metadata_identifier:${PARENT.mmd_metadata_identifier}"
                     batchSize="20"
+                    onError="skip"
                     fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
 
-                    <entity child="true" name="CHILD" processor="SolrEntityProcessor" pk="id"
+                    <entity child="true" name="CHILD" processor="SolrEntityProcessor"
                             transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
                             url="http://157.249.176.182:8080/solr/adc-l2"
                             query="mmd_related_dataset:${PARENT.mmd_metadata_identifier}"
                             batchSize="20"
                             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-                            <entity name="thumb-l2" processor="SolrEntityProcessor" pk="id"
+                            <entity name="thumb-l2" processor="SolrEntityProcessor"
 
                                     url="http://157.249.176.182:8080/solr/adc-thumbnail"
                                     query="mmd_metadata_identifier:${CHILD.mmd_metadata_identifier}"
                                     batchSize="20"
+                                    onError="skip"
                                     fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
                     </entity>
 
