@@ -245,7 +245,7 @@ row.put('related_url_user_guide', guideMap);
               <entity  name="CHILD" processor="SolrEntityProcessor"
                             transformer="script:keywords_level,script:date_range,script:url_extractor,script:related"
                             url="http://157.249.176.182:8080/solr/adc-l2"
-                            query="mmd_related_dataset:'${PARENT.mmd_metadata_identifier}'"
+                            query="*:*"
                             batchSize="20"
                             onError="skip"
                             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
@@ -309,6 +309,6 @@ for (var k=0; k < related.length; k++) {
           <field column="mmd_last_metadata_update" name="ds_last_update"/>
           <field column="mmd_collection" name="ms_collection"/>
           <field column="mmd_iso_topic_category" name="ms_isotopic_category"/>
-
+  query="mmd_related_dataset:'${PARENT.mmd_metadata_identifier}'"
 
 } -->
