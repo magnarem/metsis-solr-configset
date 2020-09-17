@@ -122,7 +122,7 @@
   <!-- points to the root document of a block of nested documents. Required for nested
      document support, may be removed otherwise
   -->
-  <field name="_root_" type="string" indexed="true" stored="false" docValues="false"/>
+  <field name="_root_" type="string" indexed="true" stored="true" docValues="false"/>
 
 
   <!-- Only remove the "id" field if you have a very good reason to. While not strictly
@@ -718,7 +718,7 @@
       <field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
       <field name="base_map" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
       <field name="feature_type" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
-      <field name="dataset_type" type="text_en" indexed="true" stored="true" required="false" multiValued="true" />
+      <field name="dataset_type" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
 
       <copyField source="id" dest="full_text" />
 
