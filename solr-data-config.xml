@@ -228,43 +228,43 @@ row.put('related_url_user_guide', guideMap);
 
   <document>
     <entity name="p" processor="SolrEntityProcessor"
-            transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-            url="http://157.249.176.182:8080/solr/adc-l1"
-            query="id:nersc.no-normap-norwegian500m_asar_wind_E005N63_aggr"
-            batchSize="20"
-            onError="skip"
-            logTemplate="The Parent dataset  ${p.id}" logLevel="info"
-            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+      transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
+      url="http://157.249.176.182:8080/solr/adc-l1"
+      query="*:*"
+      batchSize="20"
+      onError="skip"
+      logTemplate="The Parent dataset  ${p.id}" logLevel="info"
+      fl="*,orig_version_l:_version_,ignored_price_c:price_c">
 
-            <field column="dataset_type" name="dataset_type" template="parent" />
-             <field column="id" name="id"/>
-            <entity name="tp" processor="SolrEntityProcessor" rootEntity="false"
-                transformer="LogTransformer"
-                logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
-                url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                query="id:${p.id}"
-                batchSize="20"
-                onError="skip"
+      <field column="dataset_type" name="dataset_type" template="parent" />
+       <field column="id" name="id"/>
+      <entity name="tp" processor="SolrEntityProcessor" rootEntity="false"
+          transformer="LogTransformer"
+          logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
+          url="http://157.249.176.182:8080/solr/adc-thumbnail"
+          query="id:${p.id}"
+          batchSize="20"
+          onError="skip"
+           fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
+    </entity>
+<entity  name="c" processor="SolrEntityProcessor"
+         transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
+         url="http://157.249.176.182:8080/solr/adc-l2"
+         query="*:*"
+         child="false"
+         onError="skip"
+         logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
+         fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+<field column="dataset_type" name="dataset_type" template="child" />
+         <entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
+           transformer="LogTransformer"
+           logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
+                 url="http://157.249.176.182:8080/solr/adc-thumbnail"
+                 query="id:${c.id}"
+                 batchSize="20"
+                 onError="skip"
                  fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-                 <entity  name="c" processor="SolrEntityProcessor"
-                               transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-                               url="http://157.249.176.182:8080/solr/adc-l2"
-                               query="mmd_related_dataset:${p.id}"
-                               child="true"
-                               onError="abort"
-                               logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
-                               fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-                               <field column="dataset_type"  name="dataset_type" template="child" />
-                               <field column="id" name="id"/>
-                               <entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
-                                 transformer="LogTransformer"
-                                 logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
-                                       url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                                       query="id:${c.id}"
-                                       batchSize="20"
-                                       onError="skip"
-                                       fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-                       </entity>
+
 
 
 </entity>
@@ -274,6 +274,55 @@ row.put('related_url_user_guide', guideMap);
   </document>
 </dataConfig>
 <!--
+
+<document>
+  <entity name="p" processor="SolrEntityProcessor"
+          transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
+          url="http://157.249.176.182:8080/solr/adc-l1"
+          query="id:nersc.no-normap-norwegian500m_asar_wind_E005N63_aggr"
+          batchSize="20"
+          onError="skip"
+          logTemplate="The Parent dataset  ${p.id}" logLevel="info"
+          fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+
+          <field column="dataset_type" name="dataset_type" template="parent" />
+           <field column="id" name="id"/>
+          <entity name="tp" processor="SolrEntityProcessor" rootEntity="false"
+              transformer="LogTransformer"
+              logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
+              url="http://157.249.176.182:8080/solr/adc-thumbnail"
+              query="id:${p.id}"
+              batchSize="20"
+              onError="skip"
+               fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
+               <entity  name="c" processor="SolrEntityProcessor"
+                             transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
+                             url="http://157.249.176.182:8080/solr/adc-l2"
+                             query="mmd_related_dataset:${p.id}"
+                             child="true"
+                             onError="skip"
+                             logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
+                             fl="id,mmd_title,orig_version_l:_version_,ignored_price_c:price_c">
+                             <field column="dataset_type"  name="dataset_type" template="child" />
+                             <field column="id" name="id"/>
+                             <field column="mmd_title" name="mmd_title"/>
+
+                     </entity>
+
+
+</entity>
+
+
+
+</document>
+<entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
+  transformer="LogTransformer"
+  logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
+        url="http://157.249.176.182:8080/solr/adc-thumbnail"
+        query="id:${c.id}"
+        batchSize="20"
+        onError="skip"
+        fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
 
 mmd_related_dataset:${p.id}
 
