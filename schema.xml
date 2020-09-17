@@ -263,8 +263,9 @@
     <!--  <fieldType name="nest_path" class="solr.NestPathField" />
       <field name="_nest_path_" type="nest_path" />
       <field name="_nest_parent_" type="string" indexed="true" stored="true"/>
-    <fieldType name="string" class="solr.StrField"/>
+
 -->
+<fieldType name="string" class="solr.StrField"/>
     <!-- boolean type: "true" or "false" -->
     <fieldType name="boolean" class="solr.BoolField"/>
 
