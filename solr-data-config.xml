@@ -225,6 +225,7 @@ row.put('related_url_user_guide', guideMap);
  return row;
 }
 ]]></script>
+
   <document>
     <entity name="p" processor="SolrEntityProcessor"
             transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
@@ -236,8 +237,8 @@ row.put('related_url_user_guide', guideMap);
             fl="*,orig_version_l:_version_,ignored_price_c:price_c">
 
             <field column="dataset_type" name="dataset_type" template="parent" />
-
-            <entity name="tp" processor="SolrEntityProcessor"
+             <field column="id" name="id"/>
+            <entity name="tp" processor="SolrEntityProcessor" rootEntity="false"
                 transformer="LogTransformer"
                 logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
                 url="http://157.249.176.182:8080/solr/adc-thumbnail"
@@ -250,12 +251,12 @@ row.put('related_url_user_guide', guideMap);
                                url="http://157.249.176.182:8080/solr/adc-l2"
                                query="mmd_related_dataset:${p.id}"
                                child="true"
-                               rows="1"
-                               onError="skip"
-                               logTemplate="The Child dataset  ${c.id}" logLevel="info"
+                               onError="abort"
+                               logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
                                fl="*,orig_version_l:_version_,ignored_price_c:price_c">
                                <field column="dataset_type"  name="dataset_type" template="child" />
-                               <entity name="thumb2" processor="SolrEntityProcessor"
+                               <field column="id" name="id"/>
+                               <entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
                                  transformer="LogTransformer"
                                  logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
                                        url="http://157.249.176.182:8080/solr/adc-thumbnail"
@@ -264,11 +265,18 @@ row.put('related_url_user_guide', guideMap);
                                        onError="skip"
                                        fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
                        </entity>
+
+
 </entity>
+
+
 
   </document>
 </dataConfig>
 <!--
+
+mmd_related_dataset:${p.id}
+
 var related = row.get('mmd_related_information_resource');
 for (var k=0; k < related.length; k++) {
   var str = new String(related[k]);
@@ -336,5 +344,32 @@ for (var k=0; k < related.length; k++) {
                         onError="skip"
                         fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
         </entity>
+
+
+
+        <entity name="p" processor="SolrEntityProcessor"
+                transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
+                url="http://157.249.176.182:8080/solr/adc-l1"
+                query="id:nersc.no-normap-norwegian500m_asar_wind_E005N63_aggr"
+                batchSize="20"
+                onError="skip"
+                logTemplate="The Parent dataset  ${p.id}" logLevel="info"
+                fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+
+                <field column="dataset_type" name="dataset_type" template="parent" />
+
+                <entity name="tp" processor="SolrEntityProcessor"
+                    transformer="LogTransformer"
+                    logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
+                    url="http://157.249.176.182:8080/solr/adc-thumbnail"
+                    query="id:${p.id}"
+                    batchSize="20"
+                    onError="skip"
+                     fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
+
+
+
+    </entity>
+
 
 } -->
