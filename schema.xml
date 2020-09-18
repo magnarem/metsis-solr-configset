@@ -183,7 +183,7 @@
   <!-- For field types using SORTED_SET, multiple identical entries are collapsed into a single value.
        Thus if I insert values 4, 5, 2, 4, 1, my return will be 1, 2, 4, 5 when enabling docValues.
        If you need to preserve the order and duplicate entries, consider to store the values as zm_* (twice). -->
-  <dynamicField name="sm_*"  type="string"  indexed="true"  stored="false" multiValued="true" docValues="true" termVectors="true"/>
+  <dynamicField name="sm_*"  type="string"  indexed="true"  stored="true" multiValued="true" docValues="true" termVectors="true"/>
   <!-- Special-purpose text fields -->
   <dynamicField name="tws_*" type="text_ws" indexed="true" stored="true" multiValued="false"/>
   <dynamicField name="twm_*" type="text_ws" indexed="true" stored="true" multiValued="true"/>
@@ -444,6 +444,20 @@
           </analyzer>
         </fieldType>
 
+        <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+      <filter class="solr.SynonymGraphFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
   <!-- Money/currency field type. See http://wiki.apache.org/solr/MoneyFieldType
        Parameters:
            amountLongSuffix: Required. Refers to a dynamic field for the raw amount sub-field.
@@ -689,6 +703,10 @@
 
       <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" />
 
+
+      <field name="text_suggester" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
+      <field name="title" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
+      <field name="abstract" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
       <field name="keywords_level1" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
       <field name="keywords_level2" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
       <field name="keywords_level3" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
@@ -741,6 +759,7 @@
       <copyField source="mmd_personnel_role" dest="sm_personnel_role" />
 
       <copyField source="mmd_access_constraint" dest="full_text" />
+      <copyField source="mmd_access_constraint" dest="ss_access" />
 
       <copyField source="mmd_keywords_keyword" dest="full_text" />
       <copyField source="mmd_keywords_keyword" dest="sm_keywords" />
@@ -754,9 +773,13 @@
       <copyField source="mmd_dataset_citation_dataset_publisher" dest="sm_citation_publisher" />
         <copyField source="mmd_dataset_citation_dataset_editor" dest="sm_citation_editor" />
 
-<copyField source="bbox" dest="bbox_rpts" />
+        <copyField source="bbox" dest="bbox_rpt" />
 
-
+        <copyField source="full_text" dest="text_suggester" />
+        <copyField source="mmd_tilte" dest="title" />
+        <copyField source="mmd_tilte" dest="sm_title" />
+        <copyField source="mmd_abstract" dest="abstract" />
+        <copyField source="mmd_abstract" dest="sm_abstract" />
 
 
 

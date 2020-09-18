@@ -26,6 +26,7 @@
     var keywords_level5 =  new java.util.ArrayList();
     var keywords_level6 =  new java.util.ArrayList();
     var keywords_level7 =  new java.util.ArrayList();
+    var keywords =  new java.util.ArrayList();
     var keyword_list = row.get('mmd_keywords_keyword');
 	  if (keyword_list != null) {
 	    for (var k=0; k < keyword_list.length; k++) {
@@ -36,13 +37,21 @@
 	          for (var i=0; i < pieces.length; i++) {
               j = i+1;
               eval('keywords_level' + j).add(pieces[i].trim());
-		          kstring = kstring + i + '/' + pieces[i].trim() + ',';
+		          kstring = kstring + j + '/' + pieces[i].trim() + ',';
 		        }
             keywords_bread.add(kstring);
+         }
+         else  {
+          keywords.add(keyword_list[k].trim());
          }
         }
 	    }
     }
+
+  var keyMap =  new java.util.HashMap();
+  keyMap.put('set', keywords);
+  row.put('sm_keywords_strip', keyMap);
+
   var breadMap = new java.util.HashMap();
   breadMap.put('set', keywords_bread);
   row.put('keywords_bread', breadMap);
@@ -125,7 +134,6 @@
       for (var k=0; k < types.length; k++) {
         var rType = types[k].trim();
         var rString = resources[k].split('\"').join(' ').trim();
-        print(rString);
           if ( rType.toLowerCase() === opendap.toLowerCase()) {
             var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
             if(url != null ) {
@@ -274,7 +282,7 @@ row.put('related_url_user_guide', guideMap);
   </document>
 </dataConfig>
 <!--
-<field name="skills" update="set" null="true" /> 
+<field name="skills" update="set" null="true" />
 <document>
   <entity name="p" processor="SolrEntityProcessor"
           transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
