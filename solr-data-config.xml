@@ -274,7 +274,7 @@ row.put('related_url_user_guide', guideMap);
   </document>
 </dataConfig>
 <!--
-
+<field name="skills" update="set" null="true" /> 
 <document>
   <entity name="p" processor="SolrEntityProcessor"
           transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"

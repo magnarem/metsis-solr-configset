@@ -705,15 +705,15 @@
       <!-- Custom fields for keywords faceting -->
       <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
       <!-- Process data access url resources -->
-      <field name="data_access_url_opendap" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="data_access_url_ogc_wms" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="data_access_url_ogc_wfs" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="data_access_url_ogc_wcs" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="data_access_url_http" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="data_access_url_odata" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="data_access_url_ftp" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="related_url_landing_page" type="string" indexed="true" stored="true" multiValued="true"/>
-      <field name="related_url_user_guide" type="string" indexed="true" stored="true" multiValued="true"/>
+      <field name="data_access_url_opendap" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="data_access_url_ogc_wms" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="data_access_url_ogc_wfs" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="data_access_url_ogc_wcs" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="data_access_url_http" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="data_access_url_odata" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="data_access_url_ftp" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
+      <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
 
       <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
       <field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
@@ -726,22 +726,38 @@
       <copyField source="mmd_abstract" dest="full_text" />
 
       <copyField source="mmd_personnel_name" dest="full_text" />
-      <copyField source="mmd_personnel_name" dest="ms_personnel_name" />
+      <copyField source="mmd_personnel_name" dest="sm_personnel_name" />
       <copyField source="mmd_title" dest="full_text" />
 
       <copyField source="mmd_project_long_name" dest="full_text" />
+      <copyField source="mmd_project_long_name" dest="sm_project_long_name" />
 
       <copyField source="mmd_iso_topic_category" dest="full_text" />
 
       <copyField source="mmd_personnel_organisation" dest="full_text" />
-      <copyField source="mmd_personnel_organisation" dest="ms_personnel_organisation" />
+      <copyField source="mmd_personnel_organisation" dest="sm_personnel_organisation" />
 
       <copyField source="mmd_personnel_role" dest="full_text" />
+      <copyField source="mmd_personnel_role" dest="sm_personnel_role" />
 
       <copyField source="mmd_access_constraint" dest="full_text" />
 
       <copyField source="mmd_keywords_keyword" dest="full_text" />
-      <copyField source="mmd_keywords_keyword" dest="ms_keywords" />
+      <copyField source="mmd_keywords_keyword" dest="sm_keywords" />
 
-      <copyField source="mmd_iso_topic_category" dest="full_text" />
+      <copyField source="mmd_data_center_data_center_name_short_name" dest="sm_data_center_short_name" />
+
+      <copyField source="mmd_data_center_data_center_name_long_name" dest="sm_data_center_long_name" />
+      <copyField source="mmd_data_center_data_center_name_long_name" dest="full_text" />
+
+      <copyField source="mmd_dataset_citation_dataset_release_place" dest="sm_citation_place" />
+      <copyField source="mmd_dataset_citation_dataset_publisher" dest="sm_citation_publisher" />
+        <copyField source="mmd_dataset_citation_dataset_editor" dest="sm_citation_editor" />
+
+<copyField source="bbox" dest="bbox_rpts" />
+
+
+
+
+
 </schema>
