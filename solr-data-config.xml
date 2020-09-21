@@ -282,7 +282,6 @@ row.put('related_url_user_guide', guideMap);
   query="*:*"
   batchSize="20"
   onError="skip"
-  rootEntity="true"
   logTemplate="The Parent dataset:  ${newMMD.id}" logLevel="info"
   fl="*,orig_version_l:_version_,ignored_price_c:price_c">
 
@@ -372,12 +371,12 @@ row.put('related_url_user_guide', guideMap);
       <field column="base_map" name="base_map" />
       <field column="feature_type" name="feature_type" />
   </entity>
+  </entity>
   <entity  name="newMMDc" processor="SolrEntityProcessor"
        transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
        url="http://157.249.176.182:8080/solr/adc-l2"
-       query="mmd_related_dataset:${newMMD.mmd_metadata_identifier}"
-       join="zipper"
-       child="true"
+       query="*:*"
+       child="false"
        onError="skip"
        logTemplate="The Child dataset  ${newMMDc.id} for parent ${newMMD.id}" logLevel="info"
        fl="*,orig_version_l:_version_,ignored_price_c:price_c">
@@ -469,7 +468,7 @@ row.put('related_url_user_guide', guideMap);
           <field column="base_map" name="base_map" />
           <field column="feature_type" name="feature_type" />
       </entity>
-</entity>
+
 
 
 </entity>
