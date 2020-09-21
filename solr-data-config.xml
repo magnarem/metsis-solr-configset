@@ -376,6 +376,7 @@ row.put('related_url_user_guide', guideMap);
        transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
        url="http://157.249.176.182:8080/solr/adc-l2"
        query="mmd_related_dataset:${newMMD.mmd_metadata_identifier}"
+       join="zipper"
        child="true"
        onError="skip"
        logTemplate="The Child dataset  ${newMMDc.id} for parent ${newMMD.id}" logLevel="info"
