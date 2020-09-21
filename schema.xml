@@ -153,7 +153,7 @@
   <field name="hash" type="string" indexed="true" stored="false" multiValued="false" docValues="true"/>
 
   <field name="boost_document" type="pfloat" indexed="true" stored="false" multiValued="false" docValues="true"/>
-  <field name="boost_term" type="boost_term_payload" indexed="true" stored="false" multiValued="true"/>
+<!--  <field name="boost_term" type="boost_term_payload" indexed="true" stored="false" multiValued="true"/> -->
 
   <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
        will be used if the name matches any of the patterns.
@@ -265,6 +265,9 @@
       <field name="_nest_parent_" type="string" indexed="true" stored="true"/>
 
 -->
+
+<fieldType name="_nest_path_" class="solr.NestPathField" omitTermFreqAndPositions="true" omitNorms="true" maxCharsForDocValues="-1" stored="false"/>
+<field name="_nest_path_" type="_nest_path_"/>
 <fieldType name="string" class="solr.StrField"/>
     <!-- boolean type: "true" or "false" -->
     <fieldType name="boolean" class="solr.BoolField"/>
@@ -369,34 +372,6 @@
     </fieldType>
     -->
 
-    <!-- A text field that only splits on whitespace for exact matching of words -->
-    <fieldType name="text_ws" class="solr.TextField" omitNorms="true" positionIncrementGap="100">
-      <analyzer>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-    </fieldType>
-
-    <fieldType name="boost_term_payload" stored="false" indexed="true" class="solr.TextField" >
-      <analyzer>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-        <!--
-        The DelimitedPayloadTokenFilter can put payloads on tokens... for example,
-        a token of "foo|1.4"  would be indexed as "foo" with a payload of 1.4f
-        Attributes of the DelimitedPayloadTokenFilterFactory :
-         "delimiter" - a one character delimiter. Default is | (pipe)
-         "encoder" - how to encode the following value into a playload
-           float -> org.apache.lucene.analysis.payloads.FloatEncoder,
-           integer -> o.a.l.a.p.IntegerEncoder
-           identity -> o.a.l.a.p.IdentityEncoder
-             Fully Qualified class name implementing PayloadEncoder, Encoder must have a no arg constructor.
-         -->
-        <filter class="solr.DelimitedPayloadTokenFilterFactory" encoder="float"/>
-        <filter class="solr.LengthFilterFactory" min="2" max="100"/>
-      </analyzer>
-    </fieldType>
 
     <!-- since fields of this type are by default not stored or indexed,
          any data added to them will be ignored outright.  -->
@@ -488,7 +463,7 @@
     -->
 
     <!-- Fields MMD Old specification -->
-      <field name="bbox" type="bbox" indexed="true" stored="true" />
+      <field name="bbox" type="bbox" indexed="true" stored="true"/>
       <field name="bbox_rpt" type="location_rpt" indexed="true" stored="true"/>
 
       <field name="mmd_metadata_version" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
@@ -691,44 +666,8 @@
 
       <field name="mmd_scene_cover_value" type="pdouble" indexed="true" stored="true" required="false" multiValued="false" />
 
-      <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" />
-
-
-      <field name="text_suggester" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
-      <field name="title" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
-      <field name="abstract" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
-      <field name="keywords_level1" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <field name="keywords_level2" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <field name="keywords_level3" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <field name="keywords_level4" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <field name="keywords_level5" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <field name="keywords_level6" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <field name="keywords_level7" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-
-      <!--DateRangeField for faciting between start and end dates -->
-      <field name="temporal_extent_period_dr" type="date_range" indexed="true" stored="true" multiValued="true"/>
-
-      <!--Same information as string for pretty printing -->
-      <field name="temporal_extent_period_s" type="string" indexed="true" stored="true"/>
-      <!-- Custom fields for keywords faceting -->
-      <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-      <!-- Process data access url resources -->
-      <field name="data_access_url_opendap" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="data_access_url_ogc_wms" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="data_access_url_ogc_wfs" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="data_access_url_ogc_wcs" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="data_access_url_http" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="data_access_url_odata" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="data_access_url_ftp" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
-      <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
-
-      <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
-      <field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
-      <field name="base_map" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
-      <field name="feature_type" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
-      <field name="dataset_type" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
-
+    <!--  <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" /> -->
+<!--
       <copyField source="id" dest="full_text" />
 
       <copyField source="mmd_abstract" dest="full_text" />
@@ -770,7 +709,7 @@
         <copyField source="mmd_tilte" dest="sm_title" />
         <copyField source="mmd_abstract" dest="abstract" />
         <copyField source="mmd_abstract" dest="sm_abstract" />
-
+-->
 
 <!-- NEW MMD SPECIFICATION V3.1 SEPTEMBER 2020 -->
 
@@ -779,13 +718,13 @@
 
         <!-- mmd/alternate_identifier -->
         <field name="alternate_identifier" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="alternate_identifier.type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="alternate_identifier.type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/last_metadata_update -->
         <field name="last_metadata_update" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="last_metadata_update.datetime" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="last_metadata_update.type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="last_metadata_update.note" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="last_metadata_update.datetime" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="last_metadata_update.type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="last_metadata_update.note" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/metadata_status -->
         <field name="metadata_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -802,13 +741,13 @@
         <!-- mmd/abstract -->
         <field name="abstract" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="abstract.en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="abstract.no" type="text_no" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="abstract.no" type="text_no" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- TODO: Add more languages -->
 
         <!-- mmd/temporal_extent -->
         <field name="temporal_extent" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="temporal_extent.start_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="temporal_extent.end_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="temporal_extent.start_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="temporal_extent.end_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/geographic_extent -->
         <field name="geographic_extent" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -825,7 +764,7 @@
         <field name="geographic_extent.polygon.lowerRight" type="pdoubles" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="geographic_extent.polygon.lowerLeft" type="pdoubles" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="geographic_extent.polygon.closingRing" type="pdoubles" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="geographic_extent.rectangle.srsName" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="geographic_extent.polygon.srsName" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- mmd/location -->
         <field name="location" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -844,7 +783,7 @@
         <field name="dataset_language" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- mmd/operational_status -->
-        <field name="mmd_operational_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="operational_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- mmd/access_constraint -->
         <field name="access_constraint" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -857,38 +796,39 @@
 
         <!-- mmd/personnel -->
         <field name="personnel" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel.role" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.name" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.email" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.phone" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.fax" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="personnel.role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.email" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.phone" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.fax" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="personnel.organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <field name="personnel.contact_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel.contact_address.address" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.contact_address.city" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.contact_address.province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.contact_address.postal_code" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="personnel.contact_address.country" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="personnel.contact_address.address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.contact_address.city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.contact_address.province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.contact_address.postal_code" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel.contact_address.country" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/data_center -->
         <field name="data_center" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="data_center.short_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="data_center.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="data_center.url" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="data_center.short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="data_center.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="data_center.url" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/data_access -->
         <field name="data_access" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="data_access.type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="data_access.resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="data_access.description" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="data_access.name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="data_access.type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="data_access.resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="data_access.description" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_access.wms_layers" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="data_access.wms_layers.wms_layer" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+      <!--  <field name="data_access.wms_layers.wms_layer" type="string" indexed="true" stored="true" required="false" multiValued="true" /> -->
 
         <!-- mmd/related_dataset -->
         <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="related_dataset.parent" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="related_dataset.auxiliary" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="related_dataset.parent" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="related_dataset.auxiliary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/storage_information -->
         <field name="storage_information" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -902,65 +842,96 @@
 
         <!-- mmd/related_information -->
         <field name="related_information" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="related_information.type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="related_information.resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="related_information.description" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="related_information.type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="related_information.resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="related_information.description" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/iso_topic_category -->
         <field name="iso_topic_category" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/keywords -->
         <field name="keywords" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="keywords.vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="keywords.resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="keywords.separator" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="keywords.vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="keywords.resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="keywords.separator" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="keywords.keyword" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/project -->
         <field name="project" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="project.short_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="project.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="project.short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="project.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/platform -->
         <field name="platform" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="platform.short_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.orbit_relative" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.orbit_absolute" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.orbit_direction" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="platform.short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.orbit_relative" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.orbit_absolute" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.orbit_direction" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <field name="platform.instrument" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="platform.instrument.short_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.instrument.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.instrument.resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.instrument.mode" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.instrument.polarisation" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.instrument.product_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="platform.instrument.short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.instrument.long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.instrument.resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.instrument.mode" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.instrument.polarisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.instrument.product_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <field name="platform.ancillary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="platform.ancillary.cloud_coverage" type="pdouble" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.ancillary.scene_coverage" type="pdouble" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="platform.ancillary.timeliness" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="platform.ancillary.cloud_coverage" type="pdouble" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.ancillary.scene_coverage" type="pdouble" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="platform.ancillary.timeliness" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/activity_type -->
         <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/dataset_citation -->
         <field name="dataset_citation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="dataset_citation.author" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.title" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.series" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.edition" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.volume" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.issue" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.publication_place" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.publisher" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.pages" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.isbn" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.doi" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="dataset_citation.other" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="dataset_citation.author" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.title" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.series" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.edition" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.volume" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.issue" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.publication_place" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.publisher" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.pages" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.isbn" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.doi" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation.other" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+
+
+        <!-- Common fields for new and old MMD specification, specific for Drupal 8 -->
+        <field name="text_suggester" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
+    <!--    <field name="title" type="text_general" indexed="true" stored="false" required="false" multiValued="true" /> -->
+    <!--    <field name="abstract" type="text_general" indexed="true" stored="false" required="false" multiValued="true" /> -->
+        <field name="keywords_level1" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="keywords_level2" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="keywords_level3" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="keywords_level4" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="keywords_level5" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="keywords_level6" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="keywords_level7" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+
+        <!--DateRangeField for faciting between start and end dates -->
+        <field name="temporal_extent_period_dr" type="date_range" indexed="true" stored="true" multiValued="true"/>
+
+        <!--Same information as string for pretty printing -->
+        <field name="temporal_extent_period_s" type="string" indexed="true" stored="true"/>
+        <!-- Custom fields for keywords faceting -->
+        <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- Process data access url resources -->
+        <field name="data_access_url_opendap" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wms" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wfs" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wcs" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_http" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_odata" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_ftp" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
 
         <!-- Thumbnail specific fields -->
         <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
@@ -972,6 +943,10 @@
 
         <!-- Aggregated field for full text searches. TODO: Consider other fieldType for better searches ?? -->
         <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" />
+
+        <!-- dummy field -->
+        <field name="text" type="string" indexed="true" stored="true" />
+
 
         <!-- Copy some fields for full_text search and other helper fields -->
         <copyField source="id" dest="full_text" />
