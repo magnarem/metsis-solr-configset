@@ -284,78 +284,78 @@ row.put('related_url_user_guide', guideMap);
   onError="skip"
   logTemplate="The Parent dataset:  ${newMMD.id}" logLevel="info"
   fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-
+  <field column="test_storage" name="test_storage" template="testing" />
   <field column="dataset_type" name="dataset_type" template="parent" />
   <field column="id" name="id"/>
   <field column="mmd_metadata_identifier" name="metadata_identifier" />
-  <field column="mmd_last_metadata_update" name="last_metadata_update.datetime" />
+  <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
   <field column="mmd_metadata_status" name="metadata_status" />
   <field column="mmd_collection" name="collection" />
   <field column="mmd_title" name="title" />
   <field column="mmd_abstract" name="abstract" />
-  <field column="mmd_temporal_extent_start_date" name="temporal_extent.start_date" />
-  <field column="mmd_temporal_extent_end_date" name="temporal_extent.end_date" />
-  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent.rectangle.north" />
-  <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent.rectangle.south" />
-  <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent.rectangle.east" />
-  <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent.rectangle.west" />
-  <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent.rectangle.srsName" />
-  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent.rectangle.north" />
+  <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
+  <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+  <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
+  <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
+  <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent_rectangle_west" />
+  <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent_rectangle_srsName" />
+  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
   <field column="mmd_dataset_production_status" name="dataset_production_status" />
   <field column="mmd_dataset_language" name="dataset_language" />
   <field column="mmd_operational_status" name="operational_status" />
   <field column="mmd_access_constraint" name="access_constraint" />
-  <field column="mmd_use_constraint" name="use_constraint.identifier" />
-  <field column="mmd_personnel_role" name="personnel.role" />
-  <field column="mmd_personnel_name" name="personnel.name" />
-  <field column="mmd_personnel_email" name="personnel.email" />
-  <field column="mmd_personnel_phone" name="personnel.phone" />
-  <field column="mmd_personnel_fax" name="personnel.fax" />
-  <field column="mmd_personnel_organisation" name="personnel.organisation" />
-  <field column="mmd_personnel_contact_address_address" name="personnel.contact_address.address" />
-  <field column="mmd_personnel_contact_address_city" name="personnel.contact_address.city" />
-  <field column="mmd_personnel_contact_address_province_or_state" name="personnel.contact_address.province_or_state" />
-  <field column="mmd_personnel_contact_address_postal_code" name="personnel.contact_address.postal_code" />
-  <field column="mmd_personnel_contact_address_country" name="personnel.contact_address.country" />
-  <field column="mmd_data_center_data_center_name_short_name" name="data_center.short_name" />
-  <field column="mmd_data_center_data_center_name_long_name" name="data_center.long_name" />
-  <field column="mmd_data_center_data_center_url" name="data_center.url" />
-  <field column="mmd_data_access_name" name="data_access.name" />
-  <field column="mmd_data_access_type" name="data_access.type" />
-  <field column="mmd_data_access_resource" name="data_access.resource" />
-  <field column="mmd_data_access_description" name="data_access.description" />
-  <field column="mmd_data_access_wms_layers_wms_layer" name="data_access.wms_layers" />
+  <field column="mmd_use_constraint" name="use_constraint_identifier" />
+  <field column="mmd_personnel_role" name="personnel_role" />
+  <field column="mmd_personnel_name" name="personnel_name" />
+  <field column="mmd_personnel_email" name="personnel_email" />
+  <field column="mmd_personnel_phone" name="personnel_phone" />
+  <field column="mmd_personnel_fax" name="personnel_fax" />
+  <field column="mmd_personnel_organisation" name="personnel_organisation" />
+  <field column="mmd_personnel_contact_address_address" name="personnel_contact_address_address" />
+  <field column="mmd_personnel_contact_address_city" name="personnel_contact_address_city" />
+  <field column="mmd_personnel_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+  <field column="mmd_personnel_contact_address_postal_code" name="personnel_contact_address_postal_code" />
+  <field column="mmd_personnel_contact_address_country" name="personnel_contact_address_country" />
+  <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
+  <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
+  <field column="mmd_data_center_data_center_url" name="data_center_url" />
+  <field column="mmd_data_access_name" name="data_access_name" />
+  <field column="mmd_data_access_type" name="data_access_type" />
+  <field column="mmd_data_access_resource" name="data_access_resource" />
+  <field column="mmd_data_access_description" name="data_access_description" />
+  <field column="mmd_data_access_wms_layers_wms_layer" name="data_access_wms_layers" />
   <field column="mmd_related_dataset" name="related_dataset" />
-  <field column="mmd_related_information_type" name="related_information.type" />
-  <field column="mmd_related_information_resource" name="related_information.resource" />
-  <field column="mmd_related_information_description" name="related_information.description" />
+  <field column="mmd_related_information_type" name="related_information_type" />
+  <field column="mmd_related_information_resource" name="related_information_resource" />
+  <field column="mmd_related_information_description" name="related_information_description" />
   <field column="mmd_iso_topic_category" name="iso_topic_category" />
-  <field column="mmd_keywords_keyword" name="keywords.keyword" />
-  <field column="mmd_project_short_name" name="project.short_name" />
-  <field column="mmd_project_long_name" name="project.long_name" />
-  <field column="mmd_platform_short_name" name="platform.short_name" />
-  <field column="mmd_platform_long_name" name="platform.long_name" />
-  <field column="mmd_instrument_short_name" name="platform.instrument.short_name" />
-  <field column="mmd_instrument_long_name" name="platform.instrument.long_name" />
-  <field column="mmd_instrument_mode" name="platform.instrument.mode" />
-  <field column="mmd_instrument_polarisation" name="platform.instrument.polarisation" />
-  <field column="mmd_instrument_product_type" name="platform.instrument.product_type" />
-  <field column="mmd_cloud_cover_value" name="platform.ancillary.cloud_coverage" />
-  <field column="mmd_scene_cover_value" name="platform.ancillary.scene_coverage" />
+  <field column="mmd_keywords_keyword" name="keywords_keyword" />
+  <field column="mmd_project_short_name" name="project_short_name" />
+  <field column="mmd_project_long_name" name="project_long_name" />
+  <field column="mmd_platform_short_name" name="platform_short_name" />
+  <field column="mmd_platform_long_name" name="platform_long_name" />
+  <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
+  <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
+  <field column="mmd_instrument_mode" name="platform_instrument_mode" />
+  <field column="mmd_instrument_polarisation" name="platform_instrument_polarisation" />
+  <field column="mmd_instrument_product_type" name="platform_instrument_product_type" />
+  <field column="mmd_cloud_cover_value" name="platform_ancillary_cloud_coverage" />
+  <field column="mmd_scene_cover_value" name="platform_ancillary_scene_coverage" />
   <field column="mmd_activity_type" name="activity_type" />
-  <field column="mmd_reference_author" name="dataset_citation.author" />
-  <field column="mmd_reference_publication_date" name="dataset_citation.publication_date" />
-  <field column="mmd_dataset_citation_dataset_title" name="dataset_citation.title" />
-  <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation.series" />
-  <field column="mmd_reference_edition" name="dataset_citation.edition" />
-  <field column="mmd_reference_volume" name="dataset_citation.volume" />
-  <field column="mmd_reference_issue" name="dataset_citation.issue" />
-  <field column="mmd_reference_publication_place" name="dataset_citation.publication_place" />
-  <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation.publisher" />
-  <field column="mmd_reference_pages" name="dataset_citation.pages" />
-  <field column="mmd_reference_isbn" name="dataset_citation.isbn" />
-  <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation.doi" />
-  <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation.other" />
+  <field column="mmd_reference_author" name="dataset_citation_author" />
+  <field column="mmd_reference_publication_date" name="dataset_citation_publication_date" />
+  <field column="mmd_dataset_citation_dataset_title" name="dataset_citation_title" />
+  <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation_series" />
+  <field column="mmd_reference_edition" name="dataset_citation_edition" />
+  <field column="mmd_reference_volume" name="dataset_citation_volume" />
+  <field column="mmd_reference_issue" name="dataset_citation_issue" />
+  <field column="mmd_reference_publication_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
+  <field column="mmd_reference_pages" name="dataset_citation_pages" />
+  <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
+  <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
+  <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
   <field column="bbox" name="bbox" />
 
   <entity name="newMMDtp" processor="SolrEntityProcessor" rootEntity="false"
@@ -383,72 +383,72 @@ row.put('related_url_user_guide', guideMap);
       <field column="dataset_type" name="dataset_type" template="child" />
       <field column="id" name="id"/>
       <field column="mmd_metadata_identifier" name="metadata_identifier" />
-      <field column="mmd_last_metadata_update" name="last_metadata_update.datetime" />
+      <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
       <field column="mmd_metadata_status" name="metadata_status" />
       <field column="mmd_collection" name="collection" />
       <field column="mmd_title" name="title" />
       <field column="mmd_abstract" name="abstract" />
-      <field column="mmd_temporal_extent_start_date" name="temporal_extent.start_date" />
-      <field column="mmd_temporal_extent_end_date" name="temporal_extent.end_date" />
-      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent.rectangle.north" />
-      <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent.rectangle.south" />
-      <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent.rectangle.east" />
-      <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent.rectangle.west" />
-      <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent.rectangle.srsName" />
-      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent.rectangle.north" />
+      <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
+      <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+      <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
+      <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
+      <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent_rectangle_west" />
+      <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent_rectangle_srsName" />
+      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
       <field column="mmd_dataset_production_status" name="dataset_production_status" />
       <field column="mmd_dataset_language" name="dataset_language" />
       <field column="mmd_operational_status" name="operational_status" />
       <field column="mmd_access_constraint" name="access_constraint" />
-      <field column="mmd_use_constraint" name="use_constraint.identifier" />
-      <field column="mmd_personnel_role" name="personnel.role" />
-      <field column="mmd_personnel_name" name="personnel.name" />
-      <field column="mmd_personnel_email" name="personnel.email" />
-      <field column="mmd_personnel_phone" name="personnel.phone" />
-      <field column="mmd_personnel_fax" name="personnel.fax" />
-      <field column="mmd_personnel_organisation" name="personnel.organisation" />
-      <field column="mmd_personnel_contact_address_address" name="personnel.contact_address.address" />
-      <field column="mmd_personnel_contact_address_city" name="personnel.contact_address.city" />
-      <field column="mmd_personnel_contact_address_province_or_state" name="personnel.contact_address.province_or_state" />
-      <field column="mmd_personnel_contact_address_postal_code" name="personnel.contact_address.postal_code" />
-      <field column="mmd_personnel_contact_address_country" name="personnel.contact_address.country" />
-      <field column="mmd_data_center_data_center_name_short_name" name="data_center.short_name" />
-      <field column="mmd_data_center_data_center_name_long_name" name="data_center.long_name" />
-      <field column="mmd_data_center_data_center_url" name="data_center.url" />
-      <field column="mmd_data_access_name" name="data_access.name" />
-      <field column="mmd_data_access_type" name="data_access.type" />
-      <field column="mmd_data_access_resource" name="data_access.resource" />
-      <field column="mmd_data_access_description" name="data_access.description" />
-      <field column="mmd_data_access_wms_layers_wms_layer" name="data_access.wms_layers" />
+      <field column="mmd_use_constraint" name="use_constraint_identifier" />
+      <field column="mmd_personnel_role" name="personnel_role" />
+      <field column="mmd_personnel_name" name="personnel_name" />
+      <field column="mmd_personnel_email" name="personnel_email" />
+      <field column="mmd_personnel_phone" name="personnel_phone" />
+      <field column="mmd_personnel_fax" name="personnel_fax" />
+      <field column="mmd_personnel_organisation" name="personnel_organisation" />
+      <field column="mmd_personnel_contact_address_address" name="personnel_contact_address_address" />
+      <field column="mmd_personnel_contact_address_city" name="personnel_contact_address_city" />
+      <field column="mmd_personnel_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+      <field column="mmd_personnel_contact_address_postal_code" name="personnel_contact_address_postal_code" />
+      <field column="mmd_personnel_contact_address_country" name="personnel_contact_address_country" />
+      <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
+      <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
+      <field column="mmd_data_center_data_center_url" name="data_center_url" />
+      <field column="mmd_data_access_name" name="data_access_name" />
+      <field column="mmd_data_access_type" name="data_access_type" />
+      <field column="mmd_data_access_resource" name="data_access_resource" />
+      <field column="mmd_data_access_description" name="data_access_description" />
+      <field column="mmd_data_access_wms_layers_wms_layer" name="data_access_wms_layers" />
       <field column="mmd_related_dataset" name="related_dataset" />
-      <field column="mmd_related_information_type" name="related_information.type" />
-      <field column="mmd_related_information_resource" name="related_information.resource" />
-      <field column="mmd_related_information_description" name="related_information.description" />
+      <field column="mmd_related_information_type" name="related_information_type" />
+      <field column="mmd_related_information_resource" name="related_information_resource" />
+      <field column="mmd_related_information_description" name="related_information_description" />
       <field column="mmd_iso_topic_category" name="iso_topic_category" />
-      <field column="mmd_keywords_keyword" name="keywords.keyword" />
-      <field column="mmd_project_short_name" name="project.short_name" />
-      <field column="mmd_project_long_name" name="project.long_name" />
-      <field column="mmd_platform_short_name" name="platform.short_name" />
-      <field column="mmd_platform_long_name" name="platform.long_name" />
-      <field column="mmd_instrument_short_name" name="platform.instrument.short_name" />
-      <field column="mmd_instrument_long_name" name="platform.instrument.long_name" />
-      <field column="mmd_instrument_mode" name="platform.instrument.mode" />
-      <field column="mmd_instrument_polarisation" name="platform.instrument.polarisation" />
-      <field column="mmd_instrument_product_type" name="platform.instrument.product_type" />
-      <field column="mmd_cloud_cover_value" name="platform.ancillary.cloud_coverage" />
-      <field column="mmd_scene_cover_value" name="platform.ancillary.scene_coverage" />
+      <field column="mmd_keywords_keyword" name="keywords_keyword" />
+      <field column="mmd_project_short_name" name="project_short_name" />
+      <field column="mmd_project_long_name" name="project_long_name" />
+      <field column="mmd_platform_short_name" name="platform_short_name" />
+      <field column="mmd_platform_long_name" name="platform_long_name" />
+      <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
+      <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
+      <field column="mmd_instrument_mode" name="platform_instrument_mode" />
+      <field column="mmd_instrument_polarisation" name="platform_instrument_polarisation" />
+      <field column="mmd_instrument_product_type" name="platform_instrument_product_type" />
+      <field column="mmd_cloud_cover_value" name="platform_ancillary_cloud_coverage" />
+      <field column="mmd_scene_cover_value" name="platform_ancillary_scene_coverage" />
       <field column="mmd_activity_type" name="activity_type" />
-      <field column="mmd_reference_author" name="dataset_citation.author" />
-      <field column="mmd_reference_publication_date" name="dataset_citation.publication_date" />
-      <field column="mmd_dataset_citation_dataset_title" name="dataset_citation.title" />
-      <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation.series" />
-      <field column="mmd_reference_edition" name="dataset_citation.edition" />
-      <field column="mmd_reference_volume" name="dataset_citation.volume" />
-      <field column="mmd_reference_issue" name="dataset_citation.issue" />
-      <field column="mmd_reference_publication_place" name="dataset_citation.publication_place" />
-      <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation.publisher" />
-      <field column="mmd_reference_pages" name="dataset_citation.pages" />
-      <field column="mmd_reference_isbn" name="dataset_citation.isbn" />
+      <field column="mmd_reference_author" name="dataset_citation_author" />
+      <field column="mmd_reference_publication_date" name="dataset_citation_publication_date" />
+      <field column="mmd_dataset_citation_dataset_title" name="dataset_citation_title" />
+      <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation_series" />
+      <field column="mmd_reference_edition" name="dataset_citation_edition" />
+      <field column="mmd_reference_volume" name="dataset_citation_volume" />
+      <field column="mmd_reference_issue" name="dataset_citation_issue" />
+      <field column="mmd_reference_publication_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
+      <field column="mmd_reference_pages" name="dataset_citation_pages" />
+      <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
       <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation.doi" />
       <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation.other" />
       <field column="bbox" name="bbox" />
