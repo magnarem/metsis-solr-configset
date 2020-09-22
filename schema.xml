@@ -955,8 +955,8 @@
         <field name="text" type="string" indexed="true" stored="true" />
 
         <!-- Testing storage only field drupal 8 -->
-        <field name="text" type="string" indexed="true" stored="true" />
-        
+        <field name="test_storage" type="string" indexed="true" stored="true" />
+
         <!-- Copy some fields for full_text search and other helper fields -->
         <copyField source="id" dest="full_text" />
 
