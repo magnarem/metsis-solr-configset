@@ -517,8 +517,8 @@
       <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
       <field column="mmd_reference_pages" name="dataset_citation_pages" />
       <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
-      <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation.doi" />
-      <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation.other" />
+      <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
+      <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
       <field column="bbox" name="bbox" />
 
 
