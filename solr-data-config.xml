@@ -223,35 +223,35 @@
 
     if (types != null && related != null) {
       for (var k = 0; k < types.length; k++) {
-        var str = new String(types[k].trim());
+        var str = types[k].trim();
         var rString = related[k].split('\"').join(' ').trim();
         print(str);
         print(rString);
-        if (str.includes("Users guide")) {
+        if (str.match("Users guide") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             guideList.add(url[0]);
           }
         }
-        if (str.includes("Dataset landing")) {
+        if (str.match("Dataset landing") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             landingList.add(url[0]);
           }
         }
-        if (str.includes("Project home page")) {
+        if (str.match("Project home page") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             homeList.add(url[0]);
           }
         }
-        if (str.includes("Observation facility")) {
+        if (str.match("Observation facility") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             obsList.add(url[0]);
           }
         }
-        if (str.includes("Extended metadata")) {
+        if (str.match("Extended metadata") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             extList.add(url[0]);
