@@ -911,7 +911,7 @@
         <!-- TODO: Add more languages here as we need -->
 
         <!-- Common fields for new and old MMD specification, specific for Drupal 8 -->
-        <field name="text_suggester" type="text_general" indexed="true" stored="false" required="false" multiValued="true" />
+        <field name="text_suggester" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
     <!--    <field name="title" type="text_general" indexed="true" stored="false" required="false" multiValued="true" /> -->
     <!--    <field name="abstract" type="text_general" indexed="true" stored="false" required="false" multiValued="true" /> -->
         <field name="keywords_level1" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
@@ -939,6 +939,9 @@
         <field name="data_access_url_ftp" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_home_page" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_obs_facility" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_ext_metadata" type="string" indexed="false" stored="true" multiValued="true"/>
 
         <!-- Thumbnail specific fields -->
         <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
@@ -950,6 +953,12 @@
 
         <!-- Aggregated field for full text searches. TODO: Consider other fieldType for better searches ?? -->
         <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" />
+
+        <!-- Boolean set to true for datasets which are parent datasets -->
+        <field name="isParent" type="boolean" stored="true" />
+
+        <!-- Boolean set to true for datasets which are child datasets -->
+        <field name="isChild" type="boolean" stored="true" />
 
         <!-- dummy field -->
         <field name="text" type="string" indexed="true" stored="true" />
