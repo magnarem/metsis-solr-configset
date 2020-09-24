@@ -804,11 +804,11 @@
         <field name="personnel_organisation" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
         <field name="personnel_contact_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address.address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address.city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address.province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address.postal_code" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address.country" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_contact_address_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_contact_address_city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_contact_address_province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_contact_address_postal_code" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_contact_address_country" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/data_center -->
         <field name="data_center" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -823,7 +823,7 @@
         <field name="data_access_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_access_description" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_access_wms_layers" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-      <!--  <field name="data_access.wms_layers.wms_layer" type="string" indexed="true" stored="true" required="false" multiValued="true" /> -->
+      <!--  <field name="data_access_wms_layers_wms_layer" type="string" indexed="true" stored="true" required="false" multiValued="true" /> -->
 
         <!-- mmd/related_dataset -->
         <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -973,37 +973,37 @@
         <copyField source="abstract_en" dest="full_text" />
         <copyField source="abstract_no" dest="full_text" />
 
-        <copyField source="personnel.name" dest="full_text" />
-        <copyField source="personnel.name" dest="sm_personnel_name" />
+        <copyField source="personnel_name" dest="full_text" />
+        <copyField source="personnel_name" dest="sm_personnel_name" />
 
         <copyField source="title" dest="full_text" />
         <copyField source="title_en" dest="full_text" />
         <copyField source="title_no" dest="full_text" />
 
-        <copyField source="project.long_name" dest="full_text" />
-        <copyField source="project.long_name" dest="sm_project_long_name" />
+        <copyField source="project_long_name" dest="full_text" />
+        <copyField source="project_long_name" dest="sm_project_long_name" />
 
         <copyField source="iso_topic_category" dest="full_text" />
 
-        <copyField source="personnel.organisation" dest="full_text" />
-        <copyField source="personnel.organisation" dest="sm_personnel_organisation" />
+        <copyField source="personnel_organisation" dest="full_text" />
+        <copyField source="personnel_organisation" dest="sm_personnel_organisation" />
 
-        <copyField source="personnel.role" dest="full_text" />
-        <copyField source="personnel.role" dest="sm_personnel_role" />
+        <copyField source="personnel_role" dest="full_text" />
+        <copyField source="personnel_role" dest="sm_personnel_role" />
 
         <copyField source="access_constraint" dest="full_text" />
         <copyField source="access_constraint" dest="ss_access" />
 
-        <copyField source="keywords.keyword" dest="full_text" />
-        <copyField source="keywords.keyword" dest="sm_keywords" />
+        <copyField source="keywords_keyword" dest="full_text" />
+        <copyField source="keywords_keyword" dest="sm_keywords" />
 
-        <copyField source="data_center.short_name" dest="sm_data_center_short_name" />
+        <copyField source="data_center_short_name" dest="sm_data_center_short_name" />
 
-        <copyField source="data_center.long_name" dest="full_text" />
+        <copyField source="data_center_long_name" dest="full_text" />
 
-        <copyField source="dataset_citation.publication_place" dest="sm_citation_place" />
-        <copyField source="dataset_citation.publisher" dest="sm_citation_publisher" />
-        <copyField source="dataset_citation.author" dest="sm_citation_author" />
+        <copyField source="dataset_citation_publication_place" dest="sm_citation_place" />
+        <copyField source="dataset_citation_publisher" dest="sm_citation_publisher" />
+        <copyField source="dataset_citation_author" dest="sm_citation_author" />
 
         <copyField source="bbox" dest="bbox_rpt" />
 
