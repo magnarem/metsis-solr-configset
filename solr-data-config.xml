@@ -350,7 +350,7 @@
   query="*:*"
   batchSize="20"
   onError="skip"
-  logTemplate="The Parent dataset:  ${newMMD.id}" logLevel="info"
+  logTemplate="The Parent dataset:  ${newMMD.mmd_metadata_identifier}" logLevel="info"
   fl="*,orig_version_l:_version_,ignored_price_c:price_c">
   <field column="test_storage" name="test_storage" template="testing" />
   <field column="dataset_type" name="dataset_type" template="Level-1" />
@@ -428,12 +428,12 @@
 
   <entity name="newMMDtp" processor="SolrEntityProcessor" rootEntity="false"
       transformer="LogTransformer"
-      logTemplate="Got Parent thumbnail id:  ${newMMDtp.id}" logLevel="info"
+      logTemplate="Got Parent thumbnail id:  ${newMMDtp.mmd_metadata_identifier}" logLevel="info"
       url="http://157.249.176.182:8080/solr/adc-thumbnail"
       query="id:${newMMD.id}"
       batchSize="20"
       onError="skip"
-      fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
+      fl="thumbnail,base_map,thumbnail_data,mmd_metadata_identifier,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
       <field column="thumbnail" name="thumbnail" />
       <field column="thumbnail_data" name="thumbnail_data" />
       <field column="base_map" name="base_map" />
@@ -446,7 +446,7 @@
        query="*:*"
        child="false"
        onError="skip"
-       logTemplate="The Child dataset  ${newMMDc.id} for parent ${newMMD.id}" logLevel="info"
+       logTemplate="The Child dataset  ${newMMDc.mmd_metadata_identifier} for parent ${newMMD.mmd_metadata_identifier}" logLevel="info"
        fl="*,orig_version_l:_version_,ignored_price_c:price_c">
       <field column="dataset_type" name="dataset_type" template="Level-2" />
       <field column="id" name="id"/>
@@ -525,12 +525,12 @@
 
       <entity name="newMMDtc" processor="SolrEntityProcessor" rootEntity="false"
           transformer="LogTransformer"
-          logTemplate="Got Child thumbnail id:  ${newMMDtc.id}" logLevel="info"
+          logTemplate="Got Child thumbnail id:  ${newMMDtc.mmd_metadata_identifier}" logLevel="info"
           url="http://157.249.176.182:8080/solr/adc-thumbnail"
           query="id:${newMMDc.id}"
           batchSize="20"
           onError="skip"
-          fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
+          fl="thumbnail,base_map,thumbnail_data,feature_type,mmd_metadata_identifier,orig_version_l:_version_,ignored_price_c:price_c">
           <field column="thumbnail" name="thumbnail" />
           <field column="thumbnail_data" name="thumbnail_data" />
           <field column="base_map" name="base_map" />
