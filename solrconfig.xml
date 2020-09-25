@@ -807,10 +807,20 @@
       EditorialMarkerFactory will do exactly that:
      <transformer name="qecBooster" class="org.apache.solr.response.transform.EditorialMarkerFactory" />
     -->
+
+    <!-- Config for dataimport handler -->
     <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
       <str name="config">solr-data-config.xml</str>
+      <str name="update.chain">uuid</str>
     </lst>
   </requestHandler>
+
+  <updateRequestProcessorChain name="uuid">
+  <processor class="solr.UUIDUpdateProcessorFactory">
+    <str name="fieldName">uuid</str>
+  </processor>
+  <processor class="solr.RunUpdateProcessorFactory" />
+</updateRequestProcessorChain>`
 
 </config>
