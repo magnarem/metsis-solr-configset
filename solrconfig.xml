@@ -816,10 +816,22 @@
     </lst>
   </requestHandler>
 
+
+  <updateRequestProcessorChain name="dedupe">
+  <processor class="UniqFieldsUpdateProcessorFactory">
+        <str name="fieldRegex">.keywords_level*</str>
+    </processor>
+    <processor class="solr.RunUpdateProcessorFactory" />
+</updateRequestProcessorChain>
+
   <updateRequestProcessorChain name="uuid">
   <processor class="solr.UUIDUpdateProcessorFactory">
     <str name="fieldName">uuid</str>
   </processor>
+  <processor class="UniqFieldsUpdateProcessorFactory">
+        <str name="fieldRegex">.keywords_level*</str>
+    </processor>
+
   <processor class="solr.RunUpdateProcessorFactory" />
 </updateRequestProcessorChain>`
 

@@ -89,6 +89,7 @@
   function date_range(row) {
     var start_date = row.get('mmd_temporal_extent_start_date');
     var end_date = row.get('mmd_temporal_extent_end_date');
+    var pub_date = row.get('mmd_dataset_citation_dataset_release_date');
     if (start_date != null && end_date != null) {
       var start = new Date(start_date).toISOString();
       var end = new Date(end_date).toISOString();
@@ -98,6 +99,16 @@
       var drMap = new java.util.HashMap();
       drMap.put('set', daterange);
       row.put('temporal_extent_period_dr', drMap);
+    }
+    if (pub_date != null) {
+      pubList = new java.util.ArrayList();
+      pubMap = new java.util.HashMap();
+      for (var k = 0; k < pub_date.length; k++) {
+        var newDate = new Date(pub_date[k]).toISOString();
+        pubList.add(newDate);
+      }
+    pubMap.put('set', pubList);
+    row.put('dataset_citation_publication_date', pubMap);
     }
     return row;
   }
@@ -122,6 +133,14 @@
     var ftpMap = new java.util.HashMap();
     var ogcwcsMap = new java.util.HashMap();
 
+    var d_opendapMap = new java.util.HashMap();
+    var d_ogcwmsMap = new java.util.HashMap();
+    var d_httpMap = new java.util.HashMap();
+    var d_odataMap = new java.util.HashMap();
+    var d_ogcwfsMap = new java.util.HashMap();
+    var d_ftpMap = new java.util.HashMap();
+    var d_ogcwcsMap = new java.util.HashMap();
+
     var opendapList = new java.util.ArrayList();
     var ogcwmsList = new java.util.ArrayList();
     var httpList = new java.util.ArrayList();
@@ -130,15 +149,33 @@
     var ftpList = new java.util.ArrayList();
     var ogcwcsList = new java.util.ArrayList();
 
+    var d_opendapList = new java.util.ArrayList();
+    var d_ogcwmsList = new java.util.ArrayList();
+    var d_httpList = new java.util.ArrayList();
+    var d_odataList = new java.util.ArrayList();
+    var d_ogcwfsList = new java.util.ArrayList();
+    var d_ftpList = new java.util.ArrayList();
+    var d_ogcwcsList = new java.util.ArrayList();
 
     if (types != null) {
       for (var k = 0; k < types.length; k++) {
-        var rType = types[k].trim();
+        var rType = types[k].split('\"').join(' ').trim();
         var rString = resources[k].split('\"').join(' ').trim();
+
         if (rType.toLowerCase() === opendap.toLowerCase()) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          print(rType);
+          print(rString);
+
           if (url != null) {
+          print(url[0]);
             opendapList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_opendapList.add(desc);
+           }
           }
         }
         if (rType.toLowerCase() === ogc_wms.toLowerCase()) {
@@ -146,11 +183,34 @@
           if (url != null) {
             ogcwmsList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ogcwmsList.add(desc);
+           }
+          }
         }
         if (rType.toLowerCase() === http_url.toLowerCase()) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
+            if(/^ftp/.test(url)) {
+            ftpList.add(url[0]);
+            desc = rString.substring(rString.indexOf('description :') +13);
+            if (desc != null ) {
+              if (desc !== '' && desc !== 'NA')  {
+                d_ftpList.add(desc);
+             }
+            }
+            }
+            else {
             httpList.add(url[0]);
+            desc = rString.substring(rString.indexOf('description :') +13);
+            if (desc != null ) {
+              if (desc !== '' && desc !== 'NA')  {
+                d_httpList.add(desc);
+             }
+            }
+            }
           }
         }
         if (rType.toLowerCase() === odata.toLowerCase()) {
@@ -158,11 +218,23 @@
           if (url != null) {
             odataList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_odataList.add(desc);
+           }
+          }
         }
         if (rType.toLowerCase() === ftp_url.toLowerCase()) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             ftpList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ftpList.add(desc);
+           }
           }
         }
         if (rType.toLowerCase() === ogc_wfs.toLowerCase()) {
@@ -170,35 +242,69 @@
           if (url != null) {
             ogcwfsList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ogcwfsList.add(desc);
+           }
+          }
         }
         if (rType.toLowerCase() === ogc_wcs.toLowerCase()) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             ogcwcsList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ogcwcsList.add(desc);
+           }
+          }
+
         }
       }
     }
     opendapMap.put('set', opendapList);
     row.put('data_access_url_opendap', opendapMap);
 
+    d_opendapMap.put('set', d_opendapList);
+    row.put('data_access_url_opendap_desc', d_opendapMap);
+
     ogcwmsMap.put('set', ogcwmsList);
     row.put('data_access_url_ogc_wms', ogcwmsMap);
+
+    d_ogcwmsMap.put('set', d_ogcwmsList);
+    row.put('data_access_url_ogc_wms_desc', d_ogcwmsMap);
 
     odataMap.put('set', odataList);
     row.put('data_access_url_odata', odataMap);
 
+    d_odataMap.put('set', d_odataList);
+    row.put('data_access_url_odata_desc', d_odataMap);
+
     httpMap.put('set', httpList);
     row.put('data_access_url_http', httpMap);
+
+    d_httpMap.put('set', d_httpList);
+    row.put('data_access_url_http_desc', d_httpMap);
 
     ftpMap.put('set', ftpList);
     row.put('data_access_url_ftp', ftpMap);
 
+    d_ftpMap.put('set', d_ftpList);
+    row.put('data_access_url_ftp_desc', d_ftpMap);
+
     ogcwfsMap.put('set', ogcwfsList);
     row.put('data_access_url_ogc_wfs', ogcwfsMap);
 
+    d_ogcwfsMap.put('set', d_ogcwfsList);
+    row.put('data_access_url_ogc_wfs_desc', d_ogcwfsMap);
+
     ogcwcsMap.put('set', ogcwcsList);
     row.put('data_access_url_ogc_wcs', ogcwcsMap);
+
+    d_ogcwcsMap.put('set', d_ogcwcsList);
+    row.put('data_access_url_ogc_wcs_desc', d_ogcwcsMap);
     return row;
   }
 
@@ -208,18 +314,28 @@
 
     var guideMap = new java.util.HashMap();
     var guideList = new java.util.ArrayList();
+    var d_guideMap = new java.util.HashMap();
+    var d_guideList = new java.util.ArrayList();
 
     var landingMap = new java.util.HashMap();
     var landingList = new java.util.ArrayList();
+    var d_landingMap = new java.util.HashMap();
+    var d_landingList = new java.util.ArrayList();
 
     var homeMap = new java.util.HashMap();
     var homeList = new java.util.ArrayList();
+    var d_homeMap = new java.util.HashMap();
+    var d_homeList = new java.util.ArrayList();
 
     var obsMap = new java.util.HashMap();
     var obsList = new java.util.ArrayList();
+    var d_obsMap = new java.util.HashMap();
+    var d_obsList = new java.util.ArrayList();
 
     var extMap = new java.util.HashMap();
     var extList = new java.util.ArrayList();
+    var d_extMap = new java.util.HashMap();
+    var d_extList = new java.util.ArrayList();
 
     if (types != null && related != null) {
       for (var k = 0; k < types.length; k++) {
@@ -232,11 +348,23 @@
           if (url != null) {
             guideList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_guideList.add(desc);
+           }
+          }
         }
         if (str.match("Dataset landing") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             landingList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_landingList.add(desc);
+           }
           }
         }
         if (str.match("Project home page") != null) {
@@ -244,17 +372,35 @@
           if (url != null) {
             homeList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_homeList.add(desc);
+           }
+          }
         }
         if (str.match("Observation facility") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             obsList.add(url[0]);
           }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_obsList.add(desc);
+           }
+          }
         }
         if (str.match("Extended metadata") != null) {
           var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
           if (url != null) {
             extList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_extList.add(desc);
+           }
           }
         }
       }
@@ -265,11 +411,23 @@
     obsMap.put('set', obsList);
     extMap.put('set',extList);
 
+    d_landingMap.put('set', d_landingList);
+    d_guideMap.put('set', d_guideList);
+    d_homeMap.put('set', d_homeList);
+    d_obsMap.put('set', d_obsList);
+    d_extMap.put('set',d_extList);
+
     row.put('related_url_landing_page', landingMap);
     row.put('related_url_user_guide', guideMap);
     row.put('related_url_home_page', homeMap);
     row.put('related_url_obs_facility', obsMap);
     row.put('related_url_ext_metadata', extMap);
+
+    row.put('related_url_landing_page_desc', d_landingMap);
+    row.put('related_url_user_guide_desc', d_guideMap);
+    row.put('related_url_home_page_desc', d_homeMap);
+    row.put('related_url_obs_facility_desc', d_obsMap);
+    row.put('related_url_ext_metadata_desc', d_extMap);
     return row;
   }
 
@@ -300,52 +458,114 @@
     row.put('isChild', childMap);
     return row;
   }
+
+  function createPins(row) {
+    pinMap = new java.util.HashMap();
+    pinList = new java.util.ArrayList();
+    var north = row.get('mmd_geographic_extent_rectangle_north');
+    var south = row.get('mmd_geographic_extent_rectangle_south');
+    var east = row.get('mmd_geographic_extent_rectangle_east');
+    var west = row.get('mmd_geographic_extent_rectangle_west');
+
+    var lat = (south + north) / 2;
+    var lon = (east + west) / 2;
+    pinList.add(lat);
+    pinList.add(lon);
+    pinMap.put('set', lat+','+lon);
+    row.put('locs_geo_extent', pinMap);
+    return row;
+  }
+  function personnel(row) {
+    var role = row.get('mmd_personnel_role');
+    var name = row.get('mmd_personnel_name');
+    var email = row.get('mmd_personnel_phone');
+    var phone = row.get('mmd_personnel_phone');
+    var fax = row.get('mmd_personnel_fax');
+    var org = row.get('mmd_personnel_organisation');
+    var addr = row.get('mmd_personnel_contact_address_address');
+    var addr_city = row.get('mmd_personnel_contact_address_city');
+    var addr_country = row.get('mmd_personnel_contact_address_country');
+    var addr_postal = row.get('mmd_personnel_contact_address_postal_code');
+    var addr_province = row.get('mmd_personnel_contact_address_province_or_state');
+
+    if (role != null) {
+      for (var i = 0; i < role.length; i++) {
+        if (role[i].trim().toLowerCase() === "technical contact") {
+          row.put('personnel_technical_role', 'Technical contact'); row.put('personnel_role', 'Technical contact');
+        if( name != null) {  if( name[i] != null) { row.put('personnel_technical_name', name[i]);  row.put('personnel_name', name[i]); } }
+        if( org != null) {    if( org[i] != null) { row.put('personnel_technical_organisation',  org[i]);  row.put('personnel_organisation',  org[i]); } }
+        if( email != null) {    if( email[i] != null) { row.put('personnel_technical_email', email[i]); } }
+        if( phone != null) {    if( phone[i] != null) { row.put('personnel_technical_phone', phone[i]); } }
+        if( fax != null) {    if( fax[i] != null) { row.put('personnel_technical_fax', fax[i]); } }
+        if( addr != null) {    if( addr[i] != null) { row.put('personnel_technical_address',addr[i]); } }
+        if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_technical_address_city', addr_city[i]); row.put('personnel_contact_address_city', addr_city[i]); } }
+        if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_technical_address_country', addr_country[i]); row.put('personnel_contact_address_country', addr_country[i]); } }
+        if( addr_postal != null) {    if( addr_postal[i] != null) { row.put('personnel_technical_address_postal_code', addr_postal[i]); } }
+        if( addr_province != null) {    if( addr_province[i] != null) { row.put('personnel_technical_address_province_or_state',addr_province[i]); row.put('personnel_contact_address_province_or_state', addr_province[i]); } }
+        }
+        else if (role[i].trim().toLowerCase() === "data center contact" || role[i].trim().toLowerCase() === "datacenter") {
+          row.put('personnel_datacenter_role','Data center contact');  row.put('personnel_role', 'Data center contact');
+          if( name != null) {  if( name[i] != null) { row.put('personnel_datacenter_name', name[i]);  row.put('personnel_name', name[i]); } }
+          if( org != null) {  if( org[i] != null) { row.put('personnel_datacenter_organisation', org[i]);  row.put('personnel_organisation', org[i]); } }
+          if( email != null) {  if( email[i] != null) { row.put('personnel_datacenter_email', email[i]); } }
+          if( phone != null) {  if( phone[i] != null) { row.put('personnel_datacenter_phone', phone[i]); } }
+          if( fax != null) {  if( fax[i] != null) { row.put('personnel_datacenter_fax', fax[i]); } }
+          if( addr != null) {  if( addr[i] != null) { row.put('personnel_datacenter_address',  addr[i]); } }
+          if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_datacenter_address_city', addr_city[i]); row.put('personnel_contact_address_city', addr_city[i]); } }
+          if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_datacenter_address_country', addr_country[i]); row.put('personnel_contact_address_country', addr_country[i]); } }
+          if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_datacenter_address_postal_code', addr_postal[i]); } }
+          if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_datacenter_address_province_or_state', addr_province[i]); row.put('personnel_contact_address_province_or_state', addr_province[i]); } }
+        }
+        else if (role[i].trim().toLowerCase() === "investigator") {
+          row.put('personnel_investigator_role', 'Investigator');  row.put('personnel_role', 'Investigator');
+          if( name != null) {  if( name[i] != null) { row.put('personnel_investigator_name', name[i]);  row.put('personnel_name', name[i]); } }
+          if( org != null) {  if( org[i] != null) { row.put('personnel_investigator_organisation', org[i]);  row.put('personnel_organisation', org[i]); } }
+          if( email != null) {  if( email[i] != null) { row.put('personnel_investigator_email', email[i]); } }
+          if( phone != null) {  if( phone[i] != null) { row.put('personnel_investigator_phone',  phone[i]); } }
+          if( fax != null) {  if( fax[i] != null) { row.put('personnel_investigator_fax', fax[i]); } }
+          if( addr != null) {  if( addr[i] != null) { row.put('personnel_investigator_address', addr[i]); } }
+          if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_investigator_address_city', addr_city[i]); row.put('personnel_contact_address_city', addr_city[i]); } }
+          if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_investigator_address_country', addr_country[i]); row.put('personnel_contact_address_country', addr_country[i]); } }
+          if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_investigator_address_postal_code', addr_postal[i]); } }
+          if( addr_postal != null) {  if( addr_province[i] != null) { row.put('personnel_investigator_address_province_or_state', addr_province[i]); row.put('personnel_contact_address_province_or_state', addr_province[i]); } }
+        }
+      else if (role[i].trim().toLowerCase() === "metadata author" || role[i].trim().toLowerCase() === "dif author") {
+          row.put('personnel_metadata_author_role', 'Metadata author');  row.put('personnel_role','Metadata author');
+          if( name != null) {  if( name[i] != null) { row.put('personnel_metadata_author_name', name[i]);  row.put('personnel_name', name[i]); } }
+          if( org != null) {  if( org[i] != null) { row.put('personnel_metadata_author_organisation', org[i]);  row.put('personnel_organisation', org[i]); } }
+          if( email != null) {  if( email[i] != null) { row.put('personnel_metadata_author_email', email[i]); } }
+          if( phone != null) {  if( phone[i] != null) { row.put('personnel_metadata_author_phone',  phone[i]); } }
+          if( fax != null) {  if( fax[i] != null) { row.put('personnel_metadata_author_fax', fax[i]); } }
+          if( addr != null) {  if( addr[i] != null) { row.put('personnel_metadata_author_address', addr[i]); } }
+          if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_metadata_author_address_city',addr_city[i]); row.put('personnel_contact_address_city',addr_city[i]); } }
+          if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_metadata_author_address_country',addr_country[i]); row.put('personnel_contact_address_country',addr_country[i]); } }
+          if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_metadata_author_address_postal_code', addr_postal[i] ); } }
+          if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_metadata_author_address_province_or_state',addr_province[i]); row.put('personnel_contact_address_province_or_state',addr_province[i]); } }
+        }
+        else {
+        row.put('personnel_role');  row.put('personnel_role');
+        if( name != null) {  if( name[i] != null) { row.put('personnel_name', name[i]); } }
+        if( org != null) {  if( org[i] != null) { row.put('personnel_organisation', org[i]); } }
+        if( email != null) {  if( email[i] != null) { row.put('personnel_email', email[i]); } }
+        if( phone != null) {  if( phone[i] != null) { row.put('personnel_phone', phone[i]); } }
+        if( fax != null) {  if( fax[i] != null) { row.put('personnel_fax', fax[i] ); } }
+        if( addr != null) {  if( addr[i] != null) { row.put('personnel_address',addr[i]); } }
+        if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_address_city',addr_city[i]); } }
+        if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_address_country',addr_country[i]);  } }
+        if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_address_postal_code',addr_postal[i]); } }
+        if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_address_province_or_state',addr_province[i]); } }
+        }
+      }
+    }
+    return row;
+  }
 ]]></script>
 
   <document>
-    <!--
-    <entity name="p" processor="SolrEntityProcessor"
-      transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-      url="http://157.249.176.182:8080/solr/adc-l1"
-      query="*:*"
-      batchSize="20"
-      onError="skip"
-      logTemplate="The Parent dataset  ${p.id}" logLevel="info"
-      fl="*,orig_version_l:_version_,ignored_price_c:price_c">
 
-      <field column="dataset_type" name="dataset_type" template="parent" />
-       <field column="id" name="id"/>
-      <entity name="tp" processor="SolrEntityProcessor" rootEntity="false"
-          transformer="LogTransformer"
-          logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
-          url="http://157.249.176.182:8080/solr/adc-thumbnail"
-          query="id:${p.id}"
-          batchSize="20"
-          onError="skip"
-           fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-    </entity>
-<entity  name="c" processor="SolrEntityProcessor"
-         transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-         url="http://157.249.176.182:8080/solr/adc-l2"
-         query="*:*"
-         child="false"
-         onError="skip"
-         logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
-         fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-<field column="dataset_type" name="dataset_type" template="child" />
-         <entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
-           transformer="LogTransformer"
-           logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
-                 url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                 query="id:${c.id}"
-                 batchSize="20"
-                 onError="skip"
-                 fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-</entity>
--->
 <!-- NEW MMD DATAIMPORT -->
 <entity name="newMMD" processor="SolrEntityProcessor"
-  transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
   url="http://157.249.176.182:8080/solr/adc-l1"
   query="*:*"
   batchSize="20"
@@ -363,6 +583,14 @@
   <field column="mmd_abstract" name="abstract" />
   <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
   <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+  <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+  <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+  <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+  <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+  <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
   <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
   <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
   <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
@@ -374,17 +602,7 @@
   <field column="mmd_operational_status" name="operational_status" />
   <field column="mmd_access_constraint" name="access_constraint" />
   <field column="mmd_use_constraint" name="use_constraint_identifier" />
-  <field column="mmd_personnel_role" name="personnel_role" />
-  <field column="mmd_personnel_name" name="personnel_name" />
-  <field column="mmd_personnel_email" name="personnel_email" />
-  <field column="mmd_personnel_phone" name="personnel_phone" />
-  <field column="mmd_personnel_fax" name="personnel_fax" />
-  <field column="mmd_personnel_organisation" name="personnel_organisation" />
-  <field column="mmd_personnel_contact_address_address" name="personnel_contact_address_address" />
-  <field column="mmd_personnel_contact_address_city" name="personnel_contact_address_city" />
-  <field column="mmd_personnel_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
-  <field column="mmd_personnel_contact_address_postal_code" name="personnel_contact_address_postal_code" />
-  <field column="mmd_personnel_contact_address_country" name="personnel_contact_address_country" />
+
   <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
   <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
   <field column="mmd_data_center_data_center_url" name="data_center_url" />
@@ -424,6 +642,32 @@
   <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
   <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
   <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+  <field column="mmd_data_center_dataset_id" name="ignored" />
+  <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+  <field column="mmd_data_center_contact_role" name="personnel_role" />
+  <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+  <field column="mmd_data_center_contact_name" name="personnel_name" />
+  <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
+  <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+  <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+  <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+  <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+  <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+  <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+  <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+  <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+
+
   <field column="bbox" name="bbox" />
 
   <entity name="newMMDtp" processor="SolrEntityProcessor" rootEntity="false"
@@ -442,7 +686,7 @@
   </entity>
   </entity>
   <entity  name="newMMDc" processor="SolrEntityProcessor"
-       transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isChild"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
        url="http://157.249.176.182:8080/solr/adc-l2"
        query="*:*"
        child="false"
@@ -459,6 +703,14 @@
       <field column="mmd_abstract" name="abstract" />
       <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
       <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+      <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+      <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+      <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+      <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+      <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
       <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
       <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
       <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
@@ -470,17 +722,7 @@
       <field column="mmd_operational_status" name="operational_status" />
       <field column="mmd_access_constraint" name="access_constraint" />
       <field column="mmd_use_constraint" name="use_constraint_identifier" />
-      <field column="mmd_personnel_role" name="personnel_role" />
-      <field column="mmd_personnel_name" name="personnel_name" />
-      <field column="mmd_personnel_email" name="personnel_email" />
-      <field column="mmd_personnel_phone" name="personnel_phone" />
-      <field column="mmd_personnel_fax" name="personnel_fax" />
-      <field column="mmd_personnel_organisation" name="personnel_organisation" />
-      <field column="mmd_personnel_contact_address_address" name="personnel_contact_address_address" />
-      <field column="mmd_personnel_contact_address_city" name="personnel_contact_address_city" />
-      <field column="mmd_personnel_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
-      <field column="mmd_personnel_contact_address_postal_code" name="personnel_contact_address_postal_code" />
-      <field column="mmd_personnel_contact_address_country" name="personnel_contact_address_country" />
+
       <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
       <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
       <field column="mmd_data_center_data_center_url" name="data_center_url" />
@@ -520,6 +762,30 @@
       <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
       <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
       <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+      <field column="mmd_data_center_dataset_id" name="ignored" />
+      <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+      <field column="mmd_data_center_contact_role" name="personnel_role" />
+      <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+      <field column="mmd_data_center_contact_name" name="personnel_name" />
+      <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
+      <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+      <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+      <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+      <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+      <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+      <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+      <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+      <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
       <field column="bbox" name="bbox" />
 
 
@@ -544,7 +810,7 @@
 </entity>
 
 <entity name="nbsMMD" processor="SolrEntityProcessor"
-  transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
   url="http://157.249.176.182:8080/solr/nbs-l1"
   query="*:*"
   batchSize="20"
@@ -562,6 +828,14 @@
   <field column="mmd_abstract" name="abstract" />
   <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
   <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+  <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+  <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+  <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+  <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+  <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
   <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
   <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
   <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
@@ -573,17 +847,7 @@
   <field column="mmd_operational_status" name="operational_status" />
   <field column="mmd_access_constraint" name="access_constraint" />
   <field column="mmd_use_constraint" name="use_constraint_identifier" />
-  <field column="mmd_personnel_role" name="personnel_role" />
-  <field column="mmd_personnel_name" name="personnel_name" />
-  <field column="mmd_personnel_email" name="personnel_email" />
-  <field column="mmd_personnel_phone" name="personnel_phone" />
-  <field column="mmd_personnel_fax" name="personnel_fax" />
-  <field column="mmd_personnel_organisation" name="personnel_organisation" />
-  <field column="mmd_personnel_contact_address_address" name="personnel_contact_address_address" />
-  <field column="mmd_personnel_contact_address_city" name="personnel_contact_address_city" />
-  <field column="mmd_personnel_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
-  <field column="mmd_personnel_contact_address_postal_code" name="personnel_contact_address_postal_code" />
-  <field column="mmd_personnel_contact_address_country" name="personnel_contact_address_country" />
+
   <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
   <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
   <field column="mmd_data_center_data_center_url" name="data_center_url" />
@@ -623,6 +887,31 @@
   <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
   <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
   <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+  <field column="mmd_data_center_dataset_id" name="ignored" />
+  <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+  <field column="mmd_data_center_contact_role" name="personnel_role" />
+  <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+  <field column="mmd_data_center_contact_name" name="personnel_name" />
+  <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
+  <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+  <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+  <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+  <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+  <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+  <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+  <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+  <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+
   <field column="bbox" name="bbox" />
 
   <entity name="nbsMMDtp" processor="SolrEntityProcessor" rootEntity="false"
@@ -641,7 +930,7 @@
   </entity>
   </entity>
   <entity  name="nbsMMDc" processor="SolrEntityProcessor"
-       transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isChild"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
        url="http://157.249.176.182:8080/solr/nbs-l2"
        query="*:*"
        child="false"
@@ -658,6 +947,14 @@
       <field column="mmd_abstract" name="abstract" />
       <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
       <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+      <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+      <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+      <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+      <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+      <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
       <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
       <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
       <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
@@ -669,17 +966,7 @@
       <field column="mmd_operational_status" name="operational_status" />
       <field column="mmd_access_constraint" name="access_constraint" />
       <field column="mmd_use_constraint" name="use_constraint_identifier" />
-      <field column="mmd_personnel_role" name="personnel_role" />
-      <field column="mmd_personnel_name" name="personnel_name" />
-      <field column="mmd_personnel_email" name="personnel_email" />
-      <field column="mmd_personnel_phone" name="personnel_phone" />
-      <field column="mmd_personnel_fax" name="personnel_fax" />
-      <field column="mmd_personnel_organisation" name="personnel_organisation" />
-      <field column="mmd_personnel_contact_address_address" name="personnel_contact_address_address" />
-      <field column="mmd_personnel_contact_address_city" name="personnel_contact_address_city" />
-      <field column="mmd_personnel_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
-      <field column="mmd_personnel_contact_address_postal_code" name="personnel_contact_address_postal_code" />
-      <field column="mmd_personnel_contact_address_country" name="personnel_contact_address_country" />
+
       <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
       <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
       <field column="mmd_data_center_data_center_url" name="data_center_url" />
@@ -719,6 +1006,31 @@
       <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
       <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
       <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+      <field column="mmd_data_center_dataset_id" name="ignored" />
+      <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+      <field column="mmd_data_center_contact_role" name="personnel_role" />
+      <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+      <field column="mmd_data_center_contact_name" name="personnel_name" />
+      <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
+      <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+      <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+      <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+      <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+      <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+      <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+      <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+      <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+
       <field column="bbox" name="bbox" />
 
 
@@ -744,174 +1056,3 @@
 
   </document>
 </dataConfig>
-<!--
-
-<entity  name="c" processor="SolrEntityProcessor"
-     transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-     url="http://157.249.176.182:8080/solr/adc-l2"
-     query="mmd_related_dataset:${l1.mmd_metadata_identifier}""
-     child="false"
-     onError="skip"
-     logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
-     fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-<field column="dataset_type" name="dataset_type" template="child" />
-     <entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
-       transformer="LogTransformer"
-       logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
-             url="http://157.249.176.182:8080/solr/adc-thumbnail"
-             query="id:${c.id}"
-             batchSize="20"
-             onError="skip"
-             fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-
-
-
-
-<field name="skills" update="set" null="true" />
-<document>
-  <entity name="p" processor="SolrEntityProcessor"
-          transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-          url="http://157.249.176.182:8080/solr/adc-l1"
-          query="id:nersc.no-normap-norwegian500m_asar_wind_E005N63_aggr"
-          batchSize="20"
-          onError="skip"
-          logTemplate="The Parent dataset  ${p.id}" logLevel="info"
-          fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-
-          <field column="dataset_type" name="dataset_type" template="parent" />
-           <field column="id" name="id"/>
-          <entity name="tp" processor="SolrEntityProcessor" rootEntity="false"
-              transformer="LogTransformer"
-              logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
-              url="http://157.249.176.182:8080/solr/adc-thumbnail"
-              query="id:${p.id}"
-              batchSize="20"
-              onError="skip"
-               fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-               <entity  name="c" processor="SolrEntityProcessor"
-                             transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-                             url="http://157.249.176.182:8080/solr/adc-l2"
-                             query="mmd_related_dataset:${p.id}"
-                             child="true"
-                             onError="skip"
-                             logTemplate="The Child dataset  ${c.id} for parent ${p.id}" logLevel="info"
-                             fl="id,mmd_title,orig_version_l:_version_,ignored_price_c:price_c">
-                             <field column="dataset_type"  name="dataset_type" template="child" />
-                             <field column="id" name="id"/>
-                             <field column="mmd_title" name="mmd_title"/>
-
-                     </entity>
-
-
-</entity>
-
-
-
-</document>
-<entity name="thumb2" processor="SolrEntityProcessor" rootEntity="false"
-  transformer="LogTransformer"
-  logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
-        url="http://157.249.176.182:8080/solr/adc-thumbnail"
-        query="id:${c.id}"
-        batchSize="20"
-        onError="skip"
-        fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-
-mmd_related_dataset:${p.id}
-
-var related = row.get('mmd_related_information_resource');
-for (var k=0; k < related.length; k++) {
-  var str = new String(related[k]);
-  if(str.search(/User Guide/)) {
-    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-    row.put('related_url_user_guide', url);
-  }
-  if(str.search(/Dataset landing/)) {
-    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
-    row.put('related_url_landing_page', url);
-  }
-  transformer="script:keywords_level,script:url_extractor,script:related"
-    transformer="script:keywords_level,script:url_extractor,script:date_range,script:related"
-
-    <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
-
-            url="http://157.249.176.182:8080/solr/adc-l2"
-            query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
-            batchSize="20"
-            fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-            <entity name="thumb-l2" processor="SolrEntityProcessor" pk="id"
-
-                    url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                    query="mmd_metadata_identifier:${l2.mmd_metadata_identifier}"
-                    batchSize="20"
-                    fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-    </entity>
-    <entity name="thumbnail" processor="SolrEntityProcessor" pk="id"
-
-            url="http://157.249.176.182:8080/solr/adc-thumbnail"
-            query="mmd_metadata_identifier:${l1.mmd_metadata_identifier}"
-            batchSize="20"
-            fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-  </entity>
-
-  <entity child="true" name="l2" processor="SolrEntityProcessor" pk="id"
-
-          url="http://157.249.176.182:8080/solr/adc-l2"
-          query="mmd_related_dataset:${l1.mmd_metadata_identifier}"
-          batchSize="20"
-          fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
-          <field column="mmd_title" name="title_txt_en"/>
-          <field column="mmd_abstract" name="abstract_txt_en"/>
-          <field column="mmd_last_metadata_update" name="ds_last_update"/>
-          <field column="mmd_collection" name="ms_collection"/>
-          <field column="mmd_iso_topic_category" name="ms_isotopic_category"/>
-  query="mmd_related_dataset:'${PARENT.mmd_metadata_identifier}'"
-
-  <entity  name="c" processor="SolrEntityProcessor"
-                transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-                url="http://157.249.176.182:8080/solr/adc-l2"
-                query="mmd_related_dataset:${p.id}"
-                child="true"
-                batchSize="20"
-                onError="skip"
-                logTemplate="The Child dataset  ${c.id}" logLevel="info"
-                fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-                <field column="dataset_type"  name="dataset_type" template="child" />
-                <entity name="thumb2" processor="SolrEntityProcessor"
-                  transformer="LogTransformer"
-                  logTemplate="Got Child thumbnail id  ${thumb2.id}" logLevel="info"
-                        url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                        query="id:${c.id}"
-                        batchSize="20"
-                        onError="skip"
-                        fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-        </entity>
-
-
-
-        <entity name="p" processor="SolrEntityProcessor"
-                transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
-                url="http://157.249.176.182:8080/solr/adc-l1"
-                query="id:nersc.no-normap-norwegian500m_asar_wind_E005N63_aggr"
-                batchSize="20"
-                onError="skip"
-                logTemplate="The Parent dataset  ${p.id}" logLevel="info"
-                fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-
-                <field column="dataset_type" name="dataset_type" template="parent" />
-
-                <entity name="tp" processor="SolrEntityProcessor"
-                    transformer="LogTransformer"
-                    logTemplate="Got Parent thumbnail id  ${tp.id}" logLevel="info"
-                    url="http://157.249.176.182:8080/solr/adc-thumbnail"
-                    query="id:${p.id}"
-                    batchSize="20"
-                    onError="skip"
-                     fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c"/>
-
-
-
-    </entity>
-
-
-} -->
