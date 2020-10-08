@@ -675,7 +675,7 @@
       transformer="LogTransformer"
       logTemplate="Got Parent thumbnail id:  ${newMMDtp.mmd_metadata_identifier}" logLevel="info"
       url="http://157.249.176.182:8080/solr/adc-thumbnail"
-      query="metadata_identifier:'${newMMD.metadata_identifier}'"
+      query="mmd_metadata_identifier:'${newMMD.mmd_metadata_identifier}'"
       batchSize="20"
       onError="skip"
       fl="thumbnail,base_map,thumbnail_data,mmd_metadata_identifier,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
