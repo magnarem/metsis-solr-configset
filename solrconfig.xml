@@ -821,7 +821,7 @@
           <str name="langid.fallback">en</str>
     </updateProcessor>
 
-    <updateRequestProcessorChain name="metsis" default="true"  prossesor="lang" post-processor="dedups">
+    <updateRequestProcessorChain name="metsis" default="true"  post-processor="dedups,lang">
       <processor class="solr.DistributedUpdateProcessorFactory"/>
        <processor class="solr.LogUpdateProcessorFactory" />
        <processor class="solr.RunUpdateProcessorFactory" />
