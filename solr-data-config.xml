@@ -675,7 +675,7 @@
       transformer="LogTransformer"
       logTemplate="Got Parent thumbnail id:  ${newMMDtp.mmd_metadata_identifier}" logLevel="info"
       url="http://157.249.176.182:8080/solr/adc-thumbnail"
-      query="id:${newMMD.id}"
+      query="metadata_identifier:'${newMMD.metadata_identifier}'"
       batchSize="20"
       onError="skip"
       fl="thumbnail,base_map,thumbnail_data,mmd_metadata_identifier,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
@@ -684,6 +684,7 @@
       <field column="base_map" name="base_map" />
       <field column="feature_type" name="feature_type" />
       <field column="mmd_metadata_identifier" name="ignore" />
+      <field column="id" name="ignore" />
   </entity>
   </entity>
   <entity  name="newMMDc" processor="SolrEntityProcessor"
