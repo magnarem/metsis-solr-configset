@@ -816,7 +816,7 @@
     </updateProcessor>
 
     <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
-          <str name="langid.fl">abstract,title</str>
+          <str name="langid.fl">abstract,title,mmd_abstract,mmd_title</str>
           <str name="langid.langField">ss_language</str>
           <str name="langid.fallback">en</str>
     </updateProcessor>
