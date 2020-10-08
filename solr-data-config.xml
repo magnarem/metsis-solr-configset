@@ -106,9 +106,10 @@
       for (var k = 0; k < pub_date.length; k++) {
         var newDate = new Date(pub_date[k]).toISOString();
         pubList.add(newDate);
+        pubMap.put('set', pubList);
+        row.put('dataset_citation_publication_date', pubMap);
       }
-    pubMap.put('set', pubList);
-    row.put('dataset_citation_publication_date', pubMap);
+
     }
     return row;
   }
