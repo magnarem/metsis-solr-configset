@@ -43,8 +43,8 @@
           } else {
             keywords.add(keyword_list[k].trim());
           }
-          if (keyword_list[k].indexOf('&gt') >= 0) {
-            var pieces = keyword_list[k].split('&gt');
+          if (keyword_list[k].indexOf('&gt;') >= 0) {
+            var pieces = keyword_list[k].split('&gt;');
             var kstring = '';
             for (var i = 0; i < pieces.length; i++) {
               j = i + 1;
