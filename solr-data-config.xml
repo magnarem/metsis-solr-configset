@@ -544,7 +544,7 @@
           if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_metadata_author_address_province_or_state',addr_province[i]); row.put('personnel_contact_address_province_or_state',addr_province[i]); } }
         }
         else {
-        row.put('personnel_role');  row.put('personnel_role');
+        row.put('personnel_role', role);  row.put('personnel_role', role);
         if( name != null) {  if( name[i] != null) { row.put('personnel_name', name[i]); } }
         if( org != null) {  if( org[i] != null) { row.put('personnel_organisation', org[i]); } }
         if( email != null) {  if( email[i] != null) { row.put('personnel_email', email[i]); } }
