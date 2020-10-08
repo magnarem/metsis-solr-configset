@@ -31,8 +31,20 @@
     if (keyword_list != null) {
       for (var k = 0; k < keyword_list.length; k++) {
         if (keyword_list[k] != "" && keyword_list[k] != null) {
-          if ((keyword_list[k].indexOf('>') >= 0) || (keyword_list[k].indexOf('&gt') >= 0)) {
+          if (keyword_list[k].indexOf('>') >= 0) {
             var pieces = keyword_list[k].split('>');
+            var kstring = '';
+            for (var i = 0; i < pieces.length; i++) {
+              j = i + 1;
+              eval('keywords_level' + j).add(pieces[i].trim());
+              kstring = kstring + j + '/' + pieces[i].trim() + ',';
+            }
+            keywords_bread.add(kstring);
+          } else {
+            keywords.add(keyword_list[k].trim());
+          }
+          if (keyword_list[k].indexOf('&gt') >= 0) {
+            var pieces = keyword_list[k].split('&gt');
             var kstring = '';
             for (var i = 0; i < pieces.length; i++) {
               j = i + 1;
@@ -667,7 +679,17 @@
   <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
   <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
 
-
+  <field column="mmd_personnel_fax" name="ignored" />
+  <field column="mmd_personnel_role" name="ignored" />
+  <field column="mmd_personnel_name" name="ignored" />
+  <field column="mmd_personnel_email" name="ignored" />
+  <field column="mmd_personnel_phone" name="ignored" />
+  <field column="mmd_personnel_organisation" name="ignored" />
+  <field column="mmd_personnel_contact_address_city" name="ignored" />
+  <field column="mmd_personnel_contact_address_country" name="ignored" />
+  <field column="mmd_personnel_contact_address_address" name="ignored" />
+  <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+  <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
 
   <field column="bbox" name="bbox" />
 
@@ -787,6 +809,19 @@
       <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
       <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
       <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+      <field column="mmd_personnel_fax" name="ignored" />
+      <field column="mmd_personnel_role" name="ignored" />
+      <field column="mmd_personnel_name" name="ignored" />
+      <field column="mmd_personnel_email" name="ignored" />
+      <field column="mmd_personnel_phone" name="ignored" />
+      <field column="mmd_personnel_organisation" name="ignored" />
+      <field column="mmd_personnel_contact_address_city" name="ignored" />
+      <field column="mmd_personnel_contact_address_country" name="ignored" />
+      <field column="mmd_personnel_contact_address_address" name="ignored" />
+      <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+      <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
+
 
       <field column="bbox" name="bbox" />
 
@@ -913,6 +948,19 @@
   <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
   <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
 
+  <field column="mmd_personnel_fax" name="ignored" />
+  <field column="mmd_personnel_role" name="ignored" />
+  <field column="mmd_personnel_name" name="ignored" />
+  <field column="mmd_personnel_email" name="ignored" />
+  <field column="mmd_personnel_phone" name="ignored" />
+  <field column="mmd_personnel_organisation" name="ignored" />
+  <field column="mmd_personnel_contact_address_city" name="ignored" />
+  <field column="mmd_personnel_contact_address_country" name="ignored" />
+  <field column="mmd_personnel_contact_address_address" name="ignored" />
+  <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+  <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
+
+
 
   <field column="bbox" name="bbox" />
 
@@ -1031,6 +1079,18 @@
       <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
       <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
       <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+      <field column="mmd_personnel_fax" name="ignored" />
+      <field column="mmd_personnel_role" name="ignored" />
+      <field column="mmd_personnel_name" name="ignored" />
+      <field column="mmd_personnel_email" name="ignored" />
+      <field column="mmd_personnel_phone" name="ignored" />
+      <field column="mmd_personnel_organisation" name="ignored" />
+      <field column="mmd_personnel_contact_address_city" name="ignored" />
+      <field column="mmd_personnel_contact_address_country" name="ignored" />
+      <field column="mmd_personnel_contact_address_address" name="ignored" />
+      <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+      <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
 
 
       <field column="bbox" name="bbox" />
