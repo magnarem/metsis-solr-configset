@@ -682,7 +682,6 @@
         <field name="alternate_identifier_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/last_metadata_update -->
-        <field name="last_metadata_update" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="last_metadata_update_datetime" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="last_metadata_update_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="last_metadata_update_note" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
@@ -706,12 +705,9 @@
         <!-- TODO: Add more languages -->
 
         <!-- mmd/temporal_extent -->
-        <field name="temporal_extent" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="temporal_extent_start_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="temporal_extent_end_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
 
-        <!-- mmd/geographic_extent -->
-        <field name="geographic_extent" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <!-- mmd/geographic_extent/rectangle -->
         <field name="geographic_extent_rectangle_north" type="pdouble" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="geographic_extent_rectangle_south" type="pdouble" indexed="true" stored="true" required="false" multiValued="false" />
@@ -728,7 +724,6 @@
         <field name="geographic_extent_polygon_srsName" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- mmd/location -->
-        <field name="location" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="location_vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="location_category" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="location_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -750,37 +745,22 @@
         <field name="access_constraint" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- mmd/use_constraint -->
-        <field name="use_constraint" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="use_constraint_identifier" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="use_constraint_resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
 
-        <!-- mmd/personnel -->
-        <field name="personnel" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- Fields used for facets. This contains concatination of the different personnel roles names and organisations -->
         <field name="personnel_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="personnel_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="personnel_organisation" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
-        <field name="personnel_email" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_phone" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_fax" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-
-
-        <field name="personnel_contact_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address_city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address_province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address_postal_code" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_contact_address_country" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-
         <!-- mmd/personnel ROLE: Investigator -->
         <field name="personnel_investigator_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="personnel_investigator_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="personnel_investigator_email" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_investigator_phone" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_investigator_fax" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_investigator_phone" type="string" indexed="false" stored="true" required="false" multiValued="true" />
+        <field name="personnel_investigator_fax" type="string" indexed="false" stored="true" required="false" multiValued="true" />
         <field name="personnel_investigator_organisation" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
         <field name="personnel_investigator_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -838,13 +818,13 @@
         <field name="personnel_datacenter_address_country" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/data_center -->
-        <field name="data_center" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_center_short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_center_long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_center_url" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/data_access -->
-        <field name="data_access" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <!-- NOTE: The data access resources are normalized with respect to data access type. See fields
+        specified further down -->
         <field name="data_access_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_access_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="data_access_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -858,7 +838,6 @@
         <field name="related_dataset_auxiliary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/storage_information -->
-        <field name="storage_information" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="storage_information_file_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="storage_information_file_location" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="storage_information_file_format" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -868,7 +847,9 @@
         <field name="storage_information_file_checksum" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- mmd/related_information -->
-        <field name="related_information" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+
+        <!-- NOTE: The related information resources are normalized with respect to related information type. See fields
+        specified further down -->
         <field name="related_information_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="related_information_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="related_information_description" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
@@ -877,7 +858,6 @@
         <field name="iso_topic_category" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/keywords -->
-        <field name="keywords" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="keywords_vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="keywords_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="keywords_separator" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -888,12 +868,10 @@
         <field name="keywords_wigos" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/project -->
-        <field name="project" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="project_short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="project_long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/platform -->
-        <field name="platform" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -901,7 +879,6 @@
         <field name="platform_orbit_absolute" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_orbit_direction" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
-        <field name="platform_instrument" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_instrument_short_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_instrument_long_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_instrument_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -909,7 +886,6 @@
         <field name="platform_instrument_polarisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_instrument_product_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
-        <field name="platform_ancillary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_ancillary_cloud_coverage" type="pdouble" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_ancillary_scene_coverage" type="pdouble" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="platform_ancillary_timeliness" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -918,7 +894,6 @@
         <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/dataset_citation -->
-        <field name="dataset_citation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="dataset_citation_author" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="dataset_citation_publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="dataset_citation_title" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -941,10 +916,13 @@
         <dynamicField name="*_txt_es" type="text_es" indexed="true" stored="true" multiValued="true" />
         <!-- TODO: Add more languages here as we need -->
 
-        <!-- Common fields for new and old MMD specification, specific for Drupal 8 -->
+        <!--
+        /**
+         * Common fields for new and old MMD specification, specific for Drupal 8
+         */
+          -->
         <field name="text_suggester" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
-    <!--    <field name="title" type="text_general" indexed="true" stored="false" required="false" multiValued="true" /> -->
-    <!--    <field name="abstract" type="text_general" indexed="true" stored="false" required="false" multiValued="true" /> -->
+
         <field name="keywords_level1" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="keywords_level2" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="keywords_level3" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
@@ -963,15 +941,15 @@
         <!-- the path wich the file is stored on the repo (git) -->
         <field name="mmd_repo_path" type="string" indexed="false" stored="true"/>
 
-        <!--DateRangeField for faciting between start and end dates -->
+        <!--DateRangeField for faceting between start and end dates -->
         <field name="temporal_extent_period_dr" type="date_range" indexed="true" stored="true" multiValued="true"/>
         <field name="temporal_extent_period_dr_year_month" type="date_range" indexed="true" stored="true" multiValued="true"/>
 
-        <!--Same information as string for pretty printing -->
-        <field name="temporal_extent_period_s" type="string" indexed="true" stored="true"/>
+
         <!-- Custom fields for keywords faceting -->
         <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-        <!-- Process data access url resources -->
+
+        <!-- Normalized data access_resources based on data access type alo normalised related information -->
         <field name="data_access_url_opendap" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="data_access_url_ogc_wms" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="data_access_url_ogc_wfs" type="string" indexed="false" stored="true" multiValued="true"/>
@@ -1031,16 +1009,6 @@
         <!-- Copy some fields for full_text search and other helper fields -->
         <copyField source="id" dest="full_text" />
 
-        <copyField source="temporal_extent_start_date" dest="start_date_year_month"/>
-        <copyField source="temporal_extent_start_date" dest="start_date_day"/>
-        <copyField source="temporal_extent_start_date" dest="start_date_hour_minutes"/>
-
-        <copyField source="temporal_extent_end_date" dest="end_date_year_month"/>
-        <copyField source="temporal_extent_end_date" dest="end_date_day"/>
-        <copyField source="temporal_extent_end_date" dest="end_date_hour_minutes"/>
-
-        <copyField source="temporal_extent_period_dr" dest="temporal_extent_period_dr_year_month" />
-
         <copyField source="abstract" dest="full_text" />
         <copyField source="abstract_en" dest="full_text" />
         <copyField source="abstract_no" dest="full_text" />
@@ -1080,6 +1048,8 @@
         <copyField source="dataset_citation_publisher" dest="sm_citation_publisher" />
         <copyField source="dataset_citation_author" dest="sm_citation_author" />
 
+        <copyField source="dataset_citation_publisher" dest="full_text" />
+        <copyField source="dataset_citation_author" dest="full_text" />
         <copyField source="bbox" dest="bbox_rpt" />
 
         <copyField source="full_text" dest="text_suggester" />
