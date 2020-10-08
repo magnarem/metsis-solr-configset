@@ -355,7 +355,9 @@
          <arr name="env"> <str>MYVAR=val1</str> </arr>
        </listener>
       -->
-
+      <lst name="defaults">
+ <str name="update.chain">metsis</str>
+</lst>
   </updateHandler>
 
   <!-- IndexReaderFactory
@@ -678,17 +680,17 @@
        rich documents injected via ExtractingRequestHandler.
        See more about langId at http://wiki.apache.org/solr/LanguageDetection
     -->
-  <!--
-   <updateRequestProcessorChain name="langid">
+
+   <updateRequestProcessorChain name="langid" >
      <processor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory">
-       <str name="langid.fl">text,title,subject,description</str>
+       <str name="langid.fl">abstract,title</str>
        <str name="langid.langField">language_s</str>
        <str name="langid.fallback">en</str>
      </processor>
      <processor class="solr.LogUpdateProcessorFactory" />
      <processor class="solr.RunUpdateProcessorFactory" />
    </updateRequestProcessorChain>
-  -->
+
 
   <!-- Script update processor
 
@@ -808,21 +810,43 @@
      <transformer name="qecBooster" class="org.apache.solr.response.transform.EditorialMarkerFactory" />
     -->
 
+    <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
+          <str name="fieldRegex">keywords_.*</str>
+          <str name="fieldRegex">personnel_.*</str>
+    </updateProcessor>
+
+    <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
+          <str name="langid.fl">abstract,title</str>
+          <str name="langid.langField">ss_language</str>
+          <str name="langid.fallback">en</str>
+    </updateProcessor>
+
+    <updateRequestProcessorChain name="metsis" default="true"  prossesor="lang" post-processor="dedups">
+      <processor class="solr.DistributedUpdateProcessorFactory"/>
+       <processor class="solr.LogUpdateProcessorFactory" />
+       <processor class="solr.RunUpdateProcessorFactory" />
+  </updateRequestProcessorChain>
+
     <!-- Config for dataimport handler -->
     <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
+      <str name="update.chain">metsis</str>
       <str name="config">solr-data-config.xml</str>
-      <str name="update.chain">uuid</str>
     </lst>
   </requestHandler>
 
+  <initParams path="/update/**">
+  <lst name="defaults">
+    <str name="update.chain">metsis</str>
+  </lst>
+</initParams>
+<initParams path="/dataimport/**">
+<lst name="defaults">
+  <str name="update.chain">metsis</str>
+</lst>
+</initParams>
 
-  <updateRequestProcessorChain name="dedupe">
-  <processor class="UniqFieldsUpdateProcessorFactory">
-        <str name="fieldRegex">.keywords_level*</str>
-    </processor>
-    <processor class="solr.RunUpdateProcessorFactory" />
-</updateRequestProcessorChain>
+
 
   <updateRequestProcessorChain name="uuid">
   <processor class="solr.UUIDUpdateProcessorFactory">
@@ -833,6 +857,6 @@
     </processor>
 
   <processor class="solr.RunUpdateProcessorFactory" />
-</updateRequestProcessorChain>`
+</updateRequestProcessorChain>
 
 </config>

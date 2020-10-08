@@ -31,7 +31,7 @@
     if (keyword_list != null) {
       for (var k = 0; k < keyword_list.length; k++) {
         if (keyword_list[k] != "" && keyword_list[k] != null) {
-          if (keyword_list[k].indexOf('>') >= 0) {
+          if ((keyword_list[k].indexOf('>') >= 0) || (keyword_list[k].indexOf('&gt') >= 0)) {
             var pieces = keyword_list[k].split('>');
             var kstring = '';
             for (var i = 0; i < pieces.length; i++) {
