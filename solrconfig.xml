@@ -813,6 +813,7 @@
     <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
           <str name="fieldRegex">keywords_.*</str>
           <str name="fieldRegex">personnel_.*</str>
+          <str name="fieldRegex">text_suggester</str>
     </updateProcessor>
 
     <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
