@@ -983,7 +983,7 @@
         <field name="base_map" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="feature_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- Internal dataset level: Level-1 or Level-2 -->
-        <field name="dataset_level" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="dataset_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
         <!-- Aggregated field for full text searches. TODO: Consider other fieldType for better searches ?? -->
         <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" />

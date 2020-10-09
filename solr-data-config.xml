@@ -570,6 +570,17 @@
         }
       }
     }
+    var dc_role = row.get("mmd_data_center_contact_role");
+    var dc_name = row.get("mmd_data_center_contact_name");
+    var dc_org = row.get("mmd_data_center_contact_organisation");
+    if (dc_role != null) {
+        if (dc_role.trim().toLowerCase() === "data center contact" || dc_role.trim().toLowerCase() === "datacenter") {
+          row.put('personnel_datacenter_role','Data center contact');  row.put('personnel_role', 'Data center contact');
+          if( dc_name != null) {  row.put('personnel_datacenter_name', dc_name);  row.put('personnel_name', dc_name); }
+          if( dc_org != null) {  row.put('personnel_datacenter_organisation', dc_org);  row.put('personnel_organisation', dc_org); }
+        }
+    }
+
     return row;
   }
 ]]></script>
@@ -585,7 +596,6 @@
   onError="skip"
   logTemplate="The Parent dataset:  ${newMMD.mmd_metadata_identifier}" logLevel="info"
   fl="*,orig_version_l:_version_,ignored_price_c:price_c">
-  <field column="test_storage" name="test_storage" template="testing" />
   <field column="dataset_type" name="dataset_type" template="Level-1" />
   <field column="id" name="id"/>
   <field column="mmd_metadata_identifier" name="metadata_identifier" />
@@ -656,12 +666,13 @@
   <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
   <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
 
+  <field column="mmd_data_center_contact_role" name="ignored" />
+  <field column="mmd_data_center_contact_name" name="ignored" />
+  <field column="mmd_data_center_contact_organisation" name="ignored" />
+
   <field column="mmd_data_center_dataset_id" name="ignored" />
   <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
-  <field column="mmd_data_center_contact_role" name="personnel_role" />
   <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
-  <field column="mmd_data_center_contact_name" name="personnel_name" />
-  <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
   <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
   <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
   <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
@@ -678,6 +689,8 @@
   <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
   <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
   <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+  <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
 
   <field column="mmd_personnel_fax" name="ignored" />
   <field column="mmd_personnel_role" name="ignored" />
@@ -787,12 +800,13 @@
       <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
       <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
 
+      <field column="mmd_data_center_contact_role" name="ignored" />
+      <field column="mmd_data_center_contact_name" name="ignored" />
+      <field column="mmd_data_center_contact_organisation" name="ignored" />
+
       <field column="mmd_data_center_dataset_id" name="ignored" />
       <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
-      <field column="mmd_data_center_contact_role" name="personnel_role" />
       <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
-      <field column="mmd_data_center_contact_name" name="personnel_name" />
-      <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
       <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
       <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
       <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
@@ -806,9 +820,12 @@
       <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
       <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
 
+
       <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
       <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
       <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+      <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
 
       <field column="mmd_personnel_fax" name="ignored" />
       <field column="mmd_personnel_role" name="ignored" />
@@ -925,12 +942,13 @@
   <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
   <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
 
+  <field column="mmd_data_center_contact_role" name="ignored" />
+  <field column="mmd_data_center_contact_name" name="ignored" />
+  <field column="mmd_data_center_contact_organisation" name="ignored" />
+
   <field column="mmd_data_center_dataset_id" name="ignored" />
   <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
-  <field column="mmd_data_center_contact_role" name="personnel_role" />
   <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
-  <field column="mmd_data_center_contact_name" name="personnel_name" />
-  <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
   <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
   <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
   <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
@@ -944,9 +962,12 @@
   <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
   <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
 
+
   <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
   <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
   <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+  <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
 
   <field column="mmd_personnel_fax" name="ignored" />
   <field column="mmd_personnel_role" name="ignored" />
@@ -1057,12 +1078,13 @@
       <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
       <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
 
+      <field column="mmd_data_center_contact_role" name="ignored" />
+      <field column="mmd_data_center_contact_name" name="ignored" />
+      <field column="mmd_data_center_contact_organisation" name="ignored" />
+
       <field column="mmd_data_center_dataset_id" name="ignored" />
       <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
-      <field column="mmd_data_center_contact_role" name="personnel_role" />
       <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
-      <field column="mmd_data_center_contact_name" name="personnel_name" />
-      <field column="mmd_data_center_contact_organisation" name="personnel_organisation" />
       <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
       <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
       <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
@@ -1076,9 +1098,12 @@
       <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
       <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
 
+
       <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
       <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
       <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+      <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
 
       <field column="mmd_personnel_fax" name="ignored" />
       <field column="mmd_personnel_role" name="ignored" />
