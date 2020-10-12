@@ -34,7 +34,7 @@
       <str name="name">default</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">text_suggester</str>
+      <str name="field">full_text</str>
       <str name="suggestAnalyzerFieldType">text_en</str>
       <str name="contextField">sm_keywords</str>
       <str name="buildOnCommit">true</str>
@@ -45,7 +45,7 @@
       <str name="name">und</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">text_suggester</str>
+      <str name="field">full_text</str>
       <str name="suggestAnalyzerFieldType">text_en</str>
       <str name="contextField">sm_keywords</str>
       <str name="buildOnCommit">true</str>
