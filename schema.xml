@@ -693,13 +693,13 @@
         <field name="collection" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/title -->
-        <field name="title" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="title" type="text_en" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="title_en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="title_no" type="text_no" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- TODO: Add more languages -->
 
         <!-- mmd/abstract -->
-        <field name="abstract" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="abstract" type="text_en" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="abstract_en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="abstract_no" type="text_no" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- TODO: Add more languages -->
