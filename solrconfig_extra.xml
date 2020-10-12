@@ -16,7 +16,7 @@
 
     <lst name="spellchecker">
       <str name="name">und</str>
-      <str name="field">spellcheck_und</str>
+      <str name="field">text_suggester</str>
       <str name="classname">solr.DirectSolrSpellChecker</str>
       <str name="distanceMeasure">internal</str>
       <str name="accuracy">0.5</str>
@@ -30,24 +30,24 @@
     </lst>
   </searchComponent>
 <searchComponent name="suggest" class="solr.SuggestComponent">
-    <lst name="suggester">
-      <str name="name">en</str>
+    <lst name="defaults">
+      <str name="name">default</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
+      <str name="field">text_suggester</str>
       <str name="suggestAnalyzerFieldType">text_en</str>
-      <str name="contextField">sm_context_tags</str>
+      <str name="contextField">sm_keywords</str>
       <str name="buildOnCommit">true</str>
-      <str name="buildOnStartup">false</str>
+      <str name="buildOnStartup">true</str>
     </lst>
 
     <lst name="suggester">
       <str name="name">und</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_und</str>
-      <str name="contextField">sm_context_tags</str>
+      <str name="field">text_suggester</str>
+      <str name="suggestAnalyzerFieldType">text_en</str>
+      <str name="contextField">sm_keywords</str>
       <str name="buildOnCommit">true</str>
       <str name="buildOnStartup">false</str>
     </lst>
