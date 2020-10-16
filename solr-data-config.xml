@@ -39,7 +39,7 @@
               keyw = pieces[i].trim();
               lower = keyw.toLowerCase();
               removedChars1 = lower.replace(/\\n/g, '');
-              removedChars2 = removedChars1..replace(/\n/g, '');
+              removedChars2 = removedChars1.replace(/\n/g, '');
               camelCase = removedChars2.replace(/\b\w/g, function(c) {
               return c.toUpperCase();
               });
@@ -59,7 +59,7 @@
               keyw = pieces[i].trim();
               lower = keyw.toLowerCase();
               removedChars1 = lower.replace(/\\n/g, '');
-              removedChars2 = removedChars1..replace(/\n/g, '');
+              removedChars2 = removedChars1.replace(/\n/g, '');
               camelCase = removedChars2.replace(/\b\w/g, function(c) {
               return c.toUpperCase();
               });
