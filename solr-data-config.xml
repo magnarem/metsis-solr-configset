@@ -36,7 +36,15 @@
             var kstring = '';
             for (var i = 0; i < pieces.length; i++) {
               j = i + 1;
-              eval('keywords_level' + j).add(pieces[i].trim());
+              keyw = pieces[i].trim();
+              lower = keyw.toLowerCase();
+              removedChars1 = lower.replace(/\\n/g, '');
+              removedChars2 = removedChars1..replace(/\n/g, '');
+              camelCase = removedChars2.replace(/\b\w/g, function(c) {
+              return c.toUpperCase();
+              });
+
+              eval('keywords_level' + j).add(camelCase);
               kstring = kstring + j + '/' + pieces[i].trim() + ',';
             }
             keywords_bread.add(kstring);
@@ -48,7 +56,15 @@
             var kstring = '';
             for (var i = 0; i < pieces.length; i++) {
               j = i + 1;
-              eval('keywords_level' + j).add(pieces[i].trim());
+              keyw = pieces[i].trim();
+              lower = keyw.toLowerCase();
+              removedChars1 = lower.replace(/\\n/g, '');
+              removedChars2 = removedChars1..replace(/\n/g, '');
+              camelCase = removedChars2.replace(/\b\w/g, function(c) {
+              return c.toUpperCase();
+              });
+
+              eval('keywords_level' + j).add(camelCase);
               kstring = kstring + j + '/' + pieces[i].trim() + ',';
             }
             keywords_bread.add(kstring);
