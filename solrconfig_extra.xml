@@ -34,9 +34,9 @@
       <str name="name">default</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">full_text</str>
-      <str name="suggestAnalyzerFieldType">text_en</str>
-      <str name="contextField">sm_keywords</str>
+      <str name="field">text_suggester</str>
+      <str name="suggestAnalyzerFieldType">text_suggest</str>
+      <str name="contextField">phrase_suggester</str>
       <str name="buildOnCommit">true</str>
       <str name="buildOnStartup">true</str>
     </lst>
@@ -45,13 +45,17 @@
       <str name="name">und</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">full_text</str>
-      <str name="suggestAnalyzerFieldType">text_en</str>
-      <str name="contextField">sm_keywords</str>
+      <str name="field">text_suggester</str>
+      <str name="suggestAnalyzerFieldType">text_suggest</str>
+      <str name="contextField">phrase_suggester</str>
       <str name="buildOnCommit">true</str>
       <str name="buildOnStartup">false</str>
     </lst>
   </searchComponent>
+
+
+  <searchComponent name="terms" class="solr.TermsComponent"/>
+
 <!--
   Autocomplete
   7.0.0
@@ -113,6 +117,10 @@
     <str name="omitHeader">true</str>
     <str name="timeAllowed">${solr.selectSearchHandler.timeAllowed:-1}</str>
     <str name="spellcheck">false</str>
+  </lst>
+  <lst name="invariants">
+    <str name="hl.method">unified</str>
+
   </lst>
   <arr name="last-components">
     <str>spellcheck</str>
