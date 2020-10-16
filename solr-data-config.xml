@@ -48,7 +48,7 @@
               kstring = kstring + j + '/' + pieces[i].trim() + ',';
             }
             keywords_bread.add(kstring);
-          } else {
+          } if (keyword_list[k].indexOf('>') <= 0) {
             keywords.add(keyword_list[k].trim());
           }
           if (keyword_list[k].indexOf('&gt;') >= 0) {
@@ -68,7 +68,7 @@
               kstring = kstring + j + '/' + pieces[i].trim() + ',';
             }
             keywords_bread.add(kstring);
-          } else {
+          } if (keyword_list[k].indexOf('&gt;') <= 0) {
             keywords.add(keyword_list[k].trim());
           }
         }
@@ -79,9 +79,7 @@
     keyMap.put('set', keywords);
     row.put('sm_keywords_strip', keyMap);
 
-    var breadMap = new java.util.HashMap();
-    breadMap.put('set', keywords_bread);
-    row.put('keywords_bread', breadMap);
+    
 
     var key1Map = new java.util.HashMap();
     key1Map.put('set', keywords_level1);
