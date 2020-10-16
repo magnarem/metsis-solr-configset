@@ -571,8 +571,8 @@
 
         <!-- Fields used for facets. This contains concatination of the different personnel roles names and organisations -->
         <field name="personnel_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="personnel_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="personnel_organisation" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/personnel ROLE: Investigator -->
         <field name="personnel_investigator_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
