@@ -32,11 +32,12 @@
 <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">default</str>
-      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <bool name="exactMatchFirst">true</bool>
+      <str name="lookupImpl">FSTLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">text_suggester</str>
       <str name="suggestAnalyzerFieldType">text_suggest</str>
-      <str name="contextField">phrase_suggester</str>
+    <!--  <str name="contextField">phrase_suggester</str> -->
       <str name="buildOnCommit">true</str>
       <str name="buildOnStartup">true</str>
     </lst>
@@ -69,7 +70,7 @@
     <str name="spellcheck.extendedResults">false</str>
     <str name="spellcheck.count">1</str>
     <str name="suggest">true</str>
-    <str name="suggest.count">10</str>
+    <str name="suggest.count">15</str>
   </lst>
   <arr name="components">
     <str>terms</str>
