@@ -543,13 +543,13 @@
         <!-- mmd/title -->
         <field name="title" type="text_en" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="title_en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="title_no" type="text_no" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="title_no" type="text_nb" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- TODO: Add more languages -->
 
         <!-- mmd/abstract -->
         <field name="abstract" type="text_en" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="abstract_en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="abstract_no" type="text_no" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="abstract_no" type="text_nb" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- TODO: Add more languages -->
 
         <!-- mmd/temporal_extent -->
@@ -758,7 +758,8 @@
 
         <!-- Dynamic fields for different languages. I.E title_txt_fr for french language -->
         <dynamicField name="*_txt_en" type="text_en" indexed="true" stored="true" multiValued="true" />
-        <dynamicField name="*_txt_no" type="text_no" indexed="true" stored="true" multiValued="true" />
+        <dynamicField name="*_txt_no" type="text_nb" indexed="true" stored="true" multiValued="true" />
+        <dynamicField name="*_txt_nb" type="text_nb" indexed="true" stored="true" multiValued="true" />
         <dynamicField name="*_txt_fr" type="text_fr" indexed="true" stored="true" multiValued="true" />
         <dynamicField name="*_txt_de" type="text_de" indexed="true" stored="true" multiValued="true" />
         <dynamicField name="*_txt_es" type="text_es" indexed="true" stored="true" multiValued="true" />
