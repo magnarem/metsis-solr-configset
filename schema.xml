@@ -427,6 +427,35 @@
                geo="true" distanceUnits="kilometers" numberType="_bbox_coord" />
     <fieldType name="_bbox_coord" class="solr.DoublePointField" docValues="true" stored="false"/>
 
+<!-- A text field that only splits on whitespace for exact matching of words -->
+    <fieldType name="text_ws" class="solr.TextField" omitNorms="true" positionIncrementGap="100">
+      <analyzer>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+    <fieldType name="boost_term_payload" stored="false" indexed="true" class="solr.TextField" >
+      <analyzer>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        <!--
+        The DelimitedPayloadTokenFilter can put payloads on tokens... for example,
+        a token of "foo|1.4"  would be indexed as "foo" with a payload of 1.4f
+        Attributes of the DelimitedPayloadTokenFilterFactory :
+         "delimiter" - a one character delimiter. Default is | (pipe)
+         "encoder" - how to encode the following value into a playload
+           float -> org.apache.lucene.analysis.payloads.FloatEncoder,
+           integer -> o.a.l.a.p.IntegerEncoder
+           identity -> o.a.l.a.p.IdentityEncoder
+             Fully Qualified class name implementing PayloadEncoder, Encoder must have a no arg constructor.
+         -->
+        <filter class="solr.DelimitedPayloadTokenFilterFactory" encoder="float"/>
+        <filter class="solr.LengthFilterFactory" min="2" max="100"/>
+      </analyzer>
+    </fieldType>
+
 
     <!-- lowercases the entire field value, keeping it as a single token.  -->
         <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
