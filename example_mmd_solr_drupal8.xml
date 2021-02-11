@@ -1,0 +1,774 @@
+<add>
+   <doc>
+
+      <!-- SOLR Unique field = mmd/metadata_identifier -->
+      <field name="id">9663fc67-5687-4bf2-a274-f3826e41fdc8</field>
+
+      <!--2.1 mmd/metadata_identifier
+
+      <metadata_identifier>
+        9663fc67-5687-4bf2-a274-f3826e41fdc8
+      </metadata_identifier>
+
+      -->
+      <field name="metadata_identifier">9663fc67-5687-4bf2-a274-f3826e41fdc8</field>
+
+      <!--2.2  mmd/alternate_identifier
+
+      <alternate_identifier type="WIS">
+        urn:x-wmo:md:int.wmo.wis::ca.gc.ec.msc-1.1.9.3
+      </alternate_identifier>
+
+      -->
+      <field name="alternate_identifier">urn:x-wmo:md:int.wmo.wis::ca.gc.ec.msc-1.1.9.3</field>
+      <field name="alternate_identifier_type">WIS</field>
+
+      <field name="alternate_identifier">other:alternate:identifier</field>
+      <field name="alternate_identifier_type">OTHER</field>
+
+      <!--2.3 mmd/last_metadata_update
+
+      <last_metadata_update>
+        <update>
+          <datetime>2012-10-31T12:00:00Z</datetime>
+          <type>Created</type>
+          <note></note>
+        </update>
+        <update>
+          <datetime>2020-03-31T10:23:00Z</datetime>
+          <type>Major modification</type>
+          <note>Changed structure of the metadata element.</note>
+        </update>
+      </last_metadata_update>
+     -->
+      <field name="last_metadata_update_datetime">2012-10-31T12:00:00Z</field>
+      <field name="last_metadata_update_type">Created</field>
+      <field name="last_metadata_update_note"></field>
+
+      <field name="last_metadata_update_datetime">2020-03-31T10:23:00Z</field>
+      <field name="last_metadata_update_type">Major modification</field>
+      <field name="last_metadata_update_note">Changed structure of the metadata element.</field>
+
+      <!--2.4  mmd/metadata_status
+
+      <metadata_status>
+        Active
+      </metadata_status>
+      -->
+      <field name="metadata_status">Active</field>
+
+      <!--2.5 mmd/collection
+
+      <collection>
+        ADC
+        NMDC
+      </collection>
+     -->
+      <field name="collection">ADC</field> <!-- array item 0 -->
+      <field name="collection">NMDC</field> <!-- array item 1 -->
+
+      <!--2.6 mmd/title
+
+      <title xml:lang=”en”>
+        OSISAF Northern Hemisphere Ice edge
+      </title>
+
+      <title xml:lang=”no”>
+        OSISAF Nordre Halvkule Iskant
+      </title>
+
+      -->
+      <field name="title">Default language title</field>
+      <field name="title_en">OSISAF Northern Hemisphere Ice edge</field>
+      <field name="title_no">OSISAF Nordre Halvkule Iskant</field>
+
+      <!--2.7 mmd/abstract
+
+      <abstract xml:lang="en">
+        The daily analysis of sea ice concentration are obtained from operation
+        satellite images of the polar regions. It is based on atmospherically
+        corrected signal and an optimal sea ice concentration algorithm. This
+        product is available for free from the EUMETSAT Ocean and Sea Ice
+        Satellite Application Facility (OSI SAF).
+      </abstract>
+
+      -->
+      <field name="abstract">
+        The daily analysis of sea ice concentration are obtained from operation
+        satellite images of the polar regions. It is based on atmospherically
+        corrected signal and an optimal sea ice concentration algorithm. This
+        product is available for free from the EUMETSAT Ocean and Sea Ice
+        Satellite Application Facility (OSI SAF).
+      </field>
+      <field name="abstract_en">
+        The daily analysis of sea ice concentration are obtained from operation
+        satellite images of the polar regions. It is based on atmospherically
+        corrected signal and an optimal sea ice concentration algorithm. This
+        product is available for free from the EUMETSAT Ocean and Sea Ice
+        Satellite Application Facility (OSI SAF).
+      </field>
+      <field name="abstract_no">
+        Dette er abstrakt på Norsk
+      </field>
+
+      <!--2.8 mmd/temporal_extent
+
+        <temporal_extent>
+          <start_date>2012-01-01T12:00:00Z</start_date>
+          <end_date>2012-02-01T13:00:00Z</end_date>
+        </temporal_extent>
+      -->
+      <field name="temporal_extent_start_date">2012-01-01T12:00:00Z</field>
+      <field name="temporal_extent_end_date">2012-02-01T13:00:00Z</field>
+
+      <!--2.9 mmd/geographic_extent/rectangle
+      <rectangle srsName="EPSG:4326">
+        <north>90</north>
+        <south>-90</south>
+        <east>180</east>
+        <west>-180</west>
+      </rectangle>
+
+      -->
+      <field name="geographic_extent_rectangle_north">90</field>
+      <field name="geographic_extent_rectangle_south">-90</field>
+      <field name="geographic_extent_rectangle_east">180</field>
+      <field name="geographic_extent_rectangle_west">-180</field>
+      <field name="geographic_extent_rectangle_srsName">EPSG:4326</field>
+
+      <!--
+        The geographic rectangle expressed as an envelope in the bbox field.
+        A copy of the value of bbox field will also be added to the bbox_rpt
+        (recursive prefix tree) field When. indexing
+      -->
+      <field name="bbox">ENVELOPE(-180,180,90,-90)</field>
+
+      <!--2.10 mmd/geographic_extent/polygon
+
+      <polygon>
+        <gml:Polygon id="polygon" srsName="EPSG:4326">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:pos>
+                -180 -90
+              </gml:pos>
+              <gml:pos>
+                180 -90
+              </gml:pos>
+              <gml:pos>
+                180 90
+              </gml:pos>
+              <gml:pos>
+                -180 90
+              </gml:pos>
+              <gml:pos>
+                -180 -90
+              </gml:pos>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </polygon>
+
+
+      -->
+      <field name="geographic_extent_polygon_lowerLeft">-180</field>
+      <field name="geographic_extent_polygon_lowerLeft">-90</field>
+
+      <field name="geographic_extent_polygon_lowerRight">180</field>
+      <field name="geographic_extent_polygon_lowerRight">-90</field>
+
+      <field name="geographic_extent_polygon_upperRight">180</field>
+      <field name="geographic_extent_polygon_upperRight">90</field>
+
+      <field name="geographic_extent_polygon_upperLeft">-180</field>
+      <field name="geographic_extent_polygon_upperLeft">90</field>
+
+      <field name="geographic_extent_polygon_closingRing">-180</field>
+      <field name="geographic_extent_polygon_closingRing">-90</field>
+
+      <field name="geographic_extent_polygon_srsName">EPSG:4326</field>
+      <!-- The polygon represented as solr SpatialRecursivePrefixTreeFieldType -->
+      <field name="polygon_rpt">POLYGON((-180 -90, 180 -90, 180 90, -180 90, -180 -90))</field>
+
+      <!--2.11 mmd/location
+      <location>
+        <location_vocabulary>gcmd</location_vocabulary>
+        <location_category>CONTINENT</location_category>
+        <location_type>NORTH AMERICA</location_type>
+        <location_subregion1>UNITED STATES OF AMERICA</location_subregion1>
+        <location_subregion2>MARYLAND</location_subregion2>
+        <location_subregion3>BALTIMORE</location_subregion3>
+        <detailed_location>Middle River</detailed_location>
+      </location>
+      -->
+      <field name="location_vocabulary">gcmd</field>
+      <field name="location_category">CONTINENT</field>
+      <field name="location_type">NORTH AMERICA</field>
+      <field name="location_subregion1">UNITED STATES OF AMERICA</field>
+      <field name="location_subregion2">MARYLAND</field>
+      <field name="location_subregion3">BALTIMORE</field>
+      <field name="location_detailed_location">Middle River</field>
+
+      <!--2.12 mmd/dataset_production_status
+        <dataset_production_status>
+          In Work
+        </dataset_production_status>
+      -->
+      <field name="dataset_production_status">In Work</field>
+
+      <!--2.13 mmd/dataset_language
+        <dataset_language>
+          en
+        </dataset_language>
+      -->
+      <field name="dataset_language">en</field>
+
+      <!--2.14 mmd/operational_status
+      <operational_status>
+        Pre-Operational
+      </operational_status>
+      -->
+      <field name="operational_status">Pre-Operational</field>
+
+      <!--2.15 mmd/access_constraint
+        <access_constraint>
+          Open
+        </access_constraint>
+      -->
+      <field name="access_constraint">Open</field>
+
+      <!--2.16 mmd/use_constraint
+        <use_constraint>
+          <identifier>CC-BY-4.0</identifier>
+          <resource>http://spdx.org/licenses/CC-BY-4.0</resource>
+        </use_constraint>
+      -->
+      <field name="use_constraint_identifier">CC-BY-4.0</field>
+      <field name="use_constraint_resource">http://spdx.org/licenses/CC-BY-4.0</field>
+
+      <!--2.17 mmd/personnel ROLE: Investigator
+        <personnel>
+          <role>Investigator</role>
+          <name>Ole Dole</name>
+          <email>ole.dole@example.com</email>
+          <phone>004711111111</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_investigator_role">Investigator</field>
+      <field name="personnel_investigator_name">Ole Dole</field>
+      <field name="personnel_investigator_email">ole.dole@example.com</field>
+      <field name="personnel_investigator_phone">004711111111</field>
+      <field name="personnel_investigator_fax">004711223344</field>
+      <field name="personnel_investigator_organisation">MET.no</field>
+
+      <field name="personnel_investigator_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_investigator_address_city">Oslo</field>
+      <field name="personnel_investigator_address_province_or_state">Oslo</field>
+      <field name="personnel_investigator_address_postal_code">0105</field>
+      <field name="personnel_investigator_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Investigator</field>
+      <field name="personnel_name">Ole Dole</field>
+      <field name="personnel_organisation">MET.no</field>
+
+      <!--2.17 mmd/personnel ROLE: Technical contact
+        <personnel>
+          <role>Technical contact</role>
+          <name>Doffen</name>
+          <email>doffen@example.com</email>
+          <phone>004711335577</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_technical_role">Technical contact</field>
+      <field name="personnel_technical_name">Doffen</field>
+      <field name="personnel_technical_email">doffen@example.com</field>
+      <field name="personnel_technical_phone">004711221111</field>
+      <field name="personnel_technical_fax">004711225566</field>
+      <field name="personnel_technical_organisation">MET.no</field>
+
+      <field name="personnel_technical_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_technical_address_city">Oslo</field>
+      <field name="personnel_technical_address_province_or_state">Oslo</field>
+      <field name="personnel_technical_address_postal_code">0105</field>
+      <field name="personnel_technical_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Technical contact</field>
+      <field name="personnel_name">Doffen</field>
+      <field name="personnel_organisation">MET.no</field>
+
+
+      <!--2.17 mmd/personnel ROLE: Metadata author
+        <personnel>
+          <role>Metadata author</role>
+          <name>Donald</name>
+          <email>donald@example.com</email>
+          <phone>004722335577</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_metadata_author_role">Metadata author</field>
+      <field name="personnel_metadata_author_name">Donald</field>
+      <field name="personnel_metadata_author_email">donald@example.com</field>
+      <field name="personnel_metadata_author_phone">004722331111</field>
+      <field name="personnel_metadata_author_fax">004711253566</field>
+      <field name="personnel_metadata_author_organisation">MET.no</field>
+
+      <field name="personnel_metadata_author_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_metadata_author_address_city">Oslo</field>
+      <field name="personnel_metadata_author_address_province_or_state">Oslo</field>
+      <field name="personnel_metadata_author_address_postal_code">0105</field>
+      <field name="personnel_metadata_author_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Metadata author</field>
+      <field name="personnel_name">Donald</field>
+      <field name="personnel_organisation">MET.no</field>
+
+      <!--2.17 mmd/personnel ROLE: Datacenter contact
+        <personnel>
+          <role>Datacenter contact</role>
+          <name>Dolly</name>
+          <email>dolly@example.com</email>
+          <phone>004722335577</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_datacenter_role">Datacenter contact</field>
+      <field name="personnel_datacenter_name">Dolly</field>
+      <field name="personnel_datacenter_email">dolly@example.com</field>
+      <field name="personnel_datacenter_phone">004722331122</field>
+      <field name="personnel_datacenter_fax">004711253599</field>
+      <field name="personnel_datacenter_organisation">MET.no</field>
+
+      <field name="personnel_datacenter_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_datacenter_address_city">Oslo</field>
+      <field name="personnel_datacenter_address_province_or_state">Oslo</field>
+      <field name="personnel_datacenter_address_postal_code">0105</field>
+      <field name="personnel_datacenter_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Datacenter contact</field>
+      <field name="personnel_name">Dolly</field>
+      <field name="personnel_organisation">MET.no</field>
+
+
+      <!--2.18 mmd/data_center
+
+      <data_center>
+      <data_center_name>
+        <short_name>METNO</short_name>
+        <long_name>Norwegian Meteorological Institute</long_name>
+      </data_center_name>
+      <data_center_url>http://met.no</data_center_url>
+      </data_center>
+      -->
+      <field name="data_center_short_name">METNO</field>
+      <field name="data_center_long_name">Norwegian Meteorological Institute</field>
+      <field name="data_center_url">http://met.no</field>
+
+
+      <!--2.19 mmd/data_access
+      <data_access>
+        <type>OGC WMS</type>
+        <resource>http://...</resource>
+        <description>...</description>
+        <wms_layers>
+          <wms_layer>sea_ice_concentration</wms_layer>
+        </wms_layers>
+      </data_access>
+      -->
+      <!-- NOTE: The data access resources are normalized with respect to data access type. -->
+
+      <field name="data_access_url_opendap">http://opendap.resource/url1</field>
+      <field name="data_access_url_opendap_desc">Description for OPeNDAP url1</field>
+
+      <field name="data_access_url_opendap">http://opendap.resource/url2</field>
+      <field name="data_access_url_opendap_desc">Description for OPeNDAP url2</field>
+
+      <field name="data_access_url_ogc_wms">https://wms-resource/url1</field>
+      <field name="data_access_url_ogc_wms_desc">Description for OGC WMS resource url1</field>
+      <field name="data_access_wms_layers">default_wms_layer_name_url1</field>
+
+      <field name="data_access_url_ogc_wms">https://wms-resource/url2</field>
+      <field name="data_access_url_ogc_wms_desc">Description for OGC WMS resource url2</field>
+      <field name="data_access_wms_layers">default_wms_layer_name_url2</field>
+
+      <field name="data_access_url_ogc_wfs">https://ogc-wfs/resource/url1</field>
+      <field name="data_access_url_ogc_wfs_desc">Description for OGC WFS url1</field>
+
+      <field name="data_access_url_ogc_wfs">https://ogc-wfs/resource/url2</field>
+      <field name="data_access_url_ogc_wfs_desc">Description for OGC WFS url2</field>
+
+      <field name="data_access_url_ogc_wcs">https://ogc-wcs/resource/url1</field>
+      <field name="data_access_url_ogc_wcs_desc">Description for OGC WCS url1</field>
+
+      <field name="data_access_url_ogc_wcs">https://ogc-wcs/resource/url2</field>
+      <field name="data_access_url_ogc_wcs_desc">Description for OGC WCS url2</field>
+
+      <field name="data_access_url_http">http://resource/url1</field>
+      <field name="data_access_url_http_desc">Description of HTTP resource url1</field>
+
+      <field name="data_access_url_http">http://resource/url2</field>
+      <field name="data_access_url_http_desc">Description of HTTP resource url2</field>
+
+      <field name="data_access_url_odata">http://odata/resource/url1</field>
+      <field name="data_access_url_odata_desc">Description for ODATA resource url1</field>
+
+      <field name="data_access_url_odata">http://odata/resource/url2</field>
+      <field name="data_access_url_odata_desc">Description for ODATA resource url2</field>
+
+      <field name="data_access_url_ftp">ftp://resource/url1</field>
+      <field name="data_access_url_ftp_desc">Description for FTP resource url1</field>
+
+      <field name="data_access_url_ftp">ftp://resource/url2</field>
+      <field name="data_access_url_ftp_desc">Description for FTP resource url2</field>
+
+      <!--2.20 mmd/related_dataset
+        <related_dataset relation_type="parent">
+          9663fc67-5687-4bf2-a274-f3826e41fdc8
+        </related_dataset>
+        <related_dataset relation_type="auxiliary">
+          f3826e41fdc8-9663fc67-5687-4bf2-a274
+        </related_dataset>
+      -->
+      <field name="related_dataset">9663fc67-5687-4bf2-a274-f3826e41fdc8</field>
+      <field name="related_dataset_relation_type">parent</field>
+
+      <field name="related_dataset">f3826e41fdc8-9663fc67-5687-4bf2-a274</field>
+      <field name="related_dataset_relation_type">auxiliary</field>
+
+      <!-- NOTE: If dataset is parent dataset. Drupal specific field need to be set -->
+      <field name="isParent">true</field>
+      <field name="isAuxiliary">true</field>
+
+      <!-- Also drupal needs to know if dataset is Level-1 or Level2 -->
+      <field name="dataset_type">Level-1</field>
+
+      <!-- NOTE: If dataset is a child dataset and a level-2 dataset, then add the Following
+      instead:
+
+      <field name="isChild">true</field>
+      <field name="dataset_type">Level-2</field>
+      -->
+
+
+      <!--2.21 mmd/storage_information
+      <storage_information>
+        <file_name>
+          osisaf_radiative_flux_24h_hl_polstere-050_multi_202003051200.nc
+        </file_name>
+        <file_location>/home/steingod/Desktop</file_location>
+        <file_format>NetCDF-CF</file_format>
+        <file_size unit="GB">0.12</file_size>
+        <checksum type="sha512sum">
+          ad33563f9ab3a6f2ba74ebd72cb1f45fda00d55121a29a29230147e3472ef267c50882b0e0b21ef9ee5ed5cc25e454167cd19a1818f1e13bc044b6fc3ef8f285
+        </checksum>
+      </storage_information>
+      -->
+      <field name="storage_information_file_name">osisaf_radiative_flux_24h_hl_polstere-050_multi_202003051200.nc</field>
+      <field name="storage_information_file_location">/path/to/file</field>
+      <field name="storage_information_file_format">NetCDF-CF</field>
+      <field name="storage_information_file_size_unit">GB</field>
+      <field name="storage_information_file_size">0.12</field>
+      <field name="storage_information_file_checksum_type">sha512sum</field>
+      <field name="storage_information_file_checksum">ad33563f9ab3a6f2ba74ebd72cb1f45fda00d55121a29a29230147e3472ef267c50882b0e0b21ef9ee5ed5cc25e454167cd19a1818f1e13bc044b6fc3ef8f285</field>
+
+      <!--2.22 mmd/related_information
+      <related_information>
+        <type>Project home page</type>
+        <resource>URI</resource>
+      </related_information>
+
+      <related_information>
+        <type>Dataset landing page</type>
+        <resource>URI</resource>
+      </related_information>
+
+      <related_information>
+          <type>Scientific publication</type>
+          <resource>URI</resource>
+          <description>Author, Title (YYYY), Publisher, doi</description>
+      </related_information>
+
+      <related_information>
+        <type>Other documentation</type>
+        <resource>URI</resource>
+        <description>Conference poster</description>
+      </related_information>
+
+      -->
+
+      <!-- NOTE: The related information resources are normalized with respect to related information type. See fields
+      specified further down -->
+      <field name="related_information_type">Project home page</field>
+      <field name="related_information_resource">http://project.home.page/uri</field>
+      <field name="related_information_description"></field>
+
+      <field name="related_information_type">Users guide</field>
+      <field name="related_information_resource">http://users.guide/uri</field>
+      <field name="related_information_description">Product manual for the dataset</field>
+
+      <field name="related_information_type">Dataset Landing page</field>
+      <field name="related_information_resource">http://landing.page/uri</field>
+      <field name="related_information_description"></field>
+
+      <field name="related_information_type">Scientific publication</field>
+      <field name="related_information_resource">http://publication/uri</field>
+      <field name="related_information_description">Author, Title (YYYY), Publisher, doi</field>
+
+      <field name="related_information_type">Other documentation</field>
+      <field name="related_information_resource">http://documentation.other/uri</field>
+      <field name="related_information_description">Conference poster</field>
+
+      <!--2.23  mmd/iso_topic_category
+        <iso_topic_category>
+          oceans
+          biota
+        </iso_topic_category>
+      -->
+      <field name="iso_topic_category">oceans</field>
+      <field name="iso_topic_category">biota</field>
+
+      <!--2.24 mmd/keywords
+
+      <keywords vocabulary="MyOwnVocab">
+        <keyword>ice_edge</keyword>
+        <keyword>Manual Generated Ice Edge</keyword>
+      </keywords>
+      <keywords vocabulary="GCMD">
+        <keyword>Earth Science - Climate Indicators - Teleconnections -
+          North Atlantic Oscillation</keyword>
+        <resource>https://gcmdservices.gsfc.nasa.gov/static/kms/</resource>
+        <separator>-</separator>
+      </keywords>
+      -->
+      <field name="keywords_keyword">ice_edge</field>
+      <field name="keywords_keyword">Manual Generated Ice Edge</field>
+
+      <!--NOTE: GCMD keywords are added splitted by separator and indexed to different fields,
+        depending on the keyword level.
+        we also add the keywords to the all keywords field
+      -->
+      <field name="keywords_keyword">Earth Science - Climate Indicators - Teleconnections - North Atlantic Oscillation</field>
+      <field name="keywords_keyword">Earth Science > Atmosphere > Atmospheric radiation > Reflectance</field>
+
+      <field name="keywords_gcmd">Earth Science - Climate Indicators - Teleconnections - North Atlantic Oscillation</field>
+      <field name="keywords_gcmd">Earth Science > Atmosphere > Atmospheric radiation > Reflectance</field>
+
+      <field name="keywords_level1">Earth Science</field>
+
+      <field name="keywords_level2">Climate Indicators</field>
+      <field name="keywords_level2">Atmosphere</field>
+
+      <field name="keywords_level3">Teleconnections</field>
+      <field name="keywords_level3">Atmospheric radiation</field>
+
+      <field name="keywords_level4">North Atlantic Oscillation</field>
+      <field name="keywords_level4">Reflectance</field>
+
+      <field name="keywords_level5">GCMD level 5 keyword</field>
+      <field name="keywords_level6">GCMD level 6 keyword</field>
+      <field name="keywords_level7">GCMD level 7 keyword</field>
+
+
+      <!-- Addig WIGOS Keywords to special wigos field and the all keywords field -->
+      <field name="keywords_keyword">AltitudeOrDepth</field>
+      <field name="keywords_wigos">AltitudeOrDepth</field>
+
+      <field name="keywords_keyword">ClimateZone</field>
+      <field name="keywords_wigos">ClimateZone</field>
+
+
+      <!--2.25  mmd/project
+      <project>
+        <short_name>ICE</short_name>
+        <long_name>Ice Coverage Everywhere</long_name>
+      </project>
+      -->
+      <field name="project_short_name">ICE</field>
+      <field name="project_long_name">Ice Coverage Everywhere</field>
+
+      <!--2.26 mmd/platform
+      <platform>
+        <short_name>S1A</short_name>
+        <long_name>Sentinel-1A</long_name>
+        <resource>
+          https://www.wmo-sat.info/oscar/satellites/view/396
+        </resource>
+        <orbit_relative>121</orbit_relative>
+        <orbit_absolute>62391</orbit_absolute>
+        <orbit_direction>ascending</orbit_direction>
+        <instrument>
+          <short_name>SAR-C</short_name>
+          <long_name>
+            Synthetic Aperture Radar (C-band)
+          </long_name>
+          <resource>
+            https://www.wmo-sat.info/oscar/instruments/view/450
+          </resource>
+          <mode>IW</mode>
+          <polarisation>VV+VH</polarisation>
+        </instrument>
+        <ancillary>
+          <cloud_coverage>23.4</cloud_coverage>
+          <scene_coverage>77</scene_coverage>
+          <timeliness>NRT</timeliness>
+        </ancillary>
+      </platform>
+
+
+      -->
+      <field name="platform_short_name">S1A</field>
+      <field name="platform_long_name">Sentinel-1A</field>
+      <field name="platform_resource">  https://www.wmo-sat.info/oscar/satellites/view/396</field>
+      <field name="platform_orbit_relative">121</field>
+      <field name="platform_orbit_absolute">62391</field>
+      <field name="platform_orbit_direction">ascending</field>
+
+      <field name="platform_instrument_short_name">SAR-C</field>
+      <field name="platform_instrument_long_name"> Synthetic Aperture Radar (C-band)</field>
+      <field name="platform_instrument_resource">  https://www.wmo-sat.info/oscar/instruments/view/450</field>
+      <field name="platform_instrument_mode">IW</field>
+      <field name="platform_instrument_polarisation">VV+VH</field>
+      <field name="platform_instrument_product_type">SLC</field>
+
+      <field name="platform_ancillary_cloud_coverage">23.4</field>
+      <field name="platform_ancillary_scene_coverage">77</field>
+      <field name="platform_ancillary_timeliness">NRT</field>
+
+      <!-- Add another mmd/platform since multivalued -->
+      <field name="platform_short_name">S1B</field>
+      <field name="platform_long_name">Sentinel-1B</field>
+      <field name="platform_resource">  https://www.wmo-sat.info/oscar/satellites/view/397</field>
+      <field name="platform_orbit_relative">131</field>
+      <field name="platform_orbit_absolute">52391</field>
+      <field name="platform_orbit_direction">decending</field>
+
+      <field name="platform_instrument_short_name">SAR-B</field>
+      <field name="platform_instrument_long_name"> Synthetic Aperture Radar (B-band)</field>
+      <field name="platform_instrument_resource">  https://www.wmo-sat.info/oscar/instruments/view/451</field>
+      <field name="platform_instrument_mode">EW</field>
+      <field name="platform_instrument_polarisation">VV+HH</field>
+      <field name="platform_instrument_product_type">OCN</field>
+
+      <field name="platform_ancillary_cloud_coverage">12.4</field>
+      <field name="platform_ancillary_scene_coverage">66</field>
+      <field name="platform_ancillary_timeliness">delayed</field>
+
+
+      <!--2.27 mmd/activity_type
+
+        <activity_type>Space Borne Instrument</activity_type>
+      -->
+      <field name="activity_type">Space Borne Instrument</field>
+
+      <!--2.28 mmd/dataset_citation
+      <dataset_citation>
+        <author>
+          Cristian Lussana, Ole Einar Tveito, Andreas Dobler, and Ketil Tunheim
+        </author>
+        <title>
+          seNorge_2018, daily precipitation, and temperature datasets over Norway
+        </title>
+        <series>Earth System Science Data</series>
+        <volume>11</volume>
+        <issue>4</issue>
+        <edition></edition>
+        <publication_date>2019-10-01</publication_date>
+        <publisher>Copernicus Publications</publisher>
+        <pages></pages>
+        <isbn></isbn>
+        <doi>https://doi.org/10.5194/essd-11-1531-2019</doi>
+        <url></url>
+        <other></other>
+      </dataset_citation>
+      -->
+      <field name="dataset_citation_author">Cristian Lussana, Ole Einar Tveito, Andreas Dobler, and Ketil Tunheim</field>
+      <field name="dataset_citation_publication_date">2012-01-01T12:00:00Z</field>
+      <field name="dataset_citation_title">seNorge_2018, daily precipitation, and temperature datasets over Norway</field>
+      <field name="dataset_citation_series">Earth System Science Data</field>
+      <field name="dataset_citation_edition">1</field>
+      <field name="dataset_citation_volume">11</field>
+      <field name="dataset_citation_issue">4</field>
+      <field name="dataset_citation_publication_place">Oslo</field>
+      <field name="dataset_citation_publisher">Copernicus Publications</field>
+      <field name="dataset_citation_pages">66</field>
+      <field name="dataset_citation_isbn">978-3-16-148410-0</field>
+      <field name="dataset_citation_doi" >https://doi.org/10.5194/essd-11-1531-2019</field>
+      <field name="dataset_citation_url">Url if no doi</field>
+      <field name="dataset_citation_other">Other information</field>
+
+      <!-- DRUPAL 8 Specific fields -->
+
+      <!-- the file_name.xml -->
+      <field name="mmd_file_name">mmd_example.xml</field>
+
+      <!-- the internal file path, if stored on some server -->
+      <field name="mmd_file_path">/path/to/file</field>
+
+      <!-- the path wich the file is stored on the repo (git) -->
+      <field name="mmd_repo_path">https://github/path/to/mmd/file</field>
+
+      <!-- The mmd-file as stored xml-string
+      NOTE: This is a binary fieldType. The mmd xml should be stored as base64 encoded string
+      -->
+      <field name="mmd_xml_file">MMDxmlAsBase64encodedString</field>
+
+
+      <!-- Thumbnail for search interface -->
+      <field name="thumbnail">the same field and content as old mmd drupal7</field>
+      <field name="thumbnail_data">thumbnail data as Base64 encoded string</field>
+      <field name="base_map">basemap thumb location</field>
+
+      <!-- Feature type:
+      EXAMPLE: timeSeries or profile
+    -->
+      <field name="feature_type">timeSeries</field>
+
+
+   </doc>
+</add>
