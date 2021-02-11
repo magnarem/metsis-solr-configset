@@ -758,6 +758,7 @@
         <field name="dataset_citation_pages" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="dataset_citation_isbn" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="dataset_citation_doi" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="dataset_citation_url" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="dataset_citation_other" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- Dynamic fields for different languages. I.E title_txt_fr for french language -->
@@ -794,6 +795,9 @@
 
         <!-- the path wich the file is stored on the repo (git) -->
         <field name="mmd_repo_path" type="string" indexed="false" stored="true"/>
+
+        <!-- The mmd xml file -->
+        <field name="mmd_xml_file" type="binary" indexed="false" stored="true"/>
 
         <!--DateRangeField for faceting between start and end dates -->
         <field name="temporal_extent_period_dr" type="date_range" indexed="true" stored="true" multiValued="true"/>
