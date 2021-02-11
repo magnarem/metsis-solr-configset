@@ -420,6 +420,10 @@
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
         geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
 
+    <fieldType name="location_rpt_spatial" class="solr.SpatialRecursivePrefixTreeFieldType"
+            geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers"
+            spatialContextFactory="JTS"/>
+
     <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
     special relevancy modes: score=overlapRatio|area|area2D (local-param to the query).  DocValues is recommended for
     relevancy. -->
@@ -519,6 +523,7 @@
 
           <field name="bbox" type="bbox" indexed="true" stored="true"/>
           <field name="bbox_rpt" type="location_rpt" indexed="true" stored="true"/>
+          <field name="polygon_rpt" type="location_rpt_spatial" indexed="true" stored="true"/>
 
 
 
@@ -682,8 +687,7 @@
 
         <!-- mmd/related_dataset -->
         <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="related_dataset_parent" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-        <field name="related_dataset_auxiliary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="related_dataset_relation_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/storage_information -->
         <field name="storage_information_file_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -840,6 +844,9 @@
 
         <!-- Boolean set to true for datasets which are parent datasets -->
         <field name="isParent" type="boolean" stored="true" />
+
+        <!-- Boolean set to true for datasets which are auxiliary datasets -->
+        <field name="isAuxiliary" type="boolean" stored="true" />
 
         <!-- Boolean set to true for datasets which are child datasets -->
         <field name="isChild" type="boolean" stored="true" />
