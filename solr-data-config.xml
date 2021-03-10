@@ -897,7 +897,7 @@
 </entity>
 
 <entity name="nbsMMD" processor="SolrEntityProcessor"
-  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:extractPlatform"
   url="http://157.249.176.182:8080/solr/nbs-l1"
   query="*:*"
   batchSize="20"
