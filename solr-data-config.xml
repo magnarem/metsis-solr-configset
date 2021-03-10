@@ -79,7 +79,7 @@
     keyMap.put('set', keywords);
     row.put('sm_keywords_strip', keyMap);
 
-    
+
 
     var key1Map = new java.util.HashMap();
     key1Map.put('set', keywords_level1);
@@ -458,9 +458,28 @@
     return row;
   }
 
+  function extractPlatform(row) {
+    var sPlatformList = new java.util.ArrayList();
+    var sPlatformMap = new java.util.HashMap();
+    var platformName = row.get('mmd_platform_short_name');
+    var sentinelName = "";
+    if ( platformName.match("s1") != null) {
+      sentinelName = "Sentinel-1";
+    }
+    if (platformName.match("s2") != null) {
+      sentinelName = "Sentinel-2";
+    }
+    if ( sentinelName != "") {
+      sPlatformList.add(sentinelName);
+      sPlatformMap.put('set', sPlatformList);
+      row.put('platform_sentinel', sPlatformMap);
+    }
+    return row;
+
+  }
   function isParent(row) {
-    parentMap = new java.util.HashMap();
-    parentList = new java.util.ArrayList();
+    var parentMap = new java.util.HashMap();
+    var parentList = new java.util.ArrayList();
     var related = row.get('mmd_related_dataset');
     if (related != null) {
       parentList.add("true");
@@ -473,8 +492,8 @@
   }
 
   function isChild(row) {
-    childMap = new java.util.HashMap();
-    childList = new java.util.ArrayList();
+    var childMap = new java.util.HashMap();
+    var childList = new java.util.ArrayList();
     var related = row.get('mmd_related_dataset');
     if (related != null) {
       childList.add("true");
