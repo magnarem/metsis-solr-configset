@@ -464,11 +464,12 @@
     var platformName = row.get('mmd_platform_short_name');
     print(platformName);
     var sentinelName = "";
+    if( platformName != null) {
     for (var k = 0; k < platformName.length; k++) {
-      if ( platformName[k].match("s1") != null) {
+      if ( platformName[k].match("S1") != null) {
         sentinelName = "Sentinel-1";
       }
-      if (platformName[k].match("s2") != null) {
+      if (platformName[k].match("S2") != null) {
         sentinelName = "Sentinel-2";
       }
       if ( sentinelName != "") {
@@ -479,6 +480,7 @@
       }
     }
     row.put('platform_short_name', platformName);
+    }
     return row;
 
   }
