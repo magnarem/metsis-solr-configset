@@ -463,16 +463,18 @@
     var sPlatformMap = new java.util.HashMap();
     var platformName = row.get('mmd_platform_short_name');
     var sentinelName = "";
-    if ( platformName.match("s1") != null) {
-      sentinelName = "Sentinel-1";
-    }
-    if (platformName.match("s2") != null) {
-      sentinelName = "Sentinel-2";
-    }
-    if ( sentinelName != "") {
-      sPlatformList.add(sentinelName);
-      sPlatformMap.put('set', sPlatformList);
-      row.put('platform_sentinel', sPlatformMap);
+    for (var k = 0; k < platformName.length; k++) {
+      if ( platformName[k].match("s1") != null) {
+        sentinelName = "Sentinel-1";
+      }
+      if (platformName[k].match("s2") != null) {
+        sentinelName = "Sentinel-2";
+      }
+      if ( sentinelName != "") {
+        sPlatformList.add(sentinelName);
+        sPlatformMap.put('set', sPlatformList);
+        row.put('platform_sentinel', sPlatformMap);
+      }
     }
     return row;
 
