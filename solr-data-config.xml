@@ -462,6 +462,7 @@
     var sPlatformList = new java.util.ArrayList();
     var sPlatformMap = new java.util.HashMap();
     var platformName = row.get('mmd_platform_short_name');
+    print(platformName);
     var sentinelName = "";
     for (var k = 0; k < platformName.length; k++) {
       if ( platformName[k].match("s1") != null) {
@@ -471,11 +472,13 @@
         sentinelName = "Sentinel-2";
       }
       if ( sentinelName != "") {
+        print(sentinelName);
         sPlatformList.add(sentinelName);
         sPlatformMap.put('set', sPlatformList);
         row.put('platform_sentinel', sPlatformMap);
       }
     }
+    row.put('platform_short_name', platformName);
     return row;
 
   }
@@ -953,7 +956,7 @@
   <field column="mmd_keywords_keyword" name="keywords_keyword" />
   <field column="mmd_project_short_name" name="project_short_name" />
   <field column="mmd_project_long_name" name="project_long_name" />
-  <field column="mmd_platform_short_name" name="platform_short_name" />
+  <!--<field column="mmd_platform_short_name" name="platform_short_name" />-->
   <field column="mmd_platform_long_name" name="platform_long_name" />
   <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
   <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
