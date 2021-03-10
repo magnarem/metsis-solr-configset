@@ -858,6 +858,9 @@
         <!-- dummy field -->
         <field name="text" type="string" indexed="true" stored="true" />
 
+        <!-- platform main field -->
+        <field name="platform_sentinel" type="string" indexed="true" stored="true" />
+
         <!-- Index the temporal_extent dates in differnt data formats/granularity for faceting/filtering  -->
         <field name="start_date_year_month" indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="end_date_year_month"  indexed="true" multiValued="false" stored='true' type="pdate"/>
