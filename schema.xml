@@ -539,6 +539,14 @@
         <field name="last_metadata_update_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="last_metadata_update_note" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
 
+
+        <!-- Field to show the last_metadata_update history -->
+        <field name="last_metadata_update_history" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+
+        <!-- field for indexing timestamp of the last metadata update -->
+        <field name="last_metadata_update" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
+
+
         <!-- mmd/metadata_status -->
         <field name="metadata_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
@@ -820,6 +828,11 @@
         <field name="related_url_home_page" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_obs_facility" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_ext_metadata" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_scientific_publication" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_data_paper" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_data_management_plan" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_other_documentation" type="string" indexed="false" stored="true" multiValued="true"/>
+
 
         <!-- Process description for data access urls -->
         <field name="data_access_url_opendap_desc" type="string" indexed="false" stored="true" multiValued="true"/>
@@ -834,6 +847,10 @@
         <field name="related_url_home_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_obs_facility_desc" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_ext_metadata_desc" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_scientific_publication_desc" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_data_paper_desc" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_data_management_plan_desc" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="related_url_other_documentation_desc" type="string" indexed="false" stored="true" multiValued="true"/>
 
         <!-- Thumbnail specific fields -->
         <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
