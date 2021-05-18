@@ -608,6 +608,7 @@
         <!-- mmd/use_constraint -->
         <field name="use_constraint_identifier" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="use_constraint_resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+        <field name="use_constraint_license_text" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
 
 
