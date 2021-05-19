@@ -512,6 +512,17 @@
     return row;
   }
 
+  function fixID(row) {
+    var idMap = new java.util.HashMap();
+    var idList = new java.util.ArrayList();
+    var id = row.get('id');
+    var newID = id.replace('.', '-');
+    idList.add(newID);
+    idMap.put('set', idList);
+    row.put('id', idMap);
+    return row;
+  }
+
   function createPins(row) {
     pinMap = new java.util.HashMap();
     pinList = new java.util.ArrayList();
@@ -629,7 +640,7 @@
 
 <!-- NEW MMD DATAIMPORT -->
 <entity name="newMMD" processor="SolrEntityProcessor"
-  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:fixID"
   url="http://157.249.176.182:8080/solr/adc-l1"
   query="*:*"
   batchSize="20"
@@ -763,7 +774,7 @@
   </entity>
   </entity>
   <entity  name="newMMDc" processor="SolrEntityProcessor"
-    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:fixID"
        url="http://157.249.176.182:8080/solr/adc-l2"
        query="*:*"
        child="false"
@@ -904,7 +915,7 @@
 </entity>
 
 <entity name="nbsMMD" processor="SolrEntityProcessor"
-  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:extractPlatform"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:extractPlatform,script:fixID"
   url="http://157.249.176.182:8080/solr/nbs-l1"
   query="*:*"
   batchSize="20"
@@ -1041,7 +1052,7 @@
   </entity>
   </entity>
   <entity  name="nbsMMDc" processor="SolrEntityProcessor"
-    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:fixID"
        url="http://157.249.176.182:8080/solr/nbs-l2"
        query="*:*"
        child="false"
