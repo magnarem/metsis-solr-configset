@@ -11,7 +11,7 @@
      For more details about configurations options that may appear in
      this file, see http://wiki.apache.org/solr/SolrConfigXml.
 -->
-<config name="drupal-4.1.1-solr-8.x-0" >
+<config name="drupal-4.2.0-solr-8.x-0" >
   <!-- In all configuration below, a prefix of "solr." for class names
        is an alias that causes solr to search appropriate packages,
        including org.apache.solr.(search|update|request|core|analysis)
@@ -308,8 +308,8 @@
          have some sort of hard autoCommit to limit the log size.
       -->
     <autoCommit>
-      <maxDocs>${solr.autoCommit.MaxDocs:-1}</maxDocs>
-      <maxTime>${solr.autoCommit.MaxTime:15000}</maxTime>
+      <maxDocs>${solr.autoCommit.MaxDocs:10000}</maxDocs>
+      <maxTime>${solr.autoCommit.MaxTime:150000}</maxTime>
       <openSearcher>false</openSearcher>
     </autoCommit>
 
@@ -320,8 +320,8 @@
       -->
 
     <autoSoftCommit>
-      <maxDocs>${solr.autoSoftCommit.MaxDocs:-1}</maxDocs>
-      <maxTime>${solr.autoSoftCommit.MaxTime:-1}</maxTime>
+      <maxDocs>${solr.autoSoftCommit.MaxDocs:2000}</maxDocs>
+      <maxTime>${solr.autoSoftCommit.MaxTime:15000}</maxTime>
     </autoSoftCommit>
 
     <!-- Update Related Event Listeners
@@ -815,6 +815,7 @@
           <str name="fieldRegex">keywords_.*</str>
           <str name="fieldRegex">personnel_.*</str>
           <str name="fieldRegex">text_suggester</str>
+          <str name="fieldRegex">sm_*</str>
     </updateProcessor>
 
     <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
