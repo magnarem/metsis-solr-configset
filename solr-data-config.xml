@@ -457,6 +457,128 @@
     row.put('related_url_ext_metadata_desc', d_extMap);
     return row;
   }
+  function relatedNew(row) {
+    var related = row.get('mmd_related_information_resource');
+    var types = row.get('mmd_related_information_type');
+
+    var guideMap = new java.util.HashMap();
+    var guideList = new java.util.ArrayList();
+    var d_guideMap = new java.util.HashMap();
+    var d_guideList = new java.util.ArrayList();
+
+    var landingMap = new java.util.HashMap();
+    var landingList = new java.util.ArrayList();
+    var d_landingMap = new java.util.HashMap();
+    var d_landingList = new java.util.ArrayList();
+
+    var homeMap = new java.util.HashMap();
+    var homeList = new java.util.ArrayList();
+    var d_homeMap = new java.util.HashMap();
+    var d_homeList = new java.util.ArrayList();
+
+    var obsMap = new java.util.HashMap();
+    var obsList = new java.util.ArrayList();
+    var d_obsMap = new java.util.HashMap();
+    var d_obsList = new java.util.ArrayList();
+
+    var extMap = new java.util.HashMap();
+    var extList = new java.util.ArrayList();
+    var d_extMap = new java.util.HashMap();
+    var d_extList = new java.util.ArrayList();
+
+    if (related != null) {
+      for (var k = 0; k < related.length; k++) {
+        var rString = related[k].split('\"').join(' ').trim();
+	var str = rString.split(':')[0].trim();
+        print(str);
+        print(rString);
+        if (str.match("Users guide") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            guideList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_guideList.add(desc);
+           }
+          }
+        }
+        if (str.match("Dataset landing") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            landingList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_landingList.add(desc);
+           }
+          }
+        }
+        if (str.match("Project home page") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            homeList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_homeList.add(desc);
+           }
+          }
+        }
+        if (str.match("Observation facility") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            obsList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_obsList.add(desc);
+           }
+          }
+        }
+        if (str.match("Extended metadata") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            extList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_extList.add(desc);
+           }
+          }
+        }
+      }
+    }
+    landingMap.put('set', landingList);
+    guideMap.put('set', guideList);
+    homeMap.put('set', homeList);
+    obsMap.put('set', obsList);
+    extMap.put('set',extList);
+
+    d_landingMap.put('set', d_landingList);
+    d_guideMap.put('set', d_guideList);
+    d_homeMap.put('set', d_homeList);
+    d_obsMap.put('set', d_obsList);
+    d_extMap.put('set',d_extList);
+
+    row.put('related_url_landing_page', landingMap);
+    row.put('related_url_user_guide', guideMap);
+    row.put('related_url_home_page', homeMap);
+    row.put('related_url_obs_facility', obsMap);
+    row.put('related_url_ext_metadata', extMap);
+
+    row.put('related_url_landing_page_desc', d_landingMap);
+    row.put('related_url_user_guide_desc', d_guideMap);
+    row.put('related_url_home_page_desc', d_homeMap);
+    row.put('related_url_obs_facility_desc', d_obsMap);
+    row.put('related_url_ext_metadata_desc', d_extMap);
+    return row;
+  }
 
   function extractPlatform(row) {
     var sPlatformList = new java.util.ArrayList();
@@ -523,6 +645,17 @@
     return row;
   }
 
+  function bboxUpdate(row) {
+    var bboxMap = new java.util.HashMap();
+    var bboxList = new java.util.ArrayList();
+    var bbox = row.get('bbox');
+    print(bbox);
+    bboxList.add(bbox);
+    bboxMap.put('set', bbox);
+    row.put('bbox', bboxMap);
+    return row;
+
+  }
   function createPins(row) {
     pinMap = new java.util.HashMap();
     pinList = new java.util.ArrayList();
@@ -640,15 +773,15 @@
 
 <!-- NEW MMD DATAIMPORT -->
 <entity name="newMMD" processor="SolrEntityProcessor"
-  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:fixID"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:bboxUpdate,script:date_range,script:url_extractor,script:relatedNew,script:isParent,script:createPins,script:personnel"
   url="http://157.249.176.182:8080/solr/adc-l1"
-  query="*:*"
+  query="full_text:rack"
   batchSize="20"
   onError="skip"
   logTemplate="The Parent dataset:  ${newMMD.mmd_metadata_identifier}" logLevel="info"
   fl="*,orig_version_l:_version_,ignored_price_c:price_c">
   <field column="dataset_type" name="dataset_type" template="Level-1" />
-  <field column="id" name="id"/>
+  <!--  <field column="id" name="id"/> -->
   <field column="mmd_metadata_identifier" name="metadata_identifier" />
   <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
   <field column="mmd_metadata_status" name="metadata_status" />
@@ -755,13 +888,13 @@
   <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
   <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
 
-  <field column="bbox" name="bbox" />
+  <!-- <field column="bbox" name="bbox" /> -->
 
   <entity name="newMMDtp" processor="SolrEntityProcessor" rootEntity="false"
       transformer="LogTransformer"
       logTemplate="Got Parent thumbnail id:  ${newMMDtp.mmd_metadata_identifier}" logLevel="info"
       url="http://157.249.176.182:8080/solr/adc-thumbnail"
-        query="id:${newMMD.id}"
+        query="id:${newMMD.metadata_identifier}"
       batchSize="20"
       onError="skip"
       fl="thumbnail,base_map,thumbnail_data,mmd_metadata_identifier,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
@@ -774,9 +907,9 @@
   </entity>
   </entity>
   <entity  name="newMMDc" processor="SolrEntityProcessor"
-    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:fixID"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:bboxUpdate,script:keywords_level,script:date_range,script:url_extractor,script:relatedNew,script:isParent,script:createPins,script:personnel"
        url="http://157.249.176.182:8080/solr/adc-l2"
-       query="*:*"
+       query="full_text:rack"
        child="false"
        onError="skip"
        logTemplate="The Child dataset  ${newMMDc.mmd_metadata_identifier} for parent ${newMMD.mmd_metadata_identifier}" logLevel="info"
@@ -891,7 +1024,7 @@
       <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
 
 
-      <field column="bbox" name="bbox" />
+      <!--  <field column="bbox" name="bbox" /> -->
 
 
 
@@ -915,7 +1048,7 @@
 </entity>
 
 <entity name="nbsMMD" processor="SolrEntityProcessor"
-  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:extractPlatform,script:fixID"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:extractPlatform"
   url="http://157.249.176.182:8080/solr/nbs-l1"
   query="*:*"
   batchSize="20"
@@ -1052,7 +1185,7 @@
   </entity>
   </entity>
   <entity  name="nbsMMDc" processor="SolrEntityProcessor"
-    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:fixID"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
        url="http://157.249.176.182:8080/solr/nbs-l2"
        query="*:*"
        child="false"
@@ -1191,6 +1324,25 @@
 
 
 </entity>
+<entity name="adcD8Copy" processor="SolrEntityProcessor"
+  url="http://157.249.178.165:8983/solr/adc-d8-dev"
+  query="*:*"
+  batchSize="20"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+</entity>
+<entity name="nbsCopy" processor="SolrEntityProcessor"
+  url="http://157.249.74.44:8983/solr/adc"
+  query="*:*"
+  batchSize="20"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+  </entity>
+  <entity name="nbsDelta" processor="SolrEntityProcessor"
+  url="http://157.249.74.44:8983/solr/adc"
+  query="*:*"
+  fq="timestamp:['${dih.last_index_time}' TO NOW]"
+  batchSize="20"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+  </entity>
 
   </document>
 </dataConfig>
