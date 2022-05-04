@@ -1,0 +1,801 @@
+<add>
+   <doc>
+
+      <!-- SOLR Unique field = mmd/metadata_identifier -->
+      <field name="id">9663fc67-5687-4bf2-a274-f3826e41fdc8</field>
+
+      <!--2.1 mmd/metadata_identifier
+
+      <metadata_identifier>
+        9663fc67-5687-4bf2-a274-f3826e41fdc8
+      </metadata_identifier>
+
+      -->
+      <field name="metadata_identifier">9663fc67-5687-4bf2-a274-f3826e41fdc8</field>
+
+      <!--2.2  mmd/alternate_identifier
+
+      <alternate_identifier type="WIS">
+        urn:x-wmo:md:int.wmo.wis::ca.gc.ec.msc-1.1.9.3
+      </alternate_identifier>
+
+      -->
+      <field name="alternate_identifier">urn:x-wmo:md:int.wmo.wis::ca.gc.ec.msc-1.1.9.3</field>
+      <field name="alternate_identifier_type">WIS</field>
+
+      <field name="alternate_identifier">other:alternate:identifier</field>
+      <field name="alternate_identifier_type">OTHER</field>
+
+      <!--2.3 mmd/last_metadata_update
+
+      <last_metadata_update>
+        <update>
+          <datetime>2012-10-31T12:00:00Z</datetime>
+          <type>Created</type>
+          <note></note>
+        </update>
+        <update>
+          <datetime>2020-03-31T10:23:00Z</datetime>
+          <type>Major modification</type>
+          <note>Changed structure of the metadata element.</note>
+        </update>
+      </last_metadata_update>
+     -->
+      <field name="last_metadata_update_datetime">2012-10-31T12:00:00Z</field>
+      <field name="last_metadata_update_type">Created</field>
+      <field name="last_metadata_update_note"></field>
+
+      <field name="last_metadata_update_datetime">2020-03-31T10:23:00Z</field>
+      <field name="last_metadata_update_type">Major modification</field>
+      <field name="last_metadata_update_note">Changed structure of the metadata element.</field>
+
+
+      <!-- last_metadata_update_history field for showing the metadata history as text for presentation -->
+      <field name="last_metadata_update_history">2012-10-31T12:00:00Z : Created</field>
+      <field name="last_metadata_update_history">2020-03-31T10:23:00Z : Major modification - Changed structure</field>
+
+      <!-- the timestamp of the last metadata update -->
+      <field name="last_metadata_update">2020-03-31T10:23:00Z</field>
+
+      <!--2.4  mmd/metadata_status
+
+      <metadata_status>
+        Active
+      </metadata_status>
+      -->
+      <field name="metadata_status">Active</field>
+
+      <!--2.5 mmd/collection
+
+      <collection>
+        ADC
+        NMDC
+      </collection>
+     -->
+      <field name="collection">ADC</field> <!-- array item 0 -->
+      <field name="collection">NMDC</field> <!-- array item 1 -->
+
+      <!--2.6 mmd/title
+
+      <title xml:lang=”en”>
+        OSISAF Northern Hemisphere Ice edge
+      </title>
+
+      <title xml:lang=”no”>
+        OSISAF Nordre Halvkule Iskant
+      </title>
+
+      -->
+      <field name="title">Default language title</field>
+      <field name="title_en">OSISAF Northern Hemisphere Ice edge</field>
+      <field name="title_no">OSISAF Nordre Halvkule Iskant</field>
+
+      <!--2.7 mmd/abstract
+
+      <abstract xml:lang="en">
+        The daily analysis of sea ice concentration are obtained from operation
+        satellite images of the polar regions. It is based on atmospherically
+        corrected signal and an optimal sea ice concentration algorithm. This
+        product is available for free from the EUMETSAT Ocean and Sea Ice
+        Satellite Application Facility (OSI SAF).
+      </abstract>
+
+      -->
+      <field name="abstract">
+        The daily analysis of sea ice concentration are obtained from operation
+        satellite images of the polar regions. It is based on atmospherically
+        corrected signal and an optimal sea ice concentration algorithm. This
+        product is available for free from the EUMETSAT Ocean and Sea Ice
+        Satellite Application Facility (OSI SAF).
+      </field>
+      <field name="abstract_en">
+        The daily analysis of sea ice concentration are obtained from operation
+        satellite images of the polar regions. It is based on atmospherically
+        corrected signal and an optimal sea ice concentration algorithm. This
+        product is available for free from the EUMETSAT Ocean and Sea Ice
+        Satellite Application Facility (OSI SAF).
+      </field>
+      <field name="abstract_no">
+        Dette er abstrakt på Norsk
+      </field>
+
+      <!--2.8 mmd/temporal_extent
+
+        <temporal_extent>
+          <start_date>2012-01-01T12:00:00Z</start_date>
+          <end_date>2012-02-01T13:00:00Z</end_date>
+        </temporal_extent>
+      -->
+      <field name="temporal_extent_start_date">2012-01-01T12:00:00Z</field>
+      <field name="temporal_extent_end_date">2012-02-01T13:00:00Z</field>
+
+      <!--2.9 mmd/geographic_extent/rectangle
+      <rectangle srsName="EPSG:4326">
+        <north>90</north>
+        <south>-90</south>
+        <east>180</east>
+        <west>-180</west>
+      </rectangle>
+
+      -->
+      <field name="geographic_extent_rectangle_north">90</field>
+      <field name="geographic_extent_rectangle_south">-90</field>
+      <field name="geographic_extent_rectangle_east">180</field>
+      <field name="geographic_extent_rectangle_west">-180</field>
+      <field name="geographic_extent_rectangle_srsName">EPSG:4326</field>
+
+
+
+      <!--
+        The geographic rectangle expressed as an envelope in the bbox field.
+        A copy of the value of bbox field will also be added to the bbox_rpt
+        (recursive prefix tree) field When. indexing
+      -->
+      <field name="bbox">ENVELOPE(-180,180,90,-90)</field>
+
+      <!-- lat, lon of the center of the observation geographic extent -->
+      <field name="locs_geo_extent">77.304, 20</field>
+
+      <!--2.10 mmd/geographic_extent/polygon
+
+      <polygon>
+        <gml:Polygon id="polygon" srsName="EPSG:4326">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:pos>
+                -180 -90
+              </gml:pos>
+              <gml:pos>
+                180 -90
+              </gml:pos>
+              <gml:pos>
+                180 90
+              </gml:pos>
+              <gml:pos>
+                -180 90
+              </gml:pos>
+              <gml:pos>
+                -180 -90
+              </gml:pos>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </polygon>
+
+
+      -->
+      <field name="geographic_extent_polygon_lowerLeft">-180</field>
+      <field name="geographic_extent_polygon_lowerLeft">-90</field>
+
+      <field name="geographic_extent_polygon_lowerRight">180</field>
+      <field name="geographic_extent_polygon_lowerRight">-90</field>
+
+      <field name="geographic_extent_polygon_upperRight">180</field>
+      <field name="geographic_extent_polygon_upperRight">90</field>
+
+      <field name="geographic_extent_polygon_upperLeft">-180</field>
+      <field name="geographic_extent_polygon_upperLeft">90</field>
+
+      <field name="geographic_extent_polygon_closingRing">-180</field>
+      <field name="geographic_extent_polygon_closingRing">-90</field>
+
+      <field name="geographic_extent_polygon_srsName">EPSG:4326</field>
+      <!-- The polygon represented as solr SpatialRecursivePrefixTreeFieldType -->
+      <field name="polygon_rpt">POLYGON((-180 -90, 180 -90, 180 90, -180 90, -180 -90))</field>
+
+      <!--2.11 mmd/location
+      <location>
+        <location_vocabulary>gcmd</location_vocabulary>
+        <location_category>CONTINENT</location_category>
+        <location_type>NORTH AMERICA</location_type>
+        <location_subregion1>UNITED STATES OF AMERICA</location_subregion1>
+        <location_subregion2>MARYLAND</location_subregion2>
+        <location_subregion3>BALTIMORE</location_subregion3>
+        <detailed_location>Middle River</detailed_location>
+      </location>
+      -->
+      <field name="location_vocabulary">gcmd</field>
+      <field name="location_category">CONTINENT</field>
+      <field name="location_type">NORTH AMERICA</field>
+      <field name="location_subregion1">UNITED STATES OF AMERICA</field>
+      <field name="location_subregion2">MARYLAND</field>
+      <field name="location_subregion3">BALTIMORE</field>
+      <field name="location_detailed_location">Middle River</field>
+
+      <!--2.12 mmd/dataset_production_status
+        <dataset_production_status>
+          In Work
+        </dataset_production_status>
+      -->
+      <field name="dataset_production_status">In Work</field>
+
+      <!--2.13 mmd/dataset_language
+        <dataset_language>
+          en
+        </dataset_language>
+      -->
+      <field name="dataset_language">en</field>
+
+      <!--2.14 mmd/operational_status
+      <operational_status>
+        Pre-Operational
+      </operational_status>
+      -->
+      <field name="operational_status">Pre-Operational</field>
+
+      <!--2.15 mmd/access_constraint
+        <access_constraint>
+          Open
+        </access_constraint>
+      -->
+      <field name="access_constraint">Open</field>
+
+      <!--2.16 mmd/use_constraint
+        <use_constraint>
+          <identifier>CC-BY-4.0</identifier>
+          <resource>http://spdx.org/licenses/CC-BY-4.0</resource>
+          <license_text>text if no identifier or resource</license_text>
+        </use_constraint>
+      -->
+      <field name="use_constraint_identifier">CC-BY-4.0</field>
+      <field name="use_constraint_resource">http://spdx.org/licenses/CC-BY-4.0</field>
+      <field name="use_constraint_license_text">Text to display if no license identifier</field>
+      <!--2.17 mmd/personnel ROLE: Investigator
+        <personnel>
+          <role>Investigator</role>
+          <name>Ole Dole</name>
+          <email>ole.dole@example.com</email>
+          <phone>004711111111</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_investigator_role">Investigator</field>
+      <field name="personnel_investigator_name">Ole Dole</field>
+      <field name="personnel_investigator_email">ole.dole@example.com</field>
+      <field name="personnel_investigator_phone">004711111111</field>
+      <field name="personnel_investigator_fax">004711223344</field>
+      <field name="personnel_investigator_organisation">MET.no</field>
+
+      <field name="personnel_investigator_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_investigator_address_city">Oslo</field>
+      <field name="personnel_investigator_address_province_or_state">Oslo</field>
+      <field name="personnel_investigator_address_postal_code">0105</field>
+      <field name="personnel_investigator_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Investigator</field>
+      <field name="personnel_name">Ole Dole</field>
+      <field name="personnel_organisation">MET.no</field>
+
+      <!--2.17 mmd/personnel ROLE: Technical contact
+        <personnel>
+          <role>Technical contact</role>
+          <name>Doffen</name>
+          <email>doffen@example.com</email>
+          <phone>004711335577</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_technical_role">Technical contact</field>
+      <field name="personnel_technical_name">Doffen</field>
+      <field name="personnel_technical_email">doffen@example.com</field>
+      <field name="personnel_technical_phone">004711221111</field>
+      <field name="personnel_technical_fax">004711225566</field>
+      <field name="personnel_technical_organisation">MET.no</field>
+
+      <field name="personnel_technical_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_technical_address_city">Oslo</field>
+      <field name="personnel_technical_address_province_or_state">Oslo</field>
+      <field name="personnel_technical_address_postal_code">0105</field>
+      <field name="personnel_technical_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Technical contact</field>
+      <field name="personnel_name">Doffen</field>
+      <field name="personnel_organisation">MET.no</field>
+
+
+      <!--2.17 mmd/personnel ROLE: Metadata author
+        <personnel>
+          <role>Metadata author</role>
+          <name>Donald</name>
+          <email>donald@example.com</email>
+          <phone>004722335577</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_metadata_author_role">Metadata author</field>
+      <field name="personnel_metadata_author_name">Donald</field>
+      <field name="personnel_metadata_author_email">donald@example.com</field>
+      <field name="personnel_metadata_author_phone">004722331111</field>
+      <field name="personnel_metadata_author_fax">004711253566</field>
+      <field name="personnel_metadata_author_organisation">MET.no</field>
+
+      <field name="personnel_metadata_author_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_metadata_author_address_city">Oslo</field>
+      <field name="personnel_metadata_author_address_province_or_state">Oslo</field>
+      <field name="personnel_metadata_author_address_postal_code">0105</field>
+      <field name="personnel_metadata_author_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Metadata author</field>
+      <field name="personnel_name">Donald</field>
+      <field name="personnel_organisation">MET.no</field>
+
+      <!--2.17 mmd/personnel ROLE: Datacenter contact
+        <personnel>
+          <role>Datacenter contact</role>
+          <name>Dolly</name>
+          <email>dolly@example.com</email>
+          <phone>004722335577</phone>
+          <fax/>
+          <contact_address>
+            <address>Meteorologisk institutt, Henrik Mohnsplass 1</address>
+            <city>Oslo</city>
+            <province_or_state>Oslo</province_or_state>
+            <postal_code>0000</postal_code>
+            <country>Norway</country>
+          </contact_address>
+        <personnel>
+
+      -->
+      <field name="personnel_datacenter_role">Datacenter contact</field>
+      <field name="personnel_datacenter_name">Dolly</field>
+      <field name="personnel_datacenter_email">dolly@example.com</field>
+      <field name="personnel_datacenter_phone">004722331122</field>
+      <field name="personnel_datacenter_fax">004711253599</field>
+      <field name="personnel_datacenter_organisation">MET.no</field>
+
+      <field name="personnel_datacenter_address">Meteorologisk institutt, Henrik Mohnsplass 1</field>
+      <field name="personnel_datacenter_address_city">Oslo</field>
+      <field name="personnel_datacenter_address_province_or_state">Oslo</field>
+      <field name="personnel_datacenter_address_postal_code">0105</field>
+      <field name="personnel_datacenter_address_country">Norway</field>
+
+      <!-- Fields used for facets.
+        This contains concatination of the different personnel roles names and organisations
+      -->
+      <field name="personnel_role">Datacenter contact</field>
+      <field name="personnel_name">Dolly</field>
+      <field name="personnel_organisation">MET.no</field>
+
+
+      <!--2.18 mmd/data_center
+
+      <data_center>
+      <data_center_name>
+        <short_name>METNO</short_name>
+        <long_name>Norwegian Meteorological Institute</long_name>
+      </data_center_name>
+      <data_center_url>http://met.no</data_center_url>
+      </data_center>
+      -->
+      <field name="data_center_short_name">METNO</field>
+      <field name="data_center_long_name">Norwegian Meteorological Institute</field>
+      <field name="data_center_url">http://met.no</field>
+
+
+      <!--2.19 mmd/data_access
+      <data_access>
+        <type>OGC WMS</type>
+        <resource>http://...</resource>
+        <description>...</description>
+        <wms_layers>
+          <wms_layer>sea_ice_concentration</wms_layer>
+        </wms_layers>
+      </data_access>
+      -->
+      <!-- NOTE: The data access resources are normalized with respect to data access type. -->
+
+      <field name="data_access_url_opendap">http://opendap.resource/url1</field>
+      <field name="data_access_url_opendap_desc">Description for OPeNDAP url1</field>
+
+      <field name="data_access_url_opendap">http://opendap.resource/url2</field>
+      <field name="data_access_url_opendap_desc">Description for OPeNDAP url2</field>
+
+      <field name="data_access_url_ogc_wms">https://wms-resource/url1</field>
+      <field name="data_access_url_ogc_wms_desc">Description for OGC WMS resource url1</field>
+      <field name="data_access_wms_layers">default_wms_layer_name_url1</field>
+
+      <field name="data_access_url_ogc_wms">https://wms-resource/url2</field>
+      <field name="data_access_url_ogc_wms_desc">Description for OGC WMS resource url2</field>
+      <field name="data_access_wms_layers">default_wms_layer_name_url2</field>
+
+      <field name="data_access_url_ogc_wfs">https://ogc-wfs/resource/url1</field>
+      <field name="data_access_url_ogc_wfs_desc">Description for OGC WFS url1</field>
+
+      <field name="data_access_url_ogc_wfs">https://ogc-wfs/resource/url2</field>
+      <field name="data_access_url_ogc_wfs_desc">Description for OGC WFS url2</field>
+
+      <field name="data_access_url_ogc_wcs">https://ogc-wcs/resource/url1</field>
+      <field name="data_access_url_ogc_wcs_desc">Description for OGC WCS url1</field>
+
+      <field name="data_access_url_ogc_wcs">https://ogc-wcs/resource/url2</field>
+      <field name="data_access_url_ogc_wcs_desc">Description for OGC WCS url2</field>
+
+      <field name="data_access_url_http">http://resource/url1</field>
+      <field name="data_access_url_http_desc">Description of HTTP resource url1</field>
+
+      <field name="data_access_url_http">http://resource/url2</field>
+      <field name="data_access_url_http_desc">Description of HTTP resource url2</field>
+
+      <field name="data_access_url_odata">http://odata/resource/url1</field>
+      <field name="data_access_url_odata_desc">Description for ODATA resource url1</field>
+
+      <field name="data_access_url_odata">http://odata/resource/url2</field>
+      <field name="data_access_url_odata_desc">Description for ODATA resource url2</field>
+
+      <field name="data_access_url_ftp">ftp://resource/url1</field>
+      <field name="data_access_url_ftp_desc">Description for FTP resource url1</field>
+
+      <field name="data_access_url_ftp">ftp://resource/url2</field>
+      <field name="data_access_url_ftp_desc">Description for FTP resource url2</field>
+
+      <!--2.20 mmd/related_dataset
+        <related_dataset relation_type="parent">
+          9663fc67-5687-4bf2-a274-f3826e41fdc8
+        </related_dataset>
+        <related_dataset relation_type="auxiliary">
+          f3826e41fdc8-9663fc67-5687-4bf2-a274
+        </related_dataset>
+      -->
+      <field name="related_dataset">9663fc67-5687-4bf2-a274-f3826e41fdc8</field>
+      <field name="related_dataset_relation_type">parent</field>
+
+      <field name="related_dataset">f3826e41fdc8-9663fc67-5687-4bf2-a274</field>
+      <field name="related_dataset_relation_type">auxiliary</field>
+
+      <!-- NOTE: If dataset is parent dataset. Drupal specific field need to be set -->
+      <field name="isParent">true</field>
+      <field name="isAuxiliary">true</field>
+
+      <!-- Also drupal needs to know if dataset is Level-1 or Level2 -->
+      <field name="dataset_type">Level-1</field>
+
+      <!-- NOTE: If dataset is a child dataset and a level-2 dataset, then add the Following
+      instead:
+
+      <field name="isChild">true</field>
+      <field name="dataset_type">Level-2</field>
+      -->
+
+
+      <!--2.21 mmd/storage_information
+      <storage_information>
+        <file_name>
+          osisaf_radiative_flux_24h_hl_polstere-050_multi_202003051200.nc
+        </file_name>
+        <file_location>/home/steingod/Desktop</file_location>
+        <file_format>NetCDF-CF</file_format>
+        <file_size unit="GB">0.12</file_size>
+        <checksum type="sha512sum">
+          ad33563f9ab3a6f2ba74ebd72cb1f45fda00d55121a29a29230147e3472ef267c50882b0e0b21ef9ee5ed5cc25e454167cd19a1818f1e13bc044b6fc3ef8f285
+        </checksum>
+      </storage_information>
+      -->
+      <field name="storage_information_file_name">osisaf_radiative_flux_24h_hl_polstere-050_multi_202003051200.nc</field>
+      <field name="storage_information_file_location">/path/to/file</field>
+      <field name="storage_information_file_format">NetCDF-CF</field>
+      <field name="storage_information_file_size_unit">GB</field>
+      <field name="storage_information_file_size">0.12</field>
+      <field name="storage_information_file_checksum_type">sha512sum</field>
+      <field name="storage_information_file_checksum">ad33563f9ab3a6f2ba74ebd72cb1f45fda00d55121a29a29230147e3472ef267c50882b0e0b21ef9ee5ed5cc25e454167cd19a1818f1e13bc044b6fc3ef8f285</field>
+
+      <!--2.22 mmd/related_information
+      <related_information>
+        <type>Project home page</type>
+        <resource>URI</resource>
+      </related_information>
+
+      <related_information>
+        <type>Dataset landing page</type>
+        <resource>URI</resource>
+      </related_information>
+
+      <related_information>
+          <type>Scientific publication</type>
+          <resource>URI</resource>
+          <description>Author, Title (YYYY), Publisher, doi</description>
+      </related_information>
+
+      <related_information>
+        <type>Other documentation</type>
+        <resource>URI</resource>
+        <description>Conference poster</description>
+      </related_information>
+
+      -->
+
+      <!-- NOTE: The related information resources are normalized with respect to related information type. See fields
+      specified further down -->
+      <field name="related_url_home_page">http://project.home.page/uri</field>
+      <field name="related_url_home_page_desc">Project home page</field>
+
+      <field name="related_url_user_guide">http://users.guide/uri</field>
+      <field name="related_url_user_guide_desc">Product manual for the dataset</field>
+
+      <field name="related_url_landing_page">http://landing.page/uri</field>
+      <field name="related_url_landing_page_desc">Description of dataset landing page</field>
+
+      <field name="related_url_scientific_publication">http://publication/uri</field>
+      <field name="related_url_scientific_publication_desc">Author, Title (YYYY), Publisher, doi</field>
+
+      <field name="related_url_other_documentation">http://documentation.other/uri</field>
+      <field name="related_url_other_documentation_desc">Conference poster</field>
+
+      <field name="related_url_data_management_plan">http://host/uri/data_management_plan</field>
+      <field name="related_url_data_management_plan_desc">Data management plan</field>
+
+      <field name="related_url_data_paper">http://pathto/uri/data_paper</field>
+      <field name="related_url_data_paper_desc">Data paper</field>
+
+      <field name="related_url_software">http://software/uri</field>
+      <field name="related_url_software_desc">Software</field>
+
+      <field name="related_url_obs_facility">http://observation.facility/uri</field>
+      <field name="related_url_obs_facility_desc">Observation facility</field>
+
+      <field name="related_url_ext_metadata">http://external.metadata/uri</field>
+      <field name="related_url_ext_metadata_desc">Extended metadata</field>
+
+      <!--2.23  mmd/iso_topic_category
+        <iso_topic_category>
+          oceans
+          biota
+        </iso_topic_category>
+      -->
+      <field name="iso_topic_category">oceans</field>
+      <field name="iso_topic_category">biota</field>
+
+      <!--2.24 mmd/keywords
+
+      <keywords vocabulary="MyOwnVocab">
+        <keyword>ice_edge</keyword>
+        <keyword>Manual Generated Ice Edge</keyword>
+      </keywords>
+      <keywords vocabulary="GCMD">
+        <keyword>Earth Science - Climate Indicators - Teleconnections -
+          North Atlantic Oscillation</keyword>
+        <resource>https://gcmdservices.gsfc.nasa.gov/static/kms/</resource>
+        <separator>-</separator>
+      </keywords>
+      -->
+      <field name="keywords_keyword">ice_edge</field>
+      <field name="keywords_keyword">Manual Generated Ice Edge</field>
+
+      <!--NOTE: GCMD keywords are added splitted by separator and indexed to different fields,
+        depending on the keyword level.
+        we also add the keywords to the all keywords field
+      -->
+      <field name="keywords_keyword">Earth Science - Climate Indicators - Teleconnections - North Atlantic Oscillation</field>
+      <field name="keywords_keyword">Earth Science > Atmosphere > Atmospheric radiation > Reflectance</field>
+
+      <field name="keywords_gcmd">Earth Science - Climate Indicators - Teleconnections - North Atlantic Oscillation</field>
+      <field name="keywords_gcmd">Earth Science > Atmosphere > Atmospheric radiation > Reflectance</field>
+
+      <field name="keywords_level1">Earth Science</field>
+
+      <field name="keywords_level2">Climate Indicators</field>
+      <field name="keywords_level2">Atmosphere</field>
+
+      <field name="keywords_level3">Teleconnections</field>
+      <field name="keywords_level3">Atmospheric radiation</field>
+
+      <field name="keywords_level4">North Atlantic Oscillation</field>
+      <field name="keywords_level4">Reflectance</field>
+
+      <field name="keywords_level5">GCMD level 5 keyword</field>
+      <field name="keywords_level6">GCMD level 6 keyword</field>
+      <field name="keywords_level7">GCMD level 7 keyword</field>
+
+
+      <!-- Addig WIGOS Keywords to special wigos field and the all keywords field -->
+      <field name="keywords_keyword">AltitudeOrDepth</field>
+      <field name="keywords_wigos">AltitudeOrDepth</field>
+
+      <field name="keywords_keyword">ClimateZone</field>
+      <field name="keywords_wigos">ClimateZone</field>
+
+
+      <!--2.25  mmd/project
+      <project>
+        <short_name>ICE</short_name>
+        <long_name>Ice Coverage Everywhere</long_name>
+      </project>
+      -->
+      <field name="project_short_name">ICE</field>
+      <field name="project_long_name">Ice Coverage Everywhere</field>
+
+      <!--2.26 mmd/platform
+      <platform>
+        <short_name>S1A</short_name>
+        <long_name>Sentinel-1A</long_name>
+        <resource>
+          https://www.wmo-sat.info/oscar/satellites/view/396
+        </resource>
+        <orbit_relative>121</orbit_relative>
+        <orbit_absolute>62391</orbit_absolute>
+        <orbit_direction>ascending</orbit_direction>
+        <instrument>
+          <short_name>SAR-C</short_name>
+          <long_name>
+            Synthetic Aperture Radar (C-band)
+          </long_name>
+          <resource>
+            https://www.wmo-sat.info/oscar/instruments/view/450
+          </resource>
+          <mode>IW</mode>
+          <polarisation>VV+VH</polarisation>
+        </instrument>
+        <ancillary>
+          <cloud_coverage>23.4</cloud_coverage>
+          <scene_coverage>77</scene_coverage>
+          <timeliness>NRT</timeliness>
+        </ancillary>
+      </platform>
+
+
+      -->
+      <field name="platform_short_name">S1A</field>
+      <field name="platform_long_name">Sentinel-1A</field>
+      <field name="platform_resource">  https://www.wmo-sat.info/oscar/satellites/view/396</field>
+      <field name="platform_orbit_relative">121</field>
+      <field name="platform_orbit_absolute">62391</field>
+      <field name="platform_orbit_direction">ascending</field>
+
+      <field name="platform_instrument_short_name">SAR-C</field>
+      <field name="platform_instrument_long_name"> Synthetic Aperture Radar (C-band)</field>
+      <field name="platform_instrument_resource">  https://www.wmo-sat.info/oscar/instruments/view/450</field>
+      <field name="platform_instrument_mode">IW</field>
+      <field name="platform_instrument_polarisation">VV+VH</field>
+      <field name="platform_instrument_product_type">SLC</field>
+
+      <field name="platform_ancillary_cloud_coverage">23.4</field>
+      <field name="platform_ancillary_scene_coverage">77</field>
+      <field name="platform_ancillary_timeliness">NRT</field>
+
+      <!-- Add another mmd/platform since multivalued -->
+<!--      <field name="platform_short_name">S1B</field>
+      <field name="platform_long_name">Sentinel-1B</field>
+      <field name="platform_resource">  https://www.wmo-sat.info/oscar/satellites/view/397</field>
+      <field name="platform_orbit_relative">131</field>
+      <field name="platform_orbit_absolute">52391</field>
+      <field name="platform_orbit_direction">decending</field>
+
+      <field name="platform_instrument_short_name">SAR-B</field>
+      <field name="platform_instrument_long_name"> Synthetic Aperture Radar (B-band)</field>
+      <field name="platform_instrument_resource">  https://www.wmo-sat.info/oscar/instruments/view/451</field>
+      <field name="platform_instrument_mode">EW</field>
+      <field name="platform_instrument_polarisation">VV+HH</field>
+      <field name="platform_instrument_product_type">OCN</field>
+
+      <field name="platform_ancillary_cloud_coverage">12.4</field>
+      <field name="platform_ancillary_scene_coverage">66</field>
+      <field name="platform_ancillary_timeliness">delayed</field>
+-->
+
+      <!--2.27 mmd/activity_type
+
+        <activity_type>Space Borne Instrument</activity_type>
+      -->
+      <field name="activity_type">Space Borne Instrument</field>
+
+      <!--2.28 mmd/dataset_citation
+      <dataset_citation>
+        <author>
+          Cristian Lussana, Ole Einar Tveito, Andreas Dobler, and Ketil Tunheim
+        </author>
+        <title>
+          seNorge_2018, daily precipitation, and temperature datasets over Norway
+        </title>
+        <series>Earth System Science Data</series>
+        <volume>11</volume>
+        <issue>4</issue>
+        <edition></edition>
+        <publication_date>2019-10-01</publication_date>
+        <publisher>Copernicus Publications</publisher>
+        <pages></pages>
+        <isbn></isbn>
+        <doi>https://doi.org/10.5194/essd-11-1531-2019</doi>
+        <url></url>
+        <other></other>
+      </dataset_citation>
+      -->
+      <field name="dataset_citation_author">Cristian Lussana, Ole Einar Tveito, Andreas Dobler, and Ketil Tunheim</field>
+      <field name="dataset_citation_publication_date">2012-01-01T12:00:00Z</field>
+      <field name="dataset_citation_title">seNorge_2018, daily precipitation, and temperature datasets over Norway</field>
+      <field name="dataset_citation_series">Earth System Science Data</field>
+      <field name="dataset_citation_edition">1</field>
+      <field name="dataset_citation_volume">11</field>
+      <field name="dataset_citation_issue">4</field>
+      <field name="dataset_citation_publication_place">Oslo</field>
+      <field name="dataset_citation_publisher">Copernicus Publications</field>
+      <field name="dataset_citation_pages">66</field>
+      <field name="dataset_citation_isbn">978-3-16-148410-0</field>
+      <field name="dataset_citation_doi" >https://doi.org/10.5194/essd-11-1531-2019</field>
+      <field name="dataset_citation_url">Url if no doi</field>
+      <field name="dataset_citation_other">Other information</field>
+
+      <!-- DRUPAL 8 Specific fields -->
+
+      <!-- the file_name.xml -->
+      <field name="mmd_file_name">mmd_example.xml</field>
+
+      <!-- the internal file path, if stored on some server -->
+      <field name="mmd_file_path">/path/to/file</field>
+
+      <!-- the path wich the file is stored on the repo (git) -->
+      <field name="mmd_repo_path">https://github/path/to/mmd/file</field>
+
+      <!-- The mmd-file as stored xml-string
+      NOTE: This is a binary fieldType. The mmd xml should be stored as base64 encoded string
+      -->
+      <field name="mmd_xml_file">PG1tZDptbWQgeG1sbnM6bW1kPSJodHRwOi8vd3d3Lm1ldC5uby9zY2hlbWEvbW1kIj4KICA8bW1kOm1ldGFkYXRhX2lkZW50aWZpZXI+UzFBX0VXX0dSRE1fMVNESF8yMDIxMDEwMVQwMzM4NDBfMjAyMTAxMDFUMDMzOTQ0XzAzNTkzOV8wNDM1OUVfQThBMTwvbW1kOm1ldGFkYXRhX2lkZW50aWZpZXI+CiAgPG1tZDpwbGF0Zm9ybT4KICAgIDxtbWQ6c2hvcnRfbmFtZT5TMUE8L21tZDpzaG9ydF9uYW1lPgogICAgPG1tZDpsb25nX25hbWU+U2VudGluZWwtMUE8L21tZDpsb25nX25hbWU+CiAgPC9tbWQ6cGxhdGZvcm0+CiAgPG1tZDptZXRhZGF0YV9zdGF0dXM+QWN0aXZlPC9tbWQ6bWV0YWRhdGFfc3RhdHVzPgogIDxtbWQ6Y29sbGVjdGlvbj5OQlM8L21tZDpjb2xsZWN0aW9uPgogIDxtbWQ6dGl0bGUgeG1sOmxhbmc9ImVuIj5EYXRlOiAyMDIxLTAxLTAxVDAzOjM4OjQwLjYzM1osIEluc3RydW1lbnQ6IFNBUi1DIFNBUiwgTW9kZTogSEggSFYsIFNhdGVsbGl0ZTogU2VudGluZWwtMSwgU2l6ZTogNDM2LjkgTUI8L21tZDp0aXRsZT4KICA8bW1kOmFic3RyYWN0IHhtbDpsYW5nPSJlbiI+CiAgICAgICAgICAgIFRoZSBTRU5USU5FTC0xIG1pc3Npb24gY29tcHJpc2VzIGEgY29uc3RlbGxhdGlvbiBvZiB0d28gcG9sYXItb3JiaXRpbmcgc2F0ZWxsaXRlcywgb3BlcmF0aW5nIGRheSBhbmQgbmlnaHQgcGVyZm9ybWluZyBDLWJhbmQgc3ludGhldGljIGFwZXJ0dXJlIHJhZGFyIGltYWdpbmcsIGVuYWJsaW5nIHRoZW0gdG8gYWNxdWlyZSBpbWFnZXJ5IHJlZ2FyZGxlc3Mgb2YgdGhlIHdlYXRoZXIuCiAgICAgICAgICA8L21tZDphYnN0cmFjdD4KICA8bW1kOnJlbGF0ZWRfaW5mb3JtYXRpb24+CiAgICA8bW1kOnR5cGU+VXNlcnMgZ3VpZGU8L21tZDp0eXBlPgogICAgPG1tZDpkZXNjcmlwdGlvbj5VUkkgdG8gYSB1c2VycyBndWlkZSBvciBwcm9kdWN0IG1hbnVhbCBmb3IgdGhlIGRhdGFzZXQuPC9tbWQ6ZGVzY3JpcHRpb24+CiAgICA8bW1kOnJlc291cmNlPmh0dHBzOi8vc2VudGluZWwuZXNhLmludC93ZWIvc2VudGluZWwvbWlzc2lvbnMvc2VudGluZWwtMTwvbW1kOnJlc291cmNlPgogIDwvbW1kOnJlbGF0ZWRfaW5mb3JtYXRpb24+CiAgPG1tZDpsYXN0X21ldGFkYXRhX3VwZGF0ZT4yMDIxLTAxLTAxVDA4OjAwOjQ2Ljk4WjwvbW1kOmxhc3RfbWV0YWRhdGFfdXBkYXRlPgogIDxtbWQ6ZGF0YXNldF9sYW5ndWFnZT5lbjwvbW1kOmRhdGFzZXRfbGFuZ3VhZ2U+CiAgPG1tZDpkYXRhc2V0X3Byb2R1Y3Rpb25fc3RhdHVzPkluIFdvcms8L21tZDpkYXRhc2V0X3Byb2R1Y3Rpb25fc3RhdHVzPgogIDxtbWQ6b3BlcmF0aW9uYWxfc3RhdHVzPk9wZXJhdGlvbmFsPC9tbWQ6b3BlcmF0aW9uYWxfc3RhdHVzPgogIDxtbWQ6dGVtcG9yYWxfZXh0ZW50PgogICAgPG1tZDpzdGFydF9kYXRlPjIwMjEtMDEtMDFUMDM6Mzg6NDAuNjMzWjwvbW1kOnN0YXJ0X2RhdGU+CiAgICA8bW1kOmVuZF9kYXRlPjIwMjEtMDEtMDFUMDM6Mzk6NDQuOTI2WjwvbW1kOmVuZF9kYXRlPgogIDwvbW1kOnRlbXBvcmFsX2V4dGVudD4KICA8bW1kOmdlb2dyYXBoaWNfZXh0ZW50PgogICAgPG1tZDpyZWN0YW5nbGUgc3JzTmFtZT0iRVBTRzo0MzI2Ij4KICAgICAgPG1tZDpub3J0aD44Mi4wMjk4MDg8L21tZDpub3J0aD4KICAgICAgPG1tZDpzb3V0aD43Ni45MzIxMjk8L21tZDpzb3V0aD4KICAgICAgPG1tZDp3ZXN0PjQ2LjYyNzQ5OTwvbW1kOndlc3Q+CiAgICAgIDxtbWQ6ZWFzdD43NC4yMjQ5NjwvbW1kOmVhc3Q+CiAgICA8L21tZDpyZWN0YW5nbGU+CiAgPC9tbWQ6Z2VvZ3JhcGhpY19leHRlbnQ+CiAgPG1tZDpwcm9qZWN0PgogICAgPG1tZDpzaG9ydF9uYW1lPk5CUzwvbW1kOnNob3J0X25hbWU+CiAgICA8bW1kOmxvbmdfbmFtZT5OYXNqb25hbHQgQmFra2VTZWdtZW50PC9tbWQ6bG9uZ19uYW1lPgogIDwvbW1kOnByb2plY3Q+CiAgPG1tZDphY3Rpdml0eV90eXBlPlNwYWNlIEJvcm5lIEluc3RydW1lbnQ8L21tZDphY3Rpdml0eV90eXBlPgogIDxtbWQ6aXNvX3RvcGljX2NhdGVnb3J5PmNsaW1hdG9sb2d5TWV0ZW9yb2xvZ3lBdG1vc3BoZXJlPC9tbWQ6aXNvX3RvcGljX2NhdGVnb3J5PgogIDxtbWQ6aXNvX3RvcGljX2NhdGVnb3J5Pm9jZWFuczwvbW1kOmlzb190b3BpY19jYXRlZ29yeT4KICA8bW1kOmlzb190b3BpY19jYXRlZ29yeT5pbWFnZXJ5QmFzZU1hcHNFYXJ0aENvdmVyPC9tbWQ6aXNvX3RvcGljX2NhdGVnb3J5PgogIDxtbWQ6a2V5d29yZHMgdm9jYWJ1bGFyeT0iR0NNRCI+CiAgICA8bW1kOmtleXdvcmQ+RWFydGggU2NpZW5jZSAmZ3Q7IFNwZWN0cmFsL0VuZ2luZWVyaW5nICZndDsgUkFEQVIgJmd0OyBSQURBUiBiYWNrc2NhdHRlcjwvbW1kOmtleXdvcmQ+CiAgICA8bW1kOmtleXdvcmQ+RWFydGggU2NpZW5jZSAmZ3Q7IFNwZWN0cmFsL0VuZ2luZWVyaW5nICZndDsgUkFEQVIgJmd0OyBSQURBUiBpbWFnZXJ5PC9tbWQ6a2V5d29yZD4KICAgIDxtbWQ6a2V5d29yZD5FYXJ0aCBTY2llbmNlICZndDsgU3BlY3RyYWwvRW5naW5lZXJpbmcgJmd0OyBNaWNyb3dhdmUgJmd0OyBNaWNyb3dhdmUgaW1hZ2VyeTwvbW1kOmtleXdvcmQ+CiAgPC9tbWQ6a2V5d29yZHM+CiAgPG1tZDppbnN0cnVtZW50PgogICAgPG1tZDpzaG9ydF9uYW1lPkMtU0FSPC9tbWQ6c2hvcnRfbmFtZT4KICAgIDxtbWQ6bG9uZ19uYW1lPlN5bnRoZXRpYyBBcGVydHVyZSBSYWRhciAoQy1iYW5kKTwvbW1kOmxvbmdfbmFtZT4KICAgIDxtbWQ6bW9kZT5FVzwvbW1kOm1vZGU+CiAgICA8bW1kOnBvbGFyaXNhdGlvbj5ISCtIVjwvbW1kOnBvbGFyaXNhdGlvbj4KICA8L21tZDppbnN0cnVtZW50PgogIDxtbWQ6ZGF0YV9jZW50ZXI+CiAgICA8bW1kOmRhdGFfY2VudGVyX25hbWU+CiAgICAgIDxtbWQ6c2hvcnRfbmFtZT5NRVROTzwvbW1kOnNob3J0X25hbWU+CiAgICAgIDxtbWQ6bG9uZ19uYW1lPk5vcndlZ2lhbiBNZXRlb3JvbG9naWNhbCBJbnN0aXR1dGU8L21tZDpsb25nX25hbWU+CiAgICA8L21tZDpkYXRhX2NlbnRlcl9uYW1lPgogICAgPG1tZDpkYXRhX2NlbnRlcl91cmw+aHR0cHM6Ly9tZXQubm88L21tZDpkYXRhX2NlbnRlcl91cmw+CiAgICA8bW1kOmNvbnRhY3Q+CiAgICAgIDxtbWQ6cm9sZT5EYXRhIGNlbnRlciBjb250YWN0PC9tbWQ6cm9sZT4KICAgICAgPG1tZDpuYW1lPk5CUyBIZWxwZGVzazwvbW1kOm5hbWU+CiAgICAgIDxtbWQ6ZW1haWw+bmJzLWhlbHBkZXNrQG1ldC5ubzwvbW1kOmVtYWlsPgogICAgICA8bW1kOnBob25lLz4KICAgICAgPG1tZDpmYXgvPgogICAgPC9tbWQ6Y29udGFjdD4KICA8L21tZDpkYXRhX2NlbnRlcj4KICA8bW1kOmRhdGFfYWNjZXNzPgogICAgPG1tZDp0eXBlPk9QZU5EQVA8L21tZDp0eXBlPgogICAgPG1tZDpkZXNjcmlwdGlvbj5PcGVuLXNvdXJjZSBQcm9qZWN0IGZvciBhIE5ldHdvcmsgRGF0YSBBY2Nlc3MgUHJvdG9jb2wuPC9tbWQ6ZGVzY3JpcHRpb24+CiAgICA8bW1kOnJlc291cmNlPmh0dHA6Ly9uYnN0ZHMubWV0Lm5vL3RocmVkZHMvZG9kc0MvTkJTL1MxQS8yMDIxLzAxLzAxL0VXL1MxQV9FV19HUkRNXzFTREhfMjAyMTAxMDFUMDMzODQwXzIwMjEwMTAxVDAzMzk0NF8wMzU5MzlfMDQzNTlFX0E4QTEubmM8L21tZDpyZXNvdXJjZT4KICAgIDxtbWQ6d21zX2xheWVycz4KICAgICAgPG1tZDp3bXNfbGF5ZXIvPgogICAgPC9tbWQ6d21zX2xheWVycz4KICA8L21tZDpkYXRhX2FjY2Vzcz4KICA8bW1kOmRhdGFfYWNjZXNzPgogICAgPG1tZDp0eXBlPk9HQyBXTVM8L21tZDp0eXBlPgogICAgPG1tZDpkZXNjcmlwdGlvbj5PR0MgV2ViIE1hcHBpbmcgU2VydmljZSwgVVJJIHRvIEdldENhcGFiaWxpdGllcyBEb2N1bWVudC48L21tZDpkZXNjcmlwdGlvbj4KICAgIDxtbWQ6cmVzb3VyY2U+aHR0cDovL25ic3dtcy5tZXQubm8vdGhyZWRkcy93bXNfcWwvTkJTL1MxQS8yMDIxLzAxLzAxL0VXL1MxQV9FV19HUkRNXzFTREhfMjAyMTAxMDFUMDMzODQwXzIwMjEwMTAxVDAzMzk0NF8wMzU5MzlfMDQzNTlFX0E4QTEubmM8L21tZDpyZXNvdXJjZT4KICAgIDxtbWQ6d21zX2xheWVycz4KICAgICAgPG1tZDp3bXNfbGF5ZXI+QW1wbGl0dWRlIEhIIHBvbGFyaXNhdGlvbjwvbW1kOndtc19sYXllcj4KICAgICAgPG1tZDp3bXNfbGF5ZXI+QW1wbGl0dWRlIEhWIHBvbGFyaXNhdGlvbjwvbW1kOndtc19sYXllcj4KICAgIDwvbW1kOndtc19sYXllcnM+CiAgPC9tbWQ6ZGF0YV9hY2Nlc3M+CiAgPG1tZDpkYXRhX2FjY2Vzcz4KICAgIDxtbWQ6dHlwZT5IVFRQPC9tbWQ6dHlwZT4KICAgIDxtbWQ6ZGVzY3JpcHRpb24+RGlyZWN0IGFjY2VzcyB0byB0aGUgZnVsbCBkYXRhIGZpbGUuIE1heSByZXF1aXJlIGF1dGhlbnRpY2F0aW9uLCBidXQgc2hvdWxkIHBvaW50IGRpcmVjdGx5IHRvIHRoZSBkYXRhIGZpbGUgb3IgYSBjYXRhbG9ndWUgY29udGFpbmluZyB0aGUgZGF0YS48L21tZDpkZXNjcmlwdGlvbj4KICAgIDxtbWQ6cmVzb3VyY2U+aHR0cDovL25ic3Rkcy5tZXQubm8vdGhyZWRkcy9maWxlU2VydmVyL05CUy9TMUEvMjAyMS8wMS8wMS9FVy9TMUFfRVdfR1JETV8xU0RIXzIwMjEwMTAxVDAzMzg0MF8yMDIxMDEwMVQwMzM5NDRfMDM1OTM5XzA0MzU5RV9BOEExLm5jPC9tbWQ6cmVzb3VyY2U+CiAgICA8bW1kOndtc19sYXllcnM+CiAgICAgIDxtbWQ6d21zX2xheWVyLz4KICAgIDwvbW1kOndtc19sYXllcnM+CiAgPC9tbWQ6ZGF0YV9hY2Nlc3M+CiAgPG1tZDpyZWxhdGVkX2luZm9ybWF0aW9uPgogICAgPG1tZDp0eXBlPkRhdGFzZXQgbGFuZGluZyBwYWdlPC9tbWQ6dHlwZT4KICAgIDxtbWQ6ZGVzY3JpcHRpb24+QSBkYXRhc2V0IGxhbmRpbmcgcGFnZS48L21tZDpkZXNjcmlwdGlvbj4KICAgIDxtbWQ6cmVzb3VyY2U+aHR0cDovL25ic3Rkcy5tZXQubm8vdGhyZWRkcy9jYXRhbG9nL05CUy9TMUEvMjAyMS8wMS8wMS9FVy9jYXRhbG9nLmh0bWw/ZGF0YXNldD1uYnMvUzFBLzIwMjEvMDEvMDEvRVcvUzFBX0VXX0dSRE1fMVNESF8yMDIxMDEwMVQwMzM4NDBfMjAyMTAxMDFUMDMzOTQ0XzAzNTkzOV8wNDM1OUVfQThBMS5uYzwvbW1kOnJlc291cmNlPgogIDwvbW1kOnJlbGF0ZWRfaW5mb3JtYXRpb24+CiAgPG1tZDpkYXRhX2FjY2Vzcz4KICAgIDxtbWQ6dHlwZT5PREFUQTwvbW1kOnR5cGU+CiAgICA8bW1kOmRlc2NyaXB0aW9uPk9wZW4gRGF0YSBQcm90b2NvbC48L21tZDpkZXNjcmlwdGlvbj4KICAgIDxtbWQ6cmVzb3VyY2U+aHR0cHM6Ly9jb2xodWIubWV0Lm5vL29kYXRhL3YxL1Byb2R1Y3RzKCczZDY2YzBiYy1jZmM3LTQzMWMtOGRkYi02YWJmZjM0YzEwMmQnKS8kdmFsdWU8L21tZDpyZXNvdXJjZT4KICAgIDxtbWQ6d21zX2xheWVycz4KICAgICAgPG1tZDp3bXNfbGF5ZXIvPgogICAgPC9tbWQ6d21zX2xheWVycz4KICA8L21tZDpkYXRhX2FjY2Vzcz4KPC9tbWQ6bW1kPgo=</field>
+
+
+      <!-- Thumbnail for search interface -->
+      <field name="thumbnail">http://nbswms.met.no/thredds/wms_ql/NBS/S2A/2020/05/04/S2A_MSIL1C_20200504T134731_N0202_R110_T35XPJ_20200508T173123_DTERRENGDATA.nc</field>
+      <field name="thumbnail_data">data:image/png;base64,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</field>
+      <field name="base_map">http://public-wms.met.no/backgroundmaps/world.map</field>
+
+      <!-- Feature type:
+      EXAMPLE: timeSeries or profile
+    -->
+      <field name="feature_type">timeSeries</field>
+
+      <!-- Special facet field to choose between Sentinel-1 and Sentinel-2 products -->
+      <field name="platform_sentinel">Sentinel-1</field>
+
+
+   </doc>
+</add>
