@@ -875,6 +875,12 @@
         <!-- Boolean set to true for datasets which are child datasets -->
         <field name="isChild" type="boolean" stored="true" />
 
+	<!-- Spatial representation -->
+	<field name="spatial_representation" type="string" indexed="true" stored="true" multiValued="false"/>
+
+	<!-- Quality control  -->
+	<field name="quality_control" type="string" indexed="true" stored="true" multiValued="false"/>
+
         <!-- dummy field -->
         <field name="text" type="string" indexed="true" stored="true" />
 
@@ -897,6 +903,8 @@
         <copyField source="abstract" dest="full_text" />
         <copyField source="abstract_en" dest="full_text" />
         <copyField source="abstract_no" dest="full_text" />
+
+	<copyFiled source="dataset_citation_doi" dest="full_text"/>
 
         <copyField source="personnel_name" dest="full_text" />
         <copyField source="personnel_name" dest="sm_personnel_name" />
@@ -938,6 +946,7 @@
         <copyField source="bbox" dest="bbox_rpt" />
 
         <copyField source="title" dest="text_suggester" />
+	<copyFiled source="dataset_citation_doi" dest="text_suggester"/>
         <copyField source="metadata_identifier" dest="text_suggester" />
         <copyField source="abstract" dest="text_suggester" />
         <copyField source="personnel_name" dest="text_suggester" />

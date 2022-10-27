@@ -828,6 +828,7 @@
 
     <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
           <str name="fieldRegex">text_suggester</str>
+          <str name="fieldRegex">sm_keywords</str>
     </updateProcessor>
 
     <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
