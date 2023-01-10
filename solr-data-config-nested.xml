@@ -372,11 +372,18 @@ row.put('related_url_user_guide', guideMap);
       <field column="base_map" name="base_map" />
       <field column="feature_type" name="feature_type" />
   </entity>
+<<<<<<< HEAD
   <document>
+=======
+>>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
   <entity  name="newMMDc" processor="SolrEntityProcessor"
        transformer="LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related"
        url="http://157.249.176.182:8080/solr/adc-l2"
        query="mmd_related_dataset:${newMMD.mmd_metadata_identifier}"
+<<<<<<< HEAD
+=======
+       join="zipper"
+>>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
        child="true"
        onError="skip"
        logTemplate="The Child dataset  ${newMMDc.id} for parent ${newMMD.id}" logLevel="info"
@@ -463,14 +470,22 @@ row.put('related_url_user_guide', guideMap);
           query="id:${newMMDc.id}"
           batchSize="20"
           onError="skip"
+<<<<<<< HEAD
           fl="thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
+=======
+          fl="id,thumbnail,base_map,thumbnail_data,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
+>>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
           <field column="thumbnail" name="thumbnail" />
           <field column="thumbnail_data" name="thumbnail_data" />
           <field column="base_map" name="base_map" />
           <field column="feature_type" name="feature_type" />
       </entity>
 </entity>
+<<<<<<< HEAD
 </document>
+=======
+
+>>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
 
 </entity>
 
