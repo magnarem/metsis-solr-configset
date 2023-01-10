@@ -145,7 +145,6 @@
   </lst>
   <arr name="last-components">
     <str>spellcheck</str>
-    <str>elevator</str>
   </arr>
 </requestHandler>
 
@@ -206,10 +205,12 @@
   Special configs for Elevator
   7.0.0
 -->
+<!--
   <searchComponent name="elevator" class="solr.QueryElevationComponent">
     <str name="queryFieldType">string</str>
     <str name="config-file">elevate.xml</str>
-  </searchComponent>
+	</searchComponent>
+-->
 <!--
   Special configs for Term Vector
   7.0.0
