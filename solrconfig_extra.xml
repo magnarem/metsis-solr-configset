@@ -28,8 +28,6 @@
       <str name="thresholdTokenFrequency">.01</str>
       <str name="onlyMorePopular">true</str>
     </lst>
-<<<<<<< HEAD
-=======
   
     <lst name="spellchecker">
       <str name="name">nb</str>
@@ -45,23 +43,15 @@
       <str name="thresholdTokenFrequency">.01</str>
       <str name="onlyMorePopular">true</str>
     </lst>
->>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
   </searchComponent>
 <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">en</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-<<<<<<< HEAD
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_en</str>
-      <str name="contextField">sm_context_tags</str>
-=======
       <!--  <str name="dictionaryImpl">DocumentDictionaryFactory</str> -->
       <str name="field">text_suggester</str>
       <str name="suggestAnalyzerFieldType">text_en</str>
       <!--   <str name="contextField">sm_context_tags</str>-->
->>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
       <str name="buildOnCommit">true</str>
       <str name="buildOnStartup">false</str>
     </lst>
@@ -69,16 +59,6 @@
     <lst name="suggester">
       <str name="name">und</str>
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-<<<<<<< HEAD
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_und</str>
-      <str name="contextField">sm_context_tags</str>
-      <str name="buildOnCommit">true</str>
-      <str name="buildOnStartup">false</str>
-    </lst>
-  </searchComponent>
-=======
       <!-- <str name="dictionaryImpl">DocumentDictionaryFactory</str> -->
       <str name="field">text_suggester</str>
       <str name="suggestAnalyzerFieldType">text_und</str>
@@ -101,7 +81,6 @@
 
   </searchComponent>
 
->>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
 <!--
   Autocomplete
   7.0.0
