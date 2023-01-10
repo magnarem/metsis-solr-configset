@@ -867,8 +867,8 @@
         <field name="related_url_other_documentation_desc" type="string" indexed="false" stored="true" multiValued="true"/>
 
         <!-- Thumbnail specific fields -->
-        <field name="thumbnail" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
-        <field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
+        <field name="thumbnail" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
+        <field name="thumbnail_data" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
         <field name="base_map" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="feature_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- Internal dataset level: Level-1 or Level-2 -->
