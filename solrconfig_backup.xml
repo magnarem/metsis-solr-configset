@@ -11,7 +11,7 @@
      For more details about configurations options that may appear in
      this file, see http://wiki.apache.org/solr/SolrConfigXml.
 -->
-<config name="drupal-4.2.10-solr-8.x-0" >
+<config name="drupal-4.1.0-solr-8.x-0" >
   <!-- In all configuration below, a prefix of "solr." for class names
        is an alias that causes solr to search appropriate packages,
        including org.apache.solr.(search|update|request|core|analysis)
@@ -193,11 +193,6 @@
         <mergePolicyFactory class="solr.TieredMergePolicyFactory">
           <int name="maxMergeAtOnce">10</int>
           <int name="segmentsPerTier">10</int>
-    -->
-   <!-- 
-        <mergePolicyFactory class="solr.TieredMergePolicyFactory">
-          <int name="maxMergeAtOnce">10</int>
-          <int name="segmentsPerTier">5</int>
         </mergePolicyFactory>
      -->
 
@@ -211,10 +206,6 @@
        <mergeScheduler class="org.apache.lucene.index.ConcurrentMergeScheduler"/>
        -->
 
-<mergeScheduler class="org.apache.lucene.index.ConcurrentMergeScheduler">
-  <int name="maxMergeCount">12</int>
-  <int name="maxThreadCount">6</int>
-</mergeScheduler>
     <!-- LockFactory
 
          This option specifies which Lucene LockFactory implementation
@@ -316,14 +307,23 @@
          If the updateLog is enabled, then it's highly recommended to
          have some sort of hard autoCommit to limit the log size.
       -->
-<autoCommit>
-  <maxTime>${solr.autoCommit.maxTime:1200000}</maxTime>
-  <openSearcher>false</openSearcher>
-</autoCommit>
+    <autoCommit>
+      <maxDocs>${solr.autoCommit.MaxDocs:-1}</maxDocs>
+      <maxTime>${solr.autoCommit.MaxTime:15000}</maxTime>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
 
-<autoSoftCommit>
-   <maxTime>${solr.autoSoftCommit.maxTime:300000}</maxTime>
- </autoSoftCommit>
+    <!-- softAutoCommit is like autoCommit except it causes a
+         'soft' commit which only ensures that changes are visible
+         but does not ensure that data is synced to disk.  This is
+         faster and more near-realtime friendly than a hard commit.
+      -->
+
+    <autoSoftCommit>
+      <maxDocs>${solr.autoSoftCommit.MaxDocs:-1}</maxDocs>
+      <maxTime>${solr.autoSoftCommit.MaxTime:-1}</maxTime>
+    </autoSoftCommit>
+
     <!-- Update Related Event Listeners
 
          Various IndexWriter related events can trigger Listeners to
@@ -355,12 +355,9 @@
          <arr name="env"> <str>MYVAR=val1</str> </arr>
        </listener>
       -->
-
-<!--      <lst name="defaults"> -->
-<!--  <str name="update.chain">metsis</str> 
-      
+      <lst name="defaults">
+ <str name="update.chain">metsis</str>
 </lst>
- -->
   </updateHandler>
 
   <!-- IndexReaderFactory
@@ -419,16 +416,17 @@
       -->
     <listener event="newSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
-           <lst><str name="q">text_suggester:oceans</str><str name="sort">timestamp desc</str>
-            <int name="start">0</int><int name="stop">50</int>
-   	   </lst>
+        <!--
+           <lst><str name="q">solr</str><str name="sort">price asc</str></lst>
+           <lst><str name="q">rocks</str><str name="sort">weight asc</str></lst>
+          -->
       </arr>
     </listener>
     <listener event="firstSearcher" class="solr.QuerySenderListener">
-    <arr name="queries">
-           <lst><str name="q">text_suggester:oceans</str><str name="sort">timestamp desc</str>
-            <int name="start">0</int><int name="stop">50</int>
-           </lst>
+      <arr name="queries">
+        <lst>
+          <str name="q">static firstSearcher warming in solrconfig.xml</str>
+        </lst>
       </arr>
     </listener>
 
@@ -440,7 +438,7 @@
          will block until the first searcher is done warming.
       -->
     <useColdSearcher>false</useColdSearcher>
-<slowQueryThresholdMillis>8000</slowQueryThresholdMillis>
+
   </query>
 
 
@@ -594,6 +592,7 @@
 
       <!-- default tag FragmentsBuilder -->
       <fragmentsBuilder name="default"
+
                         class="solr.highlight.ScoreOrderFragmentsBuilder">
         <!--
         <lst name="defaults">
@@ -692,6 +691,7 @@
      <processor class="solr.LogUpdateProcessorFactory" />
      <processor class="solr.RunUpdateProcessorFactory" />
    </updateRequestProcessorChain>
+
 
   <!-- Script update processor
 
@@ -812,12 +812,13 @@
     -->
 
     <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
+          <str name="fieldRegex">keywords_.*</str>
+          <str name="fieldRegex">personnel_.*</str>
           <str name="fieldRegex">text_suggester</str>
-          <str name="fieldRegex">sm_keywords</str>
     </updateProcessor>
 
     <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
-          <str name="langid.fl">abstract,title</str>
+          <str name="langid.fl">mmd_abstract,mmd_title</str>
           <str name="langid.langField">ss_language</str>
           <str name="langid.fallback">en</str>
           <bool name="langid.map">true</bool>
@@ -826,8 +827,8 @@
     </updateProcessor>
 
     <updateRequestProcessorChain name="metsis" default="true"  post-processor="dedups,lang">
-      <processor class="solr.LogUpdateProcessorFactory" />
       <processor class="solr.DistributedUpdateProcessorFactory"/>
+       <processor class="solr.LogUpdateProcessorFactory" />
        <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
@@ -859,7 +860,7 @@
   <processor class="UniqFieldsUpdateProcessorFactory">
         <str name="fieldRegex">.keywords_level*</str>
     </processor>
-    
+
   <processor class="solr.RunUpdateProcessorFactory" />
 </updateRequestProcessorChain>
 

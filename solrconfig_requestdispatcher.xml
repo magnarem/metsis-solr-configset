@@ -2,5 +2,11 @@
   HTTP Cache Never
   7.0.0
 -->
+<<<<<<< HEAD
 <httpCaching never304="true"/>
+=======
+<httpCaching lastModFrom="openTime" etagSeed="Solr">
+<cacheControl>max-age=10, public</cacheControl>
+</httpCaching>
+>>>>>>> 280496f4d77032b2ba5afa348f38458896412fdf
 
