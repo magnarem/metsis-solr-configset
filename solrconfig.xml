@@ -38,7 +38,7 @@
        that you fully re-index after changing this setting as it can
        affect both how text is indexed and queried.
     -->
-  <luceneMatchVersion>${solr.luceneMatchVersion:LUCENE_80}</luceneMatchVersion>
+  <luceneMatchVersion>${solr.luceneMatchVersion:LUCENE_90}</luceneMatchVersion>
 
   <!-- <lib/> directives can be used to instruct Solr to load any Jars
        identified and use them to resolve any "plugins" specified in
@@ -74,19 +74,14 @@
 
        The examples below can be used to load some solr-contribs along
        with their external dependencies.
-    -->
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar" />
-
-  <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
-
-  <lib dir="${solr.install.dir:../../../..}/contrib/langid/lib/" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-langid-\d.*\.jar" />
-
-  <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lib" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lucene-libs" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-analysis-extras-\d.*\.jar" />
-
+  -->
+  <lib dir="${solr.install.dir:../../../..}/server/solr-webapp/webapp/WEB-INF/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/modules/extraction/lib" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/modules/clustering/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/modules/langid/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/modules/ltr/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/modules/scripting/lib/" regex=".*\.jar" />
+  <lib dir="${solr.data.dir:}/lib/" regex=".*\.jar" />
   <!-- an exact 'path' can be used instead of a 'dir' to specify a
        specific jar file.  This will cause a serious error to be logged
        if it can't be loaded.
@@ -737,10 +732,10 @@
      <queryResponseWriter name="csv" class="solr.CSVResponseWriter"/>
      <queryResponseWriter name="schema.xml" class="solr.SchemaXmlResponseWriter"/>
     -->
-
+     <!--
   <queryResponseWriter name="json" class="solr.JSONResponseWriter">
   </queryResponseWriter>
-
+     -->
   <!--
      Custom response writers can be declared as needed...
     -->
@@ -756,10 +751,14 @@
        in Solr's conf/xslt directory.  Changes to xslt files are checked for
        every xsltCacheLifetimeSeconds.
     -->
-  <queryResponseWriter name="xslt" class="solr.XSLTResponseWriter">
-    <int name="xsltCacheLifetimeSeconds">5</int>
-  </queryResponseWriter>
-
+    <!--
+    <queryResponseWriter name="xslt"
+                          startup="lazy"
+                          default="true"
+                          class="solr.scripting.xslt.XSLTResponseWriter">
+       <int name="xsltCacheLifetimeSeconds">5</int>
+	    </queryResponseWriter>
+    -->
   <!-- Query Parsers
 
        https://lucene.apache.org/solr/guide/query-syntax-and-parsing.html
@@ -831,14 +830,14 @@
        <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
-    <!-- Config for dataimport handler -->
+    <!-- Config for dataimport handler
     <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
       <str name="update.chain">metsis</str>
       <str name="config">solr-data-config.xml</str>
     </lst>
   </requestHandler>
-
+    -->
   <initParams path="/update/**">
   <lst name="defaults">
     <str name="update.chain">metsis</str>
