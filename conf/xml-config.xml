@@ -1,0 +1,16 @@
+<dataConfig>
+  <dataSource type="FileDataSource"/>
+  <document>
+    <!-- this outer processor generates a list of files satisfying the conditions specified in the attributes -->
+    <entity name="f" processor="FileListEntityProcessor" fileName=".\*.xml$" recursive="true" rootEntity="false" dataSource="null" baseDir="/home/osboxes/mmd-test">
+
+      <!-- this processor extracts content using Xpath from each file found -->
+
+      <entity name="nested" processor="XPathEntityProcessor" forEach="/mmd:mmd" url="${f.fileAbsolutePath}" >
+              <field column="id" xpath="mmd:mmd_metadata_identifier"/>
+              <field column="ss_title" xpath="mmd:mmd_title"/>
+
+      </entity>
+    </entity>
+  </document>
+</dataConfig>

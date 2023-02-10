@@ -1,0 +1,118 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<dataConfig>
+<script><![CDATA[
+  function keywords_level(row) {
+    var keywords_bread =  new java.util.ArrayList();
+    var keywords_level =  new java.util.ArrayList();
+    var keyword_list = row.get('mmd_keywords_keyword');
+	  if (keyword_list != null) {
+	    for (var k=0; k < keyword_list.length; k++) {
+        if (keyword_list[k] != "" && keyword_list[k] != null) {
+          if(keyword_list[k].indexOf('>') >= 0) {
+            var pieces = keyword_list[k].split('>');
+            var kstring = '';
+	          for (var i=0; i < pieces.length; i++) {
+              j = i+1;
+              row.put('keywords_level' + j, pieces[i]);
+		          kstring = kstring + i + '/' + pieces[i].trim() + ',';
+		        }
+            keywords_bread.add('keywords_bread', kstring);
+         }
+        }
+	    }
+    }
+  row.put('keywords_bread', keywords_bread);
+  return row;
+  }
+  function date_range(row) {
+    var start_date = row.get('mmd_temporal_extent_start_date');
+    var end_date = row.get('mmd_temporal_extent_end_date');
+    if(start_date != null && end_date != null) {
+      var start = new Date(start_date).toISOString();
+      var end =  new Date(end_date).toISOString();
+      var daterange = new java.util.ArrayList();
+      daterange.add(start);
+      daterange.add(end);
+      row.put('temporal_extent_period_dr', daterange);
+    }
+    row.put('temporal_extent_period_s', start_date + ' to ' + end_date);
+    return row;
+  }
+  function url_extractor(row) {
+    var types = row.get('mmd_data_access_type');
+    var resources = row.get('mmd_data_access_resource');
+    var opendap = "OpeNDAP";
+    var ogc_wms = "OGC WMS";
+    var http_url = "HTTP";
+    var odata = "ODATA"
+    if (types != null) {
+      for (var k=0; k < types.length; k++) {
+        print(types[k]);
+        switch (types[k]) {
+          case opendap:
+            var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+            row.put('data_access_url_opendap', url);
+            break;
+         case ogc_wms:
+           var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+           row.put('data_access_url_ogc_wms', url);
+           break;
+         case http_url:
+           var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+           row.put('data_access_url_http', url);
+           break;
+        case odata:
+          var url = resources[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          row.put('data_access_url_odata', url);
+          break;
+        }
+      }
+    
+    return row;
+    }
+]]></script>
+  <document>
+    <entity name="l1" processor="SolrEntityProcessor"
+            transformer="script:keywords_level,script:date_range,script:url_extractor"
+            url="http://157.249.176.182:8080/solr/adc-l1"
+            query="*:*"
+            batchSize="20"
+            fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
+
+    <entity name="l2" processor="SolrEntityProcessor"
+            transformer="script:keywords_level,script:date_range"
+            url="http://157.249.176.182:8080/solr/adc-l2"
+            query="*:*"
+            batchSize="20"
+            fl="*,orig_version_l:_version_,ignored_price_c:price_c"/>
+  </document>
+</dataConfig>
+<!--
+var related = row.get('mmd_related_information_resource');
+for (var k=0; k < related.length; k++) {
+  var str = new String(related[k]);
+  if(str.search(/User Guide/)) {
+    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+    row.put('related_url_user_guide', url);
+  }
+  if(str.search(/Dataset landing/)) {
+    var url  = related[k].match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+    row.put('related_url_landing_page', url);
+  }
+} -->
