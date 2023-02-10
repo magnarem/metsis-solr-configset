@@ -1,7 +1,0 @@
-<!--
-  HTTP Cache Never
-  7.0.0
--->
-<httpCaching lastModFrom="openTime" etagSeed="Solr">
-<cacheControl>max-age=10, public</cacheControl>
-</httpCaching>
