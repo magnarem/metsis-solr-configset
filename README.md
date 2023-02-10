@@ -1,3 +1,4 @@
+[![GitHub Super-Linter](https://github.com/magnarem/metsis-solr-configset/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 # metsis-solr-configset
 This repo contains Solr configset for indexing MMD files.
 
