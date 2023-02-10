@@ -958,6 +958,13 @@
         <copyField source="dataset_citation_author" dest="full_text" />
         <copyField source="bbox" dest="bbox_rpt" />
 
+	<copyField source="dataset_citation_author" dest="full_text" />
+        <copyField source="dataset_citation_title" dest="full_text" />
+        <copyField source="dataset_citation_doi" dest="full_text" />
+        <copyField source="dataset_citation_publisher" dest="full_text" />
+        <copyField source="dataset_citation_isbn" dest="full_text" />
+        <copyField source="dataset_citation_other" dest="full_text" />
+
         <copyField source="title" dest="text_suggester" />
 	<copyFiled source="dataset_citation_doi" dest="text_suggester"/>
         <copyField source="metadata_identifier" dest="text_suggester" />
