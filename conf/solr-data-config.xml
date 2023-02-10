@@ -1,0 +1,1348 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<dataConfig>
+<script><![CDATA[
+  function keywords_level(row) {
+    var keywords_bread = new java.util.ArrayList();
+    var keywords_level1 = new java.util.ArrayList();
+    var keywords_level2 = new java.util.ArrayList();
+    var keywords_level3 = new java.util.ArrayList();
+    var keywords_level4 = new java.util.ArrayList();
+    var keywords_level5 = new java.util.ArrayList();
+    var keywords_level6 = new java.util.ArrayList();
+    var keywords_level7 = new java.util.ArrayList();
+    var keywords = new java.util.ArrayList();
+    var keyword_list = row.get('mmd_keywords_keyword');
+    if (keyword_list != null) {
+      for (var k = 0; k < keyword_list.length; k++) {
+        if (keyword_list[k] != "" && keyword_list[k] != null) {
+          if (keyword_list[k].indexOf('>') >= 0) {
+            var pieces = keyword_list[k].split('>');
+            var kstring = '';
+            for (var i = 0; i < pieces.length; i++) {
+              j = i + 1;
+              keyw = pieces[i].trim();
+              lower = keyw.toLowerCase();
+              removedChars1 = lower.replace(/\\n/g, '');
+              removedChars2 = removedChars1.replace(/\n/g, '');
+              camelCase = removedChars2.replace(/\b\w/g, function(c) {
+              return c.toUpperCase();
+              });
+
+              eval('keywords_level' + j).add(camelCase);
+              kstring = kstring + j + '/' + pieces[i].trim() + ',';
+            }
+            keywords_bread.add(kstring);
+          } if (keyword_list[k].indexOf('>') <= 0) {
+            keywords.add(keyword_list[k].trim());
+          }
+          if (keyword_list[k].indexOf('&gt;') >= 0) {
+            var pieces = keyword_list[k].split('&gt;');
+            var kstring = '';
+            for (var i = 0; i < pieces.length; i++) {
+              j = i + 1;
+              keyw = pieces[i].trim();
+              lower = keyw.toLowerCase();
+              removedChars1 = lower.replace(/\\n/g, '');
+              removedChars2 = removedChars1.replace(/\n/g, '');
+              camelCase = removedChars2.replace(/\b\w/g, function(c) {
+              return c.toUpperCase();
+              });
+
+              eval('keywords_level' + j).add(camelCase);
+              kstring = kstring + j + '/' + pieces[i].trim() + ',';
+            }
+            keywords_bread.add(kstring);
+          } if (keyword_list[k].indexOf('&gt;') <= 0) {
+            keywords.add(keyword_list[k].trim());
+          }
+        }
+      }
+    }
+
+    var keyMap = new java.util.HashMap();
+    keyMap.put('set', keywords);
+    row.put('sm_keywords_strip', keyMap);
+
+
+
+    var key1Map = new java.util.HashMap();
+    key1Map.put('set', keywords_level1);
+    row.put('keywords_level1', key1Map);
+
+    var key2Map = new java.util.HashMap();
+    key2Map.put('set', keywords_level2);
+    row.put('keywords_level2', key2Map);
+
+    var key3Map = new java.util.HashMap();
+    key3Map.put('set', keywords_level3);
+    row.put('keywords_level3', key3Map);
+
+    var key4Map = new java.util.HashMap();
+    key4Map.put('set', keywords_level4);
+    row.put('keywords_level4', key4Map);
+
+    var key5Map = new java.util.HashMap();
+    key5Map.put('set', keywords_level5);
+    row.put('keywords_level5', key5Map);
+
+    var key6Map = new java.util.HashMap();
+    key6Map.put('set', keywords_level6);
+    row.put('keywords_level6', key6Map);
+
+    var key7Map = new java.util.HashMap();
+    key7Map.put('set', keywords_level7);
+    row.put('keywords_level7', key7Map);
+
+    return row;
+  }
+
+  function date_range(row) {
+    var start_date = row.get('mmd_temporal_extent_start_date');
+    var end_date = row.get('mmd_temporal_extent_end_date');
+    var pub_date = row.get('mmd_dataset_citation_dataset_release_date');
+    if (start_date != null && end_date != null) {
+      var start = new Date(start_date).toISOString();
+      var end = new Date(end_date).toISOString();
+      var daterange = new java.util.ArrayList();
+      daterange.add(start);
+      daterange.add(end);
+      var drMap = new java.util.HashMap();
+      drMap.put('set', daterange);
+      row.put('temporal_extent_period_dr', drMap);
+    }
+    if (pub_date != null) {
+      pubList = new java.util.ArrayList();
+      pubMap = new java.util.HashMap();
+      for (var k = 0; k < pub_date.length; k++) {
+        var newDate = new Date(pub_date[k]).toISOString();
+        pubList.add(newDate);
+        pubMap.put('set', pubList);
+        row.put('dataset_citation_publication_date', pubMap);
+      }
+
+    }
+    return row;
+  }
+
+  function url_extractor(row) {
+    var types = row.get('mmd_data_access_type');
+    var resources = row.get('mmd_data_access_resource');
+
+    var opendap = "OPeNDAP";
+    var ogc_wms = "OGC WMS";
+    var ogc_wfs = "OGC WFS";
+    var ogc_wcs = "OGC WCS";
+    var http_url = "HTTP";
+    var ftp_url = "FTP";
+    var odata = "ODATA";
+
+    var opendapMap = new java.util.HashMap();
+    var ogcwmsMap = new java.util.HashMap();
+    var httpMap = new java.util.HashMap();
+    var odataMap = new java.util.HashMap();
+    var ogcwfsMap = new java.util.HashMap();
+    var ftpMap = new java.util.HashMap();
+    var ogcwcsMap = new java.util.HashMap();
+
+    var d_opendapMap = new java.util.HashMap();
+    var d_ogcwmsMap = new java.util.HashMap();
+    var d_httpMap = new java.util.HashMap();
+    var d_odataMap = new java.util.HashMap();
+    var d_ogcwfsMap = new java.util.HashMap();
+    var d_ftpMap = new java.util.HashMap();
+    var d_ogcwcsMap = new java.util.HashMap();
+
+    var opendapList = new java.util.ArrayList();
+    var ogcwmsList = new java.util.ArrayList();
+    var httpList = new java.util.ArrayList();
+    var odataList = new java.util.ArrayList();
+    var ogcwfsList = new java.util.ArrayList();
+    var ftpList = new java.util.ArrayList();
+    var ogcwcsList = new java.util.ArrayList();
+
+    var d_opendapList = new java.util.ArrayList();
+    var d_ogcwmsList = new java.util.ArrayList();
+    var d_httpList = new java.util.ArrayList();
+    var d_odataList = new java.util.ArrayList();
+    var d_ogcwfsList = new java.util.ArrayList();
+    var d_ftpList = new java.util.ArrayList();
+    var d_ogcwcsList = new java.util.ArrayList();
+
+    if (types != null) {
+      for (var k = 0; k < types.length; k++) {
+        var rType = types[k].split('\"').join(' ').trim();
+        var rString = resources[k].split('\"').join(' ').trim();
+
+        if (rType.toLowerCase() === opendap.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          print(rType);
+          print(rString);
+
+          if (url != null) {
+          print(url[0]);
+            opendapList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_opendapList.add(desc);
+           }
+          }
+        }
+        if (rType.toLowerCase() === ogc_wms.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            ogcwmsList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ogcwmsList.add(desc);
+           }
+          }
+        }
+        if (rType.toLowerCase() === http_url.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            if(/^ftp/.test(url)) {
+            ftpList.add(url[0]);
+            desc = rString.substring(rString.indexOf('description :') +13);
+            if (desc != null ) {
+              if (desc !== '' && desc !== 'NA')  {
+                d_ftpList.add(desc);
+             }
+            }
+            }
+            else {
+            httpList.add(url[0]);
+            desc = rString.substring(rString.indexOf('description :') +13);
+            if (desc != null ) {
+              if (desc !== '' && desc !== 'NA')  {
+                d_httpList.add(desc);
+             }
+            }
+            }
+          }
+        }
+        if (rType.toLowerCase() === odata.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            odataList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_odataList.add(desc);
+           }
+          }
+        }
+        if (rType.toLowerCase() === ftp_url.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            ftpList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ftpList.add(desc);
+           }
+          }
+        }
+        if (rType.toLowerCase() === ogc_wfs.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            ogcwfsList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ogcwfsList.add(desc);
+           }
+          }
+        }
+        if (rType.toLowerCase() === ogc_wcs.toLowerCase()) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            ogcwcsList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_ogcwcsList.add(desc);
+           }
+          }
+
+        }
+      }
+    }
+    opendapMap.put('set', opendapList);
+    row.put('data_access_url_opendap', opendapMap);
+
+    d_opendapMap.put('set', d_opendapList);
+    row.put('data_access_url_opendap_desc', d_opendapMap);
+
+    ogcwmsMap.put('set', ogcwmsList);
+    row.put('data_access_url_ogc_wms', ogcwmsMap);
+
+    d_ogcwmsMap.put('set', d_ogcwmsList);
+    row.put('data_access_url_ogc_wms_desc', d_ogcwmsMap);
+
+    odataMap.put('set', odataList);
+    row.put('data_access_url_odata', odataMap);
+
+    d_odataMap.put('set', d_odataList);
+    row.put('data_access_url_odata_desc', d_odataMap);
+
+    httpMap.put('set', httpList);
+    row.put('data_access_url_http', httpMap);
+
+    d_httpMap.put('set', d_httpList);
+    row.put('data_access_url_http_desc', d_httpMap);
+
+    ftpMap.put('set', ftpList);
+    row.put('data_access_url_ftp', ftpMap);
+
+    d_ftpMap.put('set', d_ftpList);
+    row.put('data_access_url_ftp_desc', d_ftpMap);
+
+    ogcwfsMap.put('set', ogcwfsList);
+    row.put('data_access_url_ogc_wfs', ogcwfsMap);
+
+    d_ogcwfsMap.put('set', d_ogcwfsList);
+    row.put('data_access_url_ogc_wfs_desc', d_ogcwfsMap);
+
+    ogcwcsMap.put('set', ogcwcsList);
+    row.put('data_access_url_ogc_wcs', ogcwcsMap);
+
+    d_ogcwcsMap.put('set', d_ogcwcsList);
+    row.put('data_access_url_ogc_wcs_desc', d_ogcwcsMap);
+    return row;
+  }
+
+  function related(row) {
+    var related = row.get('mmd_related_information_resource');
+    var types = row.get('mmd_related_information_type');
+
+    var guideMap = new java.util.HashMap();
+    var guideList = new java.util.ArrayList();
+    var d_guideMap = new java.util.HashMap();
+    var d_guideList = new java.util.ArrayList();
+
+    var landingMap = new java.util.HashMap();
+    var landingList = new java.util.ArrayList();
+    var d_landingMap = new java.util.HashMap();
+    var d_landingList = new java.util.ArrayList();
+
+    var homeMap = new java.util.HashMap();
+    var homeList = new java.util.ArrayList();
+    var d_homeMap = new java.util.HashMap();
+    var d_homeList = new java.util.ArrayList();
+
+    var obsMap = new java.util.HashMap();
+    var obsList = new java.util.ArrayList();
+    var d_obsMap = new java.util.HashMap();
+    var d_obsList = new java.util.ArrayList();
+
+    var extMap = new java.util.HashMap();
+    var extList = new java.util.ArrayList();
+    var d_extMap = new java.util.HashMap();
+    var d_extList = new java.util.ArrayList();
+
+    if (types != null && related != null) {
+      for (var k = 0; k < types.length; k++) {
+        var str = types[k].trim();
+        var rString = related[k].split('\"').join(' ').trim();
+        print(str);
+        print(rString);
+        if (str.match("Users guide") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            guideList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_guideList.add(desc);
+           }
+          }
+        }
+        if (str.match("Dataset landing") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            landingList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_landingList.add(desc);
+           }
+          }
+        }
+        if (str.match("Project home page") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            homeList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_homeList.add(desc);
+           }
+          }
+        }
+        if (str.match("Observation facility") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            obsList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_obsList.add(desc);
+           }
+          }
+        }
+        if (str.match("Extended metadata") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            extList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_extList.add(desc);
+           }
+          }
+        }
+      }
+    }
+    landingMap.put('set', landingList);
+    guideMap.put('set', guideList);
+    homeMap.put('set', homeList);
+    obsMap.put('set', obsList);
+    extMap.put('set',extList);
+
+    d_landingMap.put('set', d_landingList);
+    d_guideMap.put('set', d_guideList);
+    d_homeMap.put('set', d_homeList);
+    d_obsMap.put('set', d_obsList);
+    d_extMap.put('set',d_extList);
+
+    row.put('related_url_landing_page', landingMap);
+    row.put('related_url_user_guide', guideMap);
+    row.put('related_url_home_page', homeMap);
+    row.put('related_url_obs_facility', obsMap);
+    row.put('related_url_ext_metadata', extMap);
+
+    row.put('related_url_landing_page_desc', d_landingMap);
+    row.put('related_url_user_guide_desc', d_guideMap);
+    row.put('related_url_home_page_desc', d_homeMap);
+    row.put('related_url_obs_facility_desc', d_obsMap);
+    row.put('related_url_ext_metadata_desc', d_extMap);
+    return row;
+  }
+  function relatedNew(row) {
+    var related = row.get('mmd_related_information_resource');
+    var types = row.get('mmd_related_information_type');
+
+    var guideMap = new java.util.HashMap();
+    var guideList = new java.util.ArrayList();
+    var d_guideMap = new java.util.HashMap();
+    var d_guideList = new java.util.ArrayList();
+
+    var landingMap = new java.util.HashMap();
+    var landingList = new java.util.ArrayList();
+    var d_landingMap = new java.util.HashMap();
+    var d_landingList = new java.util.ArrayList();
+
+    var homeMap = new java.util.HashMap();
+    var homeList = new java.util.ArrayList();
+    var d_homeMap = new java.util.HashMap();
+    var d_homeList = new java.util.ArrayList();
+
+    var obsMap = new java.util.HashMap();
+    var obsList = new java.util.ArrayList();
+    var d_obsMap = new java.util.HashMap();
+    var d_obsList = new java.util.ArrayList();
+
+    var extMap = new java.util.HashMap();
+    var extList = new java.util.ArrayList();
+    var d_extMap = new java.util.HashMap();
+    var d_extList = new java.util.ArrayList();
+
+    if (related != null) {
+      for (var k = 0; k < related.length; k++) {
+        var rString = related[k].split('\"').join(' ').trim();
+	var str = rString.split(':')[0].trim();
+        print(str);
+        print(rString);
+        if (str.match("Users guide") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            guideList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_guideList.add(desc);
+           }
+          }
+        }
+        if (str.match("Dataset landing") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            landingList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_landingList.add(desc);
+           }
+          }
+        }
+        if (str.match("Project home page") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            homeList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_homeList.add(desc);
+           }
+          }
+        }
+        if (str.match("Observation facility") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            obsList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_obsList.add(desc);
+           }
+          }
+        }
+        if (str.match("Extended metadata") != null) {
+          var url = rString.match(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+          if (url != null) {
+            extList.add(url[0]);
+          }
+          desc = rString.substring(rString.indexOf('description :') +13);
+          if (desc != null ) {
+            if (desc !== '' && desc !== 'NA')  {
+              d_extList.add(desc);
+           }
+          }
+        }
+      }
+    }
+    landingMap.put('set', landingList);
+    guideMap.put('set', guideList);
+    homeMap.put('set', homeList);
+    obsMap.put('set', obsList);
+    extMap.put('set',extList);
+
+    d_landingMap.put('set', d_landingList);
+    d_guideMap.put('set', d_guideList);
+    d_homeMap.put('set', d_homeList);
+    d_obsMap.put('set', d_obsList);
+    d_extMap.put('set',d_extList);
+
+    row.put('related_url_landing_page', landingMap);
+    row.put('related_url_user_guide', guideMap);
+    row.put('related_url_home_page', homeMap);
+    row.put('related_url_obs_facility', obsMap);
+    row.put('related_url_ext_metadata', extMap);
+
+    row.put('related_url_landing_page_desc', d_landingMap);
+    row.put('related_url_user_guide_desc', d_guideMap);
+    row.put('related_url_home_page_desc', d_homeMap);
+    row.put('related_url_obs_facility_desc', d_obsMap);
+    row.put('related_url_ext_metadata_desc', d_extMap);
+    return row;
+  }
+
+  function extractPlatform(row) {
+    var sPlatformList = new java.util.ArrayList();
+    var sPlatformMap = new java.util.HashMap();
+    var platformName = row.get('mmd_platform_short_name');
+    print(platformName);
+    var sentinelName = "";
+    if( platformName != null) {
+    for (var k = 0; k < platformName.length; k++) {
+      if ( platformName[k].match("S1") != null) {
+        sentinelName = "Sentinel-1";
+      }
+      if (platformName[k].match("S2") != null) {
+        sentinelName = "Sentinel-2";
+      }
+      if ( sentinelName != "") {
+        print(sentinelName);
+        sPlatformList.add(sentinelName);
+        sPlatformMap.put('set', sPlatformList);
+        row.put('platform_sentinel', sPlatformMap);
+      }
+    }
+    row.put('platform_short_name', platformName);
+    }
+    return row;
+
+  }
+  function isParent(row) {
+    var parentMap = new java.util.HashMap();
+    var parentList = new java.util.ArrayList();
+    var related = row.get('mmd_related_dataset');
+    if (related != null) {
+      parentList.add("true");
+    } else {
+      parentList.add("false");
+    }
+    parentMap.put('set', parentList);
+    row.put('isParent', parentMap);
+    return row;
+  }
+
+  function isChild(row) {
+    var childMap = new java.util.HashMap();
+    var childList = new java.util.ArrayList();
+    var related = row.get('mmd_related_dataset');
+    if (related != null) {
+      childList.add("true");
+    } else {
+      childList.add("false");
+    }
+    childMap.put('set', childList);
+    row.put('isChild', childMap);
+    return row;
+  }
+
+  function fixID(row) {
+    var idMap = new java.util.HashMap();
+    var idList = new java.util.ArrayList();
+    var id = row.get('id');
+    var newID = id.replace('.', '-');
+    idList.add(newID);
+    idMap.put('set', idList);
+    row.put('id', idMap);
+    return row;
+  }
+
+  function bboxUpdate(row) {
+    var bboxMap = new java.util.HashMap();
+    var bboxList = new java.util.ArrayList();
+    var bbox = row.get('bbox');
+    print(bbox);
+    bboxList.add(bbox);
+    bboxMap.put('set', bbox);
+    row.put('bbox', bboxMap);
+    return row;
+
+  }
+  function createPins(row) {
+    pinMap = new java.util.HashMap();
+    pinList = new java.util.ArrayList();
+    var north = row.get('mmd_geographic_extent_rectangle_north');
+    var south = row.get('mmd_geographic_extent_rectangle_south');
+    var east = row.get('mmd_geographic_extent_rectangle_east');
+    var west = row.get('mmd_geographic_extent_rectangle_west');
+
+    var lat = (south + north) / 2;
+    var lon = (east + west) / 2;
+    pinList.add(lat);
+    pinList.add(lon);
+    pinMap.put('set', lat+','+lon);
+    row.put('locs_geo_extent', pinMap);
+    return row;
+  }
+  function personnel(row) {
+    var role = row.get('mmd_personnel_role');
+    var name = row.get('mmd_personnel_name');
+    var email = row.get('mmd_personnel_email');
+    var phone = row.get('mmd_personnel_phone');
+    var fax = row.get('mmd_personnel_fax');
+    var org = row.get('mmd_personnel_organisation');
+    var addr = row.get('mmd_personnel_contact_address_address');
+    var addr_city = row.get('mmd_personnel_contact_address_city');
+    var addr_country = row.get('mmd_personnel_contact_address_country');
+    var addr_postal = row.get('mmd_personnel_contact_address_postal_code');
+    var addr_province = row.get('mmd_personnel_contact_address_province_or_state');
+
+    if (role != null) {
+      for (var i = 0; i < role.length; i++) {
+        if (role[i].trim().toLowerCase() === "technical contact") {
+          row.put('personnel_technical_role', 'Technical contact'); row.put('personnel_role', 'Technical contact');
+        if( name != null) {  if( name[i] != null) { row.put('personnel_technical_name', name[i]);  row.put('personnel_name', name[i]); } }
+        if( org != null) {    if( org[i] != null) { row.put('personnel_technical_organisation',  org[i]);  row.put('personnel_organisation',  org[i]); } }
+        if( email != null) {    if( email[i] != null) { row.put('personnel_technical_email', email[i]); } }
+        if( phone != null) {    if( phone[i] != null) { row.put('personnel_technical_phone', phone[i]); } }
+        if( fax != null) {    if( fax[i] != null) { row.put('personnel_technical_fax', fax[i]); } }
+        if( addr != null) {    if( addr[i] != null) { row.put('personnel_technical_address',addr[i]); } }
+        if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_technical_address_city', addr_city[i]); row.put('personnel_contact_address_city', addr_city[i]); } }
+        if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_technical_address_country', addr_country[i]); row.put('personnel_contact_address_country', addr_country[i]); } }
+        if( addr_postal != null) {    if( addr_postal[i] != null) { row.put('personnel_technical_address_postal_code', addr_postal[i]); } }
+        if( addr_province != null) {    if( addr_province[i] != null) { row.put('personnel_technical_address_province_or_state',addr_province[i]); row.put('personnel_contact_address_province_or_state', addr_province[i]); } }
+        }
+        else if (role[i].trim().toLowerCase() === "data center contact" || role[i].trim().toLowerCase() === "datacenter") {
+          row.put('personnel_datacenter_role','Data center contact');  row.put('personnel_role', 'Data center contact');
+          if( name != null) {  if( name[i] != null) { row.put('personnel_datacenter_name', name[i]);  row.put('personnel_name', name[i]); } }
+          if( org != null) {  if( org[i] != null) { row.put('personnel_datacenter_organisation', org[i]);  row.put('personnel_organisation', org[i]); } }
+          if( email != null) {  if( email[i] != null) { row.put('personnel_datacenter_email', email[i]); } }
+          if( phone != null) {  if( phone[i] != null) { row.put('personnel_datacenter_phone', phone[i]); } }
+          if( fax != null) {  if( fax[i] != null) { row.put('personnel_datacenter_fax', fax[i]); } }
+          if( addr != null) {  if( addr[i] != null) { row.put('personnel_datacenter_address',  addr[i]); } }
+          if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_datacenter_address_city', addr_city[i]); row.put('personnel_contact_address_city', addr_city[i]); } }
+          if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_datacenter_address_country', addr_country[i]); row.put('personnel_contact_address_country', addr_country[i]); } }
+          if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_datacenter_address_postal_code', addr_postal[i]); } }
+          if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_datacenter_address_province_or_state', addr_province[i]); row.put('personnel_contact_address_province_or_state', addr_province[i]); } }
+        }
+        else if (role[i].trim().toLowerCase() === "investigator") {
+          row.put('personnel_investigator_role', 'Investigator');  row.put('personnel_role', 'Investigator');
+          if( name != null) {  if( name[i] != null) { row.put('personnel_investigator_name', name[i]);  row.put('personnel_name', name[i]); } }
+          if( org != null) {  if( org[i] != null) { row.put('personnel_investigator_organisation', org[i]);  row.put('personnel_organisation', org[i]); } }
+          if( email != null) {  if( email[i] != null) { row.put('personnel_investigator_email', email[i]); } }
+          if( phone != null) {  if( phone[i] != null) { row.put('personnel_investigator_phone',  phone[i]); } }
+          if( fax != null) {  if( fax[i] != null) { row.put('personnel_investigator_fax', fax[i]); } }
+          if( addr != null) {  if( addr[i] != null) { row.put('personnel_investigator_address', addr[i]); } }
+          if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_investigator_address_city', addr_city[i]); row.put('personnel_contact_address_city', addr_city[i]); } }
+          if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_investigator_address_country', addr_country[i]); row.put('personnel_contact_address_country', addr_country[i]); } }
+          if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_investigator_address_postal_code', addr_postal[i]); } }
+          if( addr_postal != null) {  if( addr_province[i] != null) { row.put('personnel_investigator_address_province_or_state', addr_province[i]); row.put('personnel_contact_address_province_or_state', addr_province[i]); } }
+        }
+      else if (role[i].trim().toLowerCase() === "metadata author" || role[i].trim().toLowerCase() === "dif author") {
+          row.put('personnel_metadata_author_role', 'Metadata author');  row.put('personnel_role','Metadata author');
+          if( name != null) {  if( name[i] != null) { row.put('personnel_metadata_author_name', name[i]);  row.put('personnel_name', name[i]); } }
+          if( org != null) {  if( org[i] != null) { row.put('personnel_metadata_author_organisation', org[i]);  row.put('personnel_organisation', org[i]); } }
+          if( email != null) {  if( email[i] != null) { row.put('personnel_metadata_author_email', email[i]); } }
+          if( phone != null) {  if( phone[i] != null) { row.put('personnel_metadata_author_phone',  phone[i]); } }
+          if( fax != null) {  if( fax[i] != null) { row.put('personnel_metadata_author_fax', fax[i]); } }
+          if( addr != null) {  if( addr[i] != null) { row.put('personnel_metadata_author_address', addr[i]); } }
+          if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_metadata_author_address_city',addr_city[i]); row.put('personnel_contact_address_city',addr_city[i]); } }
+          if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_metadata_author_address_country',addr_country[i]); row.put('personnel_contact_address_country',addr_country[i]); } }
+          if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_metadata_author_address_postal_code', addr_postal[i] ); } }
+          if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_metadata_author_address_province_or_state',addr_province[i]); row.put('personnel_contact_address_province_or_state',addr_province[i]); } }
+        }
+        else {
+        row.put('personnel_role', role[i]);  row.put('personnel_role', role[i]);
+        if( name != null) {  if( name[i] != null) { row.put('personnel_name', name[i]); } }
+        if( org != null) {  if( org[i] != null) { row.put('personnel_organisation', org[i]); } }
+        if( email != null) {  if( email[i] != null) { row.put('personnel_email', email[i]); } }
+        if( phone != null) {  if( phone[i] != null) { row.put('personnel_phone', phone[i]); } }
+        if( fax != null) {  if( fax[i] != null) { row.put('personnel_fax', fax[i] ); } }
+        if( addr != null) {  if( addr[i] != null) { row.put('personnel_address',addr[i]); } }
+        if( addr_city != null) {  if( addr_city[i] != null) { row.put('personnel_address_city',addr_city[i]); } }
+        if( addr_country != null) {  if( addr_country[i] != null) { row.put('personnel_address_country',addr_country[i]);  } }
+        if( addr_postal != null) {  if( addr_postal[i] != null) { row.put('personnel_address_postal_code',addr_postal[i]); } }
+        if( addr_province != null) {  if( addr_province[i] != null) { row.put('personnel_address_province_or_state',addr_province[i]); } }
+        }
+      }
+    }
+    var dc_role = row.get("mmd_data_center_contact_role");
+    var dc_name = row.get("mmd_data_center_contact_name");
+    var dc_org = row.get("mmd_data_center_contact_organisation");
+    if (dc_role != null) {
+        if (dc_role.trim().toLowerCase() === "data center contact" || dc_role.trim().toLowerCase() === "datacenter") {
+          row.put('personnel_datacenter_role','Data center contact');  row.put('personnel_role', 'Data center contact');
+          if( dc_name != null) {  row.put('personnel_datacenter_name', dc_name);  row.put('personnel_name', dc_name); }
+          if( dc_org != null) {  row.put('personnel_datacenter_organisation', dc_org);  row.put('personnel_organisation', dc_org); }
+        }
+    }
+
+    return row;
+  }
+]]></script>
+
+  <document>
+
+<!-- NEW MMD DATAIMPORT -->
+<entity name="newMMD" processor="SolrEntityProcessor"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:bboxUpdate,script:date_range,script:url_extractor,script:relatedNew,script:isParent,script:createPins,script:personnel"
+  url="http://157.249.176.182:8080/solr/adc-l1"
+  query="full_text:rack"
+  batchSize="20"
+  onError="skip"
+  logTemplate="The Parent dataset:  ${newMMD.mmd_metadata_identifier}" logLevel="info"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+  <field column="dataset_type" name="dataset_type" template="Level-1" />
+  <!--  <field column="id" name="id"/> -->
+  <field column="mmd_metadata_identifier" name="metadata_identifier" />
+  <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
+  <field column="mmd_metadata_status" name="metadata_status" />
+  <field column="mmd_collection" name="collection" />
+  <field column="mmd_title" name="title" />
+  <field column="mmd_abstract" name="abstract" />
+  <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
+  <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+  <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+  <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+  <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+  <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+  <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
+  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+  <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
+  <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
+  <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent_rectangle_west" />
+  <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent_rectangle_srsName" />
+  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+  <field column="mmd_dataset_production_status" name="dataset_production_status" />
+  <field column="mmd_dataset_language" name="dataset_language" />
+  <field column="mmd_operational_status" name="operational_status" />
+  <field column="mmd_access_constraint" name="access_constraint" />
+  <field column="mmd_use_constraint" name="use_constraint_identifier" />
+
+  <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
+  <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
+  <field column="mmd_data_center_data_center_url" name="data_center_url" />
+  <field column="mmd_data_access_name" name="data_access_name" />
+  <field column="mmd_data_access_type" name="data_access_type" />
+  <field column="mmd_data_access_resource" name="data_access_resource" />
+  <field column="mmd_data_access_description" name="data_access_description" />
+  <field column="mmd_data_access_wms_layers_wms_layer" name="data_access_wms_layers" />
+  <field column="mmd_related_dataset" name="related_dataset" />
+  <field column="mmd_related_information_type" name="related_information_type" />
+  <field column="mmd_related_information_resource" name="related_information_resource" />
+  <field column="mmd_related_information_description" name="related_information_description" />
+  <field column="mmd_iso_topic_category" name="iso_topic_category" />
+  <field column="mmd_keywords_keyword" name="keywords_keyword" />
+  <field column="mmd_project_short_name" name="project_short_name" />
+  <field column="mmd_project_long_name" name="project_long_name" />
+  <field column="mmd_platform_short_name" name="platform_short_name" />
+  <field column="mmd_platform_long_name" name="platform_long_name" />
+  <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
+  <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
+  <field column="mmd_instrument_mode" name="platform_instrument_mode" />
+  <field column="mmd_instrument_polarisation" name="platform_instrument_polarisation" />
+  <field column="mmd_instrument_product_type" name="platform_instrument_product_type" />
+  <field column="mmd_cloud_cover_value" name="platform_ancillary_cloud_coverage" />
+  <field column="mmd_scene_cover_value" name="platform_ancillary_scene_coverage" />
+  <field column="mmd_activity_type" name="activity_type" />
+  <field column="mmd_reference_author" name="dataset_citation_author" />
+  <field column="mmd_reference_publication_date" name="dataset_citation_publication_date" />
+  <field column="mmd_dataset_citation_dataset_title" name="dataset_citation_title" />
+  <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation_series" />
+  <field column="mmd_reference_edition" name="dataset_citation_edition" />
+  <field column="mmd_reference_volume" name="dataset_citation_volume" />
+  <field column="mmd_reference_issue" name="dataset_citation_issue" />
+  <field column="mmd_reference_publication_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
+  <field column="mmd_reference_pages" name="dataset_citation_pages" />
+  <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
+  <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
+  <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+  <field column="mmd_data_center_contact_role" name="ignored" />
+  <field column="mmd_data_center_contact_name" name="ignored" />
+  <field column="mmd_data_center_contact_organisation" name="ignored" />
+
+  <field column="mmd_data_center_dataset_id" name="ignored" />
+  <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+  <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+  <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+  <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+  <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+  <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+  <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+  <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+  <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+  <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+  <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
+
+  <field column="mmd_personnel_fax" name="ignored" />
+  <field column="mmd_personnel_role" name="ignored" />
+  <field column="mmd_personnel_name" name="ignored" />
+  <field column="mmd_personnel_email" name="ignored" />
+  <field column="mmd_personnel_phone" name="ignored" />
+  <field column="mmd_personnel_organisation" name="ignored" />
+  <field column="mmd_personnel_contact_address_city" name="ignored" />
+  <field column="mmd_personnel_contact_address_country" name="ignored" />
+  <field column="mmd_personnel_contact_address_address" name="ignored" />
+  <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+  <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
+
+  <!-- <field column="bbox" name="bbox" /> -->
+
+  <entity name="newMMDtp" processor="SolrEntityProcessor" rootEntity="false"
+      transformer="LogTransformer"
+      logTemplate="Got Parent thumbnail id:  ${newMMDtp.mmd_metadata_identifier}" logLevel="info"
+      url="http://157.249.176.182:8080/solr/adc-thumbnail"
+        query="id:${newMMD.metadata_identifier}"
+      batchSize="20"
+      onError="skip"
+      fl="thumbnail,base_map,thumbnail_data,mmd_metadata_identifier,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
+      <field column="thumbnail" name="thumbnail" />
+      <field column="thumbnail_data" name="thumbnail_data" />
+      <field column="base_map" name="base_map" />
+      <field column="feature_type" name="feature_type" />
+      <field column="mmd_metadata_identifier" name="ignore" />
+      <field column="id" name="ignore" />
+  </entity>
+  </entity>
+  <entity  name="newMMDc" processor="SolrEntityProcessor"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:bboxUpdate,script:keywords_level,script:date_range,script:url_extractor,script:relatedNew,script:isParent,script:createPins,script:personnel"
+       url="http://157.249.176.182:8080/solr/adc-l2"
+       query="full_text:rack"
+       child="false"
+       onError="skip"
+       logTemplate="The Child dataset  ${newMMDc.mmd_metadata_identifier} for parent ${newMMD.mmd_metadata_identifier}" logLevel="info"
+       fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+      <field column="dataset_type" name="dataset_type" template="Level-2" />
+      <field column="id" name="id"/>
+      <field column="mmd_metadata_identifier" name="metadata_identifier" />
+      <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
+      <field column="mmd_metadata_status" name="metadata_status" />
+      <field column="mmd_collection" name="collection" />
+      <field column="mmd_title" name="title" />
+      <field column="mmd_abstract" name="abstract" />
+      <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
+      <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+      <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+      <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+      <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+      <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+      <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
+      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+      <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
+      <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
+      <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent_rectangle_west" />
+      <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent_rectangle_srsName" />
+      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+      <field column="mmd_dataset_production_status" name="dataset_production_status" />
+      <field column="mmd_dataset_language" name="dataset_language" />
+      <field column="mmd_operational_status" name="operational_status" />
+      <field column="mmd_access_constraint" name="access_constraint" />
+      <field column="mmd_use_constraint" name="use_constraint_identifier" />
+
+      <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
+      <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
+      <field column="mmd_data_center_data_center_url" name="data_center_url" />
+      <field column="mmd_data_access_name" name="data_access_name" />
+      <field column="mmd_data_access_type" name="data_access_type" />
+      <field column="mmd_data_access_resource" name="data_access_resource" />
+      <field column="mmd_data_access_description" name="data_access_description" />
+      <field column="mmd_data_access_wms_layers_wms_layer" name="data_access_wms_layers" />
+      <field column="mmd_related_dataset" name="related_dataset" />
+      <field column="mmd_related_information_type" name="related_information_type" />
+      <field column="mmd_related_information_resource" name="related_information_resource" />
+      <field column="mmd_related_information_description" name="related_information_description" />
+      <field column="mmd_iso_topic_category" name="iso_topic_category" />
+      <field column="mmd_keywords_keyword" name="keywords_keyword" />
+      <field column="mmd_project_short_name" name="project_short_name" />
+      <field column="mmd_project_long_name" name="project_long_name" />
+      <field column="mmd_platform_short_name" name="platform_short_name" />
+      <field column="mmd_platform_long_name" name="platform_long_name" />
+      <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
+      <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
+      <field column="mmd_instrument_mode" name="platform_instrument_mode" />
+      <field column="mmd_instrument_polarisation" name="platform_instrument_polarisation" />
+      <field column="mmd_instrument_product_type" name="platform_instrument_product_type" />
+      <field column="mmd_cloud_cover_value" name="platform_ancillary_cloud_coverage" />
+      <field column="mmd_scene_cover_value" name="platform_ancillary_scene_coverage" />
+      <field column="mmd_activity_type" name="activity_type" />
+      <field column="mmd_reference_author" name="dataset_citation_author" />
+      <field column="mmd_reference_publication_date" name="dataset_citation_publication_date" />
+      <field column="mmd_dataset_citation_dataset_title" name="dataset_citation_title" />
+      <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation_series" />
+      <field column="mmd_reference_edition" name="dataset_citation_edition" />
+      <field column="mmd_reference_volume" name="dataset_citation_volume" />
+      <field column="mmd_reference_issue" name="dataset_citation_issue" />
+      <field column="mmd_reference_publication_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
+      <field column="mmd_reference_pages" name="dataset_citation_pages" />
+      <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
+      <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
+      <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+      <field column="mmd_data_center_contact_role" name="ignored" />
+      <field column="mmd_data_center_contact_name" name="ignored" />
+      <field column="mmd_data_center_contact_organisation" name="ignored" />
+
+      <field column="mmd_data_center_dataset_id" name="ignored" />
+      <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+      <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+      <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+      <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+      <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+      <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+      <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+      <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+
+      <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+      <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+      <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
+
+      <field column="mmd_personnel_fax" name="ignored" />
+      <field column="mmd_personnel_role" name="ignored" />
+      <field column="mmd_personnel_name" name="ignored" />
+      <field column="mmd_personnel_email" name="ignored" />
+      <field column="mmd_personnel_phone" name="ignored" />
+      <field column="mmd_personnel_organisation" name="ignored" />
+      <field column="mmd_personnel_contact_address_city" name="ignored" />
+      <field column="mmd_personnel_contact_address_country" name="ignored" />
+      <field column="mmd_personnel_contact_address_address" name="ignored" />
+      <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+      <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
+
+
+      <!--  <field column="bbox" name="bbox" /> -->
+
+
+
+      <entity name="newMMDtc" processor="SolrEntityProcessor" rootEntity="false"
+          transformer="LogTransformer"
+          logTemplate="Got Child thumbnail id:  ${newMMDtc.mmd_metadata_identifier}" logLevel="info"
+          url="http://157.249.176.182:8080/solr/adc-thumbnail"
+          query="id:${newMMDc.id}"
+          batchSize="20"
+          onError="skip"
+          fl="thumbnail,base_map,thumbnail_data,feature_type,mmd_metadata_identifier,orig_version_l:_version_,ignored_price_c:price_c">
+          <field column="thumbnail" name="thumbnail" />
+          <field column="thumbnail_data" name="thumbnail_data" />
+          <field column="base_map" name="base_map" />
+          <field column="feature_type" name="feature_type" />
+          <field column="mmd_metadata_identifier" name="ignore" />
+      </entity>
+
+
+
+</entity>
+
+<entity name="nbsMMD" processor="SolrEntityProcessor"
+  transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel,script:extractPlatform"
+  url="http://157.249.176.182:8080/solr/nbs-l1"
+  query="*:*"
+  batchSize="20"
+  onError="skip"
+  logTemplate="The Parent dataset:  ${nbsMMD.mmd_metadata_identifier}" logLevel="info"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+  <field column="test_storage" name="test_storage" template="testing" />
+  <field column="dataset_type" name="dataset_type" template="Level-1" />
+  <field column="id" name="id"/>
+  <field column="mmd_metadata_identifier" name="metadata_identifier" />
+  <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
+  <field column="mmd_metadata_status" name="metadata_status" />
+  <field column="mmd_collection" name="collection" />
+  <field column="mmd_title" name="title" />
+  <field column="mmd_abstract" name="abstract" />
+  <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
+  <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+  <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+  <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+  <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+  <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+  <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+  <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
+  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+  <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
+  <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
+  <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent_rectangle_west" />
+  <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent_rectangle_srsName" />
+  <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+  <field column="mmd_dataset_production_status" name="dataset_production_status" />
+  <field column="mmd_dataset_language" name="dataset_language" />
+  <field column="mmd_operational_status" name="operational_status" />
+  <field column="mmd_access_constraint" name="access_constraint" />
+  <field column="mmd_use_constraint" name="use_constraint_identifier" />
+
+  <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
+  <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
+  <field column="mmd_data_center_data_center_url" name="data_center_url" />
+  <field column="mmd_data_access_name" name="data_access_name" />
+  <field column="mmd_data_access_type" name="data_access_type" />
+  <field column="mmd_data_access_resource" name="data_access_resource" />
+  <field column="mmd_data_access_description" name="data_access_description" />
+  <field column="mmd_data_access_wms_layers_wms_layer" name="data_access_wms_layers" />
+  <field column="mmd_related_dataset" name="related_dataset" />
+  <field column="mmd_related_information_type" name="related_information_type" />
+  <field column="mmd_related_information_resource" name="related_information_resource" />
+  <field column="mmd_related_information_description" name="related_information_description" />
+  <field column="mmd_iso_topic_category" name="iso_topic_category" />
+  <field column="mmd_keywords_keyword" name="keywords_keyword" />
+  <field column="mmd_project_short_name" name="project_short_name" />
+  <field column="mmd_project_long_name" name="project_long_name" />
+  <!--<field column="mmd_platform_short_name" name="platform_short_name" />-->
+  <field column="mmd_platform_long_name" name="platform_long_name" />
+  <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
+  <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
+  <field column="mmd_instrument_mode" name="platform_instrument_mode" />
+  <field column="mmd_instrument_polarisation" name="platform_instrument_polarisation" />
+  <field column="mmd_instrument_product_type" name="platform_instrument_product_type" />
+  <field column="mmd_cloud_cover_value" name="platform_ancillary_cloud_coverage" />
+  <field column="mmd_scene_cover_value" name="platform_ancillary_scene_coverage" />
+  <field column="mmd_activity_type" name="activity_type" />
+  <field column="mmd_reference_author" name="dataset_citation_author" />
+  <field column="mmd_reference_publication_date" name="dataset_citation_publication_date" />
+  <field column="mmd_dataset_citation_dataset_title" name="dataset_citation_title" />
+  <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation_series" />
+  <field column="mmd_reference_edition" name="dataset_citation_edition" />
+  <field column="mmd_reference_volume" name="dataset_citation_volume" />
+  <field column="mmd_reference_issue" name="dataset_citation_issue" />
+  <field column="mmd_reference_publication_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
+  <field column="mmd_reference_pages" name="dataset_citation_pages" />
+  <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
+  <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
+  <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+  <field column="mmd_data_center_contact_role" name="ignored" />
+  <field column="mmd_data_center_contact_name" name="ignored" />
+  <field column="mmd_data_center_contact_organisation" name="ignored" />
+
+  <field column="mmd_data_center_dataset_id" name="ignored" />
+  <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+  <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+  <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+  <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+  <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+  <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+  <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+  <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+  <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+  <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+  <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+
+  <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+  <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+  <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+  <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
+
+  <field column="mmd_personnel_fax" name="ignored" />
+  <field column="mmd_personnel_role" name="ignored" />
+  <field column="mmd_personnel_name" name="ignored" />
+  <field column="mmd_personnel_email" name="ignored" />
+  <field column="mmd_personnel_phone" name="ignored" />
+  <field column="mmd_personnel_organisation" name="ignored" />
+  <field column="mmd_personnel_contact_address_city" name="ignored" />
+  <field column="mmd_personnel_contact_address_country" name="ignored" />
+  <field column="mmd_personnel_contact_address_address" name="ignored" />
+  <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+  <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
+
+
+
+  <field column="bbox" name="bbox" />
+
+  <entity name="nbsMMDtp" processor="SolrEntityProcessor" rootEntity="false"
+      transformer="LogTransformer"
+      logTemplate="Got Parent thumbnail id:  ${nbsMMDtp.mmd_metadata_identifier}" logLevel="info"
+      url="http://157.249.176.182:8080/solr/nbs-thumbnail"
+      query="id:${nbsMMD.id}"
+      batchSize="20"
+      onError="skip"
+      fl="thumbnail,base_map,thumbnail_data,mmd_metadata_identifier,feature_type,orig_version_l:_version_,ignored_price_c:price_c">
+      <field column="thumbnail" name="thumbnail" />
+      <field column="thumbnail_data" name="thumbnail_data" />
+      <field column="base_map" name="base_map" />
+      <field column="feature_type" name="feature_type" />
+      <field column="mmd_metadata_identifier" name="ignore" />
+  </entity>
+  </entity>
+  <entity  name="nbsMMDc" processor="SolrEntityProcessor"
+    transformer="DateFormatTransformer,LogTransformer,TemplateTransformer,script:keywords_level,script:date_range,script:url_extractor,script:related,script:isParent,script:createPins,script:personnel"
+       url="http://157.249.176.182:8080/solr/nbs-l2"
+       query="*:*"
+       child="false"
+       onError="skip"
+       logTemplate="The Child dataset  ${nbsMMDc.mmd_metadata_identifier} for parent ${nbsMMD.mmd_metadata_identifier}" logLevel="info"
+       fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+      <field column="dataset_type" name="dataset_type" template="Level-2" />
+      <field column="id" name="id"/>
+      <field column="mmd_metadata_identifier" name="metadata_identifier" />
+      <field column="mmd_last_metadata_update" name="last_metadata_update_datetime" />
+      <field column="mmd_metadata_status" name="metadata_status" />
+      <field column="mmd_collection" name="collection" />
+      <field column="mmd_title" name="title" />
+      <field column="mmd_abstract" name="abstract" />
+      <field column="mmd_temporal_extent_start_date" name="temporal_extent_start_date" />
+      <field column="mmd_temporal_extent_end_date" name="temporal_extent_end_date" />
+      <field column="start_date_year_month" sourceColName="temporal_extent_start_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="end_date_year_month" sourceColName="temporal_extent_end_date" dateTimeFormat="yyyy-MMZ"/>
+      <field column="start_date_day" sourceColName="temporal_extent_start_date" dateTimeFormat="ddZ"/>
+      <field column="end_date_day" sourceColName="temporal_extent_end_date" dateTimeFormat="ddZ"/>
+      <field column="start_date_hour_minutes" sourceColName="temporal_extent_start_date" dateTimeFormat="HH:mmZ"/>
+      <field column="end_date_hour_minutes" sourceColName="temporal_extent_end_date" dateTimeFormat="HH:mmZ"/>
+      <field column="temporal_extent_period_dr_year_month" sourceColName="temporal_extent_period_dr_year_month" dateTimeFormat="yyyy-MMZ"/>
+
+      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+      <field column="mmd_geographic_extent_rectangle_south" name="geographic_extent_rectangle_south" />
+      <field column="mmd_geographic_extent_rectangle_east" name="geographic_extent_rectangle_east" />
+      <field column="mmd_geographic_extent_rectangle_west" name="geographic_extent_rectangle_west" />
+      <field column="mmd_geographic_extent_rectangle_srsName" name="geographic_extent_rectangle_srsName" />
+      <field column="mmd_geographic_extent_rectangle_north" name="geographic_extent_rectangle_north" />
+      <field column="mmd_dataset_production_status" name="dataset_production_status" />
+      <field column="mmd_dataset_language" name="dataset_language" />
+      <field column="mmd_operational_status" name="operational_status" />
+      <field column="mmd_access_constraint" name="access_constraint" />
+      <field column="mmd_use_constraint" name="use_constraint_identifier" />
+
+      <field column="mmd_data_center_data_center_name_short_name" name="data_center_short_name" />
+      <field column="mmd_data_center_data_center_name_long_name" name="data_center_long_name" />
+      <field column="mmd_data_center_data_center_url" name="data_center_url" />
+      <field column="mmd_data_access_name" name="data_access_name" />
+      <field column="mmd_data_access_type" name="data_access_type" />
+      <field column="mmd_data_access_resource" name="data_access_resource" />
+      <field column="mmd_data_access_description" name="data_access_description" />
+      <field column="mmd_data_access_wms_layers_wms_layer" name="data_access_wms_layers" />
+      <field column="mmd_related_dataset" name="related_dataset" />
+      <field column="mmd_related_information_type" name="related_information_type" />
+      <field column="mmd_related_information_resource" name="related_information_resource" />
+      <field column="mmd_related_information_description" name="related_information_description" />
+      <field column="mmd_iso_topic_category" name="iso_topic_category" />
+      <field column="mmd_keywords_keyword" name="keywords_keyword" />
+      <field column="mmd_project_short_name" name="project_short_name" />
+      <field column="mmd_project_long_name" name="project_long_name" />
+      <field column="mmd_platform_short_name" name="platform_short_name" />
+      <field column="mmd_platform_long_name" name="platform_long_name" />
+      <field column="mmd_instrument_short_name" name="platform_instrument_short_name" />
+      <field column="mmd_instrument_long_name" name="platform_instrument_long_name" />
+      <field column="mmd_instrument_mode" name="platform_instrument_mode" />
+      <field column="mmd_instrument_polarisation" name="platform_instrument_polarisation" />
+      <field column="mmd_instrument_product_type" name="platform_instrument_product_type" />
+      <field column="mmd_cloud_cover_value" name="platform_ancillary_cloud_coverage" />
+      <field column="mmd_scene_cover_value" name="platform_ancillary_scene_coverage" />
+      <field column="mmd_activity_type" name="activity_type" />
+      <field column="mmd_reference_author" name="dataset_citation_author" />
+      <field column="mmd_reference_publication_date" name="dataset_citation_publication_date" />
+      <field column="mmd_dataset_citation_dataset_title" name="dataset_citation_title" />
+      <field column="mmd_dataset_citation_dataset_series_name" name="dataset_citation_series" />
+      <field column="mmd_reference_edition" name="dataset_citation_edition" />
+      <field column="mmd_reference_volume" name="dataset_citation_volume" />
+      <field column="mmd_reference_issue" name="dataset_citation_issue" />
+      <field column="mmd_reference_publication_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_publisher" name="dataset_citation_publisher" />
+      <field column="mmd_reference_pages" name="dataset_citation_pages" />
+      <field column="mmd_reference_isbn" name="dataset_citation_isbn" />
+      <field column="mmd_dataset_citation_dataset_doi" name="dataset_citation_doi" />
+      <field column="mmd_dataset_citation_other_citation_details" name="dataset_citation_other" />
+
+      <field column="mmd_data_center_contact_role" name="ignored" />
+      <field column="mmd_data_center_contact_name" name="ignored" />
+      <field column="mmd_data_center_contact_organisation" name="ignored" />
+
+      <field column="mmd_data_center_dataset_id" name="ignored" />
+      <field column="mmd_data_center_contact_role" name="personnel_datacenter_role" />
+      <field column="mmd_data_center_contact_name" name="personnel_datacenter_name" />
+      <field column="mmd_data_center_contact_organisation" name="personnel_datacenter_organisation" />
+      <field column="mmd_data_center_contact_email" name="personnel_datacenter_email" />
+      <field column="mmd_data_center_contact_phone" name="personnel_datacenter_phone" />
+      <field column="mmd_data_center_contact_fax" name="personnel_datacenter_fax" />
+      <field column="mmd_data_center_contact_contact_address_address" name="personnel_datacenter_address" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_datacenter_address_city" />
+      <field column="mmd_data_center_contact_contact_address_city" name="personnel_contact_address_city" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_datacenter_address_country" />
+      <field column="mmd_data_center_contact_contact_address_country" name="personnel_contact_address_country" />
+      <field column="mmd_data_center_contact_contact_address_postal_code" name="personnel_datacenter_address_postal_code" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_datacenter_address_province_or_state" />
+      <field column="mmd_data_center_contact_contact_address_province_or_state" name="personnel_contact_address_province_or_state" />
+
+
+      <field column="mmd_dataset_citation_dataset_creator" name="dataset_citation_author" />
+      <field column="mmd_dataset_citation_dataset_release_place" name="dataset_citation_publication_place" />
+      <field column="mmd_dataset_citation_dataset_release_date" name="ignored" />
+
+      <field column="mmd_dataset_citation_version" name="dataset_citation_edition" />
+
+      <field column="mmd_personnel_fax" name="ignored" />
+      <field column="mmd_personnel_role" name="ignored" />
+      <field column="mmd_personnel_name" name="ignored" />
+      <field column="mmd_personnel_email" name="ignored" />
+      <field column="mmd_personnel_phone" name="ignored" />
+      <field column="mmd_personnel_organisation" name="ignored" />
+      <field column="mmd_personnel_contact_address_city" name="ignored" />
+      <field column="mmd_personnel_contact_address_country" name="ignored" />
+      <field column="mmd_personnel_contact_address_address" name="ignored" />
+      <field column="mmd_personnel_contact_address_postal_code" name="ignored" />
+      <field column="mmd_personnel_contact_address_province_or_state" name="ignored" />
+
+
+      <field column="bbox" name="bbox" />
+
+
+
+      <entity name="nbsMMDtc" processor="SolrEntityProcessor" rootEntity="false"
+          transformer="LogTransformer"
+          logTemplate="Got Child thumbnail id:  ${nbsMMDtc.mmd_metadata_identifier}" logLevel="info"
+          url="http://157.249.176.182:8080/solr/nbs-thumbnail"
+          query="id:${nbsMMDc.id}"
+          batchSize="20"
+          onError="skip"
+          fl="thumbnail,base_map,thumbnail_data,feature_type,mmd_metadata_identifier,orig_version_l:_version_,ignored_price_c:price_c">
+          <field column="thumbnail" name="thumbnail" />
+          <field column="thumbnail_data" name="thumbnail_data" />
+          <field column="base_map" name="base_map" />
+          <field column="feature_type" name="feature_type" />
+          <field column="mmd_metadata_identifier" name="ignore" />
+      </entity>
+
+
+
+</entity>
+<entity name="adcD8Copy" processor="SolrEntityProcessor"
+  url="http://157.249.178.165:8983/solr/adc-d8-dev"
+  query="*:*"
+  batchSize="20"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+</entity>
+<entity name="nbsCopy" processor="SolrEntityProcessor"
+  url="http://157.249.74.44:8983/solr/adc"
+  query="*:*"
+  batchSize="20"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+  </entity>
+  <entity name="nbsDelta" processor="SolrEntityProcessor"
+  url="http://157.249.74.44:8983/solr/adc"
+  query="*:*"
+  fq="timestamp:['${dih.last_index_time}' TO NOW]"
+  batchSize="20"
+  fl="*,orig_version_l:_version_,ignored_price_c:price_c">
+  </entity>
+
+  </document>
+</dataConfig>
