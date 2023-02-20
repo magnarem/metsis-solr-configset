@@ -907,7 +907,7 @@
         <field name="end_date_day" indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="start_date_hour_minutes"  indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="end_date_hour_minutes"  indexed="true" multiValued="false" stored='true' type="pdate"/>
-	<field name="personnel" type="text_general" indexed="true" stored="false" multiValued="true" docValues="true" termVectors="true" />
+	<field name="personnel" type="text_general" indexed="true" stored="false" multiValued="true" termVectors="true" />
 
         <!-- Copy some fields for full_text search and other helper fields -->
         <copyField source="id" dest="full_text" />
