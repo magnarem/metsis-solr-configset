@@ -424,7 +424,7 @@
             geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" autoIndex="true"
             validationRule="repairBuffer0" spatialContextFactory="JTS"/>
 
-    <fieldType name="geojson" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory="Geo3D" geo="true" planetModel="WGS84" format="GeoJSON" />
+    <fieldType name="geom" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory="Geo3D" geo="true" planetModel="WGS84" prefixTree="s2" />
     <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
     special relevancy modes: score=overlapRatio|area|area2D (local-param to the query).  DocValues is recommended for
     relevancy. -->
@@ -527,7 +527,7 @@
           <field name="bbox_rpt" type="location_rpt" indexed="true" stored="true"/>
           <field name="polygon_rpt" type="location_rpt_spatial" indexed="true" stored="true"/>
           <!-- GeoJSON geometry for spatial search. -->
-          <field name="geom" type="geojson" indexed="true" stored="true" multiValued="false" />
+          <field name="geom" type="geom" indexed="true" docValues="true" stored="false" multiValued="false" />
 
 
         <!-- mmd/metadata_identifier -->
@@ -907,7 +907,7 @@
         <field name="end_date_day" indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="start_date_hour_minutes"  indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="end_date_hour_minutes"  indexed="true" multiValued="false" stored='true' type="pdate"/>
-
+        <field name="personnel" type="text_general" indexed="true" stored="false" multiValued="true" docValues="true" termVectors="true"
 
         <!-- Copy some fields for full_text search and other helper fields -->
         <copyField source="id" dest="full_text" />
@@ -983,4 +983,6 @@
         <copyField source="keywords_level5" dest="phrase_suggester" />
         <copyField source="keywords_level6" dest="phrase_suggester" />
         <copyField source="keywords_level7" dest="phrase_suggester" />
+
+        <copyField source="*_name" dest="personnel" />
 </schema>
