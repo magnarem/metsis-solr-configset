@@ -424,7 +424,7 @@
             geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" autoIndex="true"
             validationRule="repairBuffer0" spatialContextFactory="JTS" datelineRule="ccwRect" normWrapLongitude="true"/>
 
-    <fieldType name="geom" class="solr.RptWithGeometrySpatialFieldType" spatialContextFactory="Geo3D" geo="true" normWrapLongitude="true" planetModel="WGS84" prefixTree="s2" />
+    <fieldType name="geospatial_bounds" class="solr.RptWithGeometrySpatialFieldType" spatialContextFactory="Geo3D" geo="true" normWrapLongitude="true" planetModel="WGS84" prefixTree="s2" />
     <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
     special relevancy modes: score=overlapRatio|area|area2D (local-param to the query).  DocValues is recommended for
     relevancy. -->
