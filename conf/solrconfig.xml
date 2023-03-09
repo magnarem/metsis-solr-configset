@@ -879,7 +879,7 @@
     <lst name="engine">
       <str name="name">lingo</str>
       <str name="clustering.algorithm">Lingo</str>
-      <str name="clustering.fields">title,abstract</str>
+      <str name="clustering.fields">full_text</str>
       <bool name="clustering.includeOtherTopics">true</bool>
       <str name="clustering.language">English</str>
     </lst>
@@ -887,7 +887,7 @@
     <lst name="engine">
       <str name="name">stc</str>
       <str name="clustering.algorithm">STC</str>
-      <str name="clustering.fields">title,abstract</str>
+      <str name="clustering.fields">full_text</str>
       <bool name="clustering.includeOtherTopics">true</bool>
       <str name="clustering.language">English</str>
     </lst>
@@ -895,7 +895,7 @@
     <lst name="engine">
       <str name="name">kmeans</str>
       <str name="clustering.algorithm">Bisecting K-Means</str>
-      <str name="clustering.fields">title,abstract</str>
+      <str name="clustering.fields">full_text</str>
       <bool name="clustering.includeOtherTopics">true</bool>
       <str name="clustering.language">English</str>
     </lst>
@@ -914,7 +914,7 @@
 
       <str name="defType">edismax</str>
       <str name="qf">
-        full_text^0.5 abstract^1.0 title^1.2 keyword_keywords^1.5
+        full_text^1
       </str>
       <str name="q.alt">*:*</str>
       <str name="rows">100</str>

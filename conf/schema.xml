@@ -419,18 +419,18 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
         geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
+ <fieldType name="location_rpt_spatial" class="solr.RptWithGeometrySpatialField"
+            geo="false" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" autoIndex="true"
+            validationRule="repairBuffer0" spatialContextFactory="JTS" worldBounds="ENVELOPE(-360, 360, 180, -180)" datelineRule="ccwRect" normWrapLongitude="true"/>
 
-    <fieldType name="location_rpt_spatial" class="solr.RptWithGeometrySpatialFieldType"
-            geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" autoIndex="true"
-            validationRule="repairBuffer0" spatialContextFactory="JTS" datelineRule="ccwRect" normWrapLongitude="true"/>
-
-    <fieldType name="geospatial_bounds" class="solr.RptWithGeometrySpatialFieldType" spatialContextFactory="Geo3D" geo="true" normWrapLongitude="true" planetModel="WGS84" prefixTree="s2" />
+    <fieldType name="geom" class="solr.RptWithGeometrySpatialField" spatialContextFactory="Geo3D" geo="true" normWrapLongitude="true" planetModel="WGS84" prefixTree="s2" />
     <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
     special relevancy modes: score=overlapRatio|area|area2D (local-param to the query).  DocValues is recommended for
     relevancy. -->
     <fieldType name="bbox" class="solr.BBoxField"
-               geo="true" distanceUnits="kilometers" numberType="_bbox_coord" />
+               geo="false" distanceUnits="kilometers" numberType="_bbox_coord" worldBounds="ENVELOPE(-360, 360, 180, -180)"/>
     <fieldType name="_bbox_coord" class="solr.DoublePointField" docValues="true" stored="false"/>
+
 
 <!-- A text field that only splits on whitespace for exact matching of words -->
     <fieldType name="text_ws" class="solr.TextField" omitNorms="true" positionIncrementGap="100">
@@ -916,8 +916,6 @@
         <copyField source="abstract" dest="full_text" />
         <copyField source="abstract_en" dest="full_text" />
         <copyField source="abstract_no" dest="full_text" />
-
-	<copyFiled source="dataset_citation_doi" dest="full_text"/>
 
         <copyField source="personnel_name" dest="full_text" />
         <copyField source="personnel_name" dest="sm_personnel_name" />
