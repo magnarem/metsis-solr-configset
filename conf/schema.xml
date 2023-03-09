@@ -527,7 +527,7 @@
           <field name="bbox_rpt" type="location_rpt" indexed="true" stored="true"/>
           <field name="polygon_rpt" type="location_rpt_spatial" indexed="true" stored="true"/>
           <!-- GeoJSON geometry for spatial search. -->
-          <field name="geospatial_bounds" type="geom" indexed="true" stored="true" multiValued="false" />
+          <field name="geospatial_bounds" type="geospatial_bounds" indexed="true" stored="true" multiValued="false" />
 
 
         <!-- mmd/metadata_identifier -->
