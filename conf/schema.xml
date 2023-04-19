@@ -700,6 +700,7 @@
         <!-- mmd/related_dataset -->
         <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="related_dataset_relation_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+	<field name="related_dataset_id" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/storage_information -->
         <field name="storage_information_file_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
