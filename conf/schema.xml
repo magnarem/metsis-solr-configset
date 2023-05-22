@@ -700,7 +700,7 @@
         <!-- mmd/related_dataset -->
         <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="related_dataset_relation_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-	<field name="related_dataset_identifier" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+	<field name="related_dataset_id" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/storage_information -->
         <field name="storage_information_file_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -831,13 +831,13 @@
         <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
 
         <!-- Normalized data access_resources based on data access type alo normalised related information -->
-        <field name="data_access_url_opendap" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ogc_wms" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ogc_wfs" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ogc_wcs" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_http" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_odata" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ftp" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_opendap" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wms" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wfs" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wcs" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_http" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_odata" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ftp" type="string" indexed="true" stored="true" multiValued="true"/>
         <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_home_page" type="string" indexed="false" stored="true" multiValued="true"/>
