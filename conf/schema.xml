@@ -49,7 +49,7 @@
     that avoids logging every request
 -->
 
-<schema name="drupal-4.2.0-solr-8.x-0" version="1.6">
+<schema name="metsis-3.4-solr9-managed" version="1.6">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and
        semantics.  It should not normally be changed by applications.
@@ -419,18 +419,18 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
         geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
+ <fieldType name="location_rpt_spatial" class="solr.RptWithGeometrySpatialField"
+            geo="false" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" autoIndex="true"
+            validationRule="repairBuffer0" spatialContextFactory="JTS" worldBounds="ENVELOPE(-360, 360, 180, -180)" datelineRule="ccwRect" normWrapLongitude="true"/>
 
-    <fieldType name="location_rpt_spatial" class="solr.SpatialRecursivePrefixTreeFieldType"
-            geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" autoIndex="true"
-            validationRule="repairBuffer0" spatialContextFactory="JTS"/>
-
-    <fieldType name="geojson" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory="Geo3D" geo="true" planetModel="WGS84" format="GeoJSON" />
+    <fieldType name="geom" class="solr.RptWithGeometrySpatialField" spatialContextFactory="Geo3D" geo="true" normWrapLongitude="true" planetModel="WGS84" prefixTree="s2" />
     <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
     special relevancy modes: score=overlapRatio|area|area2D (local-param to the query).  DocValues is recommended for
     relevancy. -->
     <fieldType name="bbox" class="solr.BBoxField"
-               geo="true" distanceUnits="kilometers" numberType="_bbox_coord" />
+               geo="false" distanceUnits="kilometers" numberType="_bbox_coord" worldBounds="ENVELOPE(-360, 360, 180, -180)"/>
     <fieldType name="_bbox_coord" class="solr.DoublePointField" docValues="true" stored="false"/>
+
 
 <!-- A text field that only splits on whitespace for exact matching of words -->
     <fieldType name="text_ws" class="solr.TextField" omitNorms="true" positionIncrementGap="100">
@@ -527,7 +527,7 @@
           <field name="bbox_rpt" type="location_rpt" indexed="true" stored="true"/>
           <field name="polygon_rpt" type="location_rpt_spatial" indexed="true" stored="true"/>
           <!-- GeoJSON geometry for spatial search. -->
-          <field name="geom" type="geojson" indexed="true" stored="true" multiValued="false" />
+          <field name="geospatial_bounds" type="geom" indexed="true" stored="true" multiValued="false" />
 
 
         <!-- mmd/metadata_identifier -->
@@ -700,6 +700,7 @@
         <!-- mmd/related_dataset -->
         <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
         <field name="related_dataset_relation_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+	<field name="related_dataset_id" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
         <!-- mmd/storage_information -->
         <field name="storage_information_file_name" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -830,13 +831,13 @@
         <field name="keywords_bread" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
 
         <!-- Normalized data access_resources based on data access type alo normalised related information -->
-        <field name="data_access_url_opendap" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ogc_wms" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ogc_wfs" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ogc_wcs" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_http" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_odata" type="string" indexed="false" stored="true" multiValued="true"/>
-        <field name="data_access_url_ftp" type="string" indexed="false" stored="true" multiValued="true"/>
+        <field name="data_access_url_opendap" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wms" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wfs" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ogc_wcs" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_http" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_odata" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="data_access_url_ftp" type="string" indexed="true" stored="true" multiValued="true"/>
         <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
         <field name="related_url_home_page" type="string" indexed="false" stored="true" multiValued="true"/>
@@ -870,7 +871,8 @@
 
         <!-- Thumbnail specific fields -->
         <field name="thumbnail" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
-        <field name="thumbnail_data" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
+	<!-- <field name="thumbnail_data" type="binary" indexed="false" stored="true" required="false" multiValued="false" /> -->
+	<field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
         <field name="base_map" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
         <field name="feature_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
         <!-- Internal dataset level: Level-1 or Level-2 -->
@@ -907,7 +909,7 @@
         <field name="end_date_day" indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="start_date_hour_minutes"  indexed="true" multiValued="false" stored='true' type="pdate"/>
         <field name="end_date_hour_minutes"  indexed="true" multiValued="false" stored='true' type="pdate"/>
-
+	<field name="personnel" type="text_general" indexed="true" stored="false" multiValued="true" termVectors="true" />
 
         <!-- Copy some fields for full_text search and other helper fields -->
         <copyField source="id" dest="full_text" />
@@ -916,8 +918,6 @@
         <copyField source="abstract" dest="full_text" />
         <copyField source="abstract_en" dest="full_text" />
         <copyField source="abstract_no" dest="full_text" />
-
-	<copyFiled source="dataset_citation_doi" dest="full_text"/>
 
         <copyField source="personnel_name" dest="full_text" />
         <copyField source="personnel_name" dest="sm_personnel_name" />
@@ -958,6 +958,13 @@
         <copyField source="dataset_citation_author" dest="full_text" />
         <copyField source="bbox" dest="bbox_rpt" />
 
+	<copyField source="dataset_citation_author" dest="full_text" />
+        <copyField source="dataset_citation_title" dest="full_text" />
+        <copyField source="dataset_citation_doi" dest="full_text" />
+        <copyField source="dataset_citation_publisher" dest="full_text" />
+        <copyField source="dataset_citation_isbn" dest="full_text" />
+        <copyField source="dataset_citation_other" dest="full_text" />
+
         <copyField source="title" dest="text_suggester" />
 	<copyFiled source="dataset_citation_doi" dest="text_suggester"/>
         <copyField source="metadata_identifier" dest="text_suggester" />
@@ -976,4 +983,6 @@
         <copyField source="keywords_level5" dest="phrase_suggester" />
         <copyField source="keywords_level6" dest="phrase_suggester" />
         <copyField source="keywords_level7" dest="phrase_suggester" />
+
+        <copyField source="*_name" dest="personnel" />
 </schema>
