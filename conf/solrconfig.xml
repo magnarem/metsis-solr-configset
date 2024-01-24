@@ -837,14 +837,14 @@
        <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
-    <!-- Config for dataimport handler -->
+    <!-- Config for dataimport handler 
     <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
       <str name="update.chain">metsis</str>
       <str name="config">solr-data-config.xml</str>
     </lst>
   </requestHandler>
-
+    -->
   <initParams path="/update/**">
   <lst name="defaults">
     <str name="update.chain">metsis</str>
