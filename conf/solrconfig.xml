@@ -151,12 +151,14 @@
 
   <!-- To enable dynamic schema REST APIs, remove the following <schemaFactory>.
   -->
-	  <!--  <schemaFactory class="ClassicIndexSchemaFactory"/> -->
-   <schemaFactory class="ManagedIndexSchemaFactory">
+  <schemaFactory class="ClassicIndexSchemaFactory"/> 
+  <!--
+  <schemaFactory class="ManagedIndexSchemaFactory">
     	  <bool name="mutable">true</bool>
     	  <str name="managedSchemaResourceName">managed-schema.xml</str>
   	</schemaFactory>
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  -->	
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Index Config - These settings control low-level behavior of indexing
        Most example settings here show the default value, but are commented
        out, to more easily see where customizations have been made.
@@ -758,7 +760,7 @@
        in Solr's conf/xslt directory.  Changes to xslt files are checked for
        every xsltCacheLifetimeSeconds.
     -->
-  <queryResponseWriter name="xslt" class="solr.XSLTResponseWriter">
+  <queryResponseWriter name="xslt" class="solr.scripting.xslt.XSLTResponseWriter">
     <int name="xsltCacheLifetimeSeconds">5</int>
   </queryResponseWriter>
 
