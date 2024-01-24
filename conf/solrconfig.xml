@@ -742,7 +742,7 @@
      <queryResponseWriter name="schema.xml" class="solr.SchemaXmlResponseWriter"/>
     -->
 
-  <queryResponseWriter name="json" class="solr.JSONResponseWriter">
+  <queryResponseWriter name="json" default="true" class="solr.JSONResponseWriter">
   </queryResponseWriter>
 
   <!--
