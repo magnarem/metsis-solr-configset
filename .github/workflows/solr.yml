@@ -1,0 +1,20 @@
+name: Solr Core Test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Start Solr container
+      run: |
+        docker run -d --name metsus_solr -p 8983:8983 -v ${{ github.workspace }}/adc_configset:/opt/solr/server/solr/configsets/adc_configset solr:9
+
+    - name: Create Solr core
+      run: |
+        sleep 10  # give Solr some time to start
+        curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=adc&configSet=myconfigset"
