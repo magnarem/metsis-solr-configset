@@ -2,16 +2,16 @@
 
 <!DOCTYPE config [
   <!ENTITY extra SYSTEM "solrconfig_extra.xml">
-  <!ENTITY index SYSTEM "solrconfig_index.xml">
-  <!ENTITY query SYSTEM "solrconfig_query.xml">
-  <!ENTITY requestdispatcher SYSTEM "solrconfig_requestdispatcher.xml">
+<!ENTITY index SYSTEM "solrconfig_index.xml">
+<!ENTITY query SYSTEM "solrconfig_query.xml">
+<!ENTITY requestdispatcher SYSTEM "solrconfig_requestdispatcher.xml">
 ]>
 
 <!--
      For more details about configurations options that may appear in
      this file, see http://wiki.apache.org/solr/SolrConfigXml.
 -->
-<config name="drupal-4.2.0-solr-8.x-0" >
+<config name="metsis-senda-adc">
   <!-- In all configuration below, a prefix of "solr." for class names
        is an alias that causes solr to search appropriate packages,
        including org.apache.solr.(search|update|request|core|analysis)
@@ -26,9 +26,7 @@
        if one handler is mis-configured.
 
        You may also set this to false using by setting the system
-       property:
-
-         -Dsolr.abortOnConfigurationError=false
+       property: -Dsolr.abortOnConfigurationError=false
     -->
   <abortOnConfigurationError>${solr.abortOnConfigurationError:true}</abortOnConfigurationError>
 
@@ -75,7 +73,7 @@
        The examples below can be used to load some solr-contribs along
        with their external dependencies.
     -->
-<!--	      
+  <!--
   <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar" />
 
   <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
@@ -119,8 +117,7 @@
 
        solr.RAMDirectoryFactory is memory based and not persistent.
     -->
-  <directoryFactory name="DirectoryFactory"
-                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}">
+  <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}">
 
 
     <!-- These will be used if you are using the solr.HdfsDirectoryFactory,
@@ -151,14 +148,14 @@
 
   <!-- To enable dynamic schema REST APIs, remove the following <schemaFactory>.
   -->
-  <schemaFactory class="ClassicIndexSchemaFactory"/> 
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
   <!--
   <schemaFactory class="ManagedIndexSchemaFactory">
     	  <bool name="mutable">true</bool>
     	  <str name="managedSchemaResourceName">managed-schema.xml</str>
   	</schemaFactory>
-  -->	
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Index Config - These settings control low-level behavior of indexing
        Most example settings here show the default value, but are commented
        out, to more easily see where customizations have been made.
@@ -341,8 +338,7 @@
 
          exe - the name of the executable to run
          dir - dir to use as the current working directory. (default=".")
-         wait - the calling thread waits until the executable returns.
-                (default="true")
+         wait - the calling thread waits until the executable returns. (default="true")
          args - the arguments to pass to the program.  (default is none)
          env - environment variables to set.  (default is none)
       -->
@@ -359,9 +355,9 @@
          <arr name="env"> <str>MYVAR=val1</str> </arr>
        </listener>
       -->
-      <lst name="defaults">
- <str name="update.chain">metsis</str>
-</lst>
+    <lst name="defaults">
+      <str name="update.chain">metsis</str>
+    </lst>
   </updateHandler>
 
   <!-- IndexReaderFactory
@@ -399,7 +395,7 @@
     <!-- Let the config generator easily inject additional stuff. -->
     &query;
 
-    <!-- Query Related Event Listeners
+        <!-- Query Related Event Listeners
 
          Various IndexSearcher related events can trigger Listeners to
          take actions.
@@ -480,10 +476,7 @@
          Before enabling remote streaming, you should make sure your
          system has authentication enabled.
 
-    <requestParsers enableRemoteStreaming="false"
-                    multipartUploadLimitInKB="-1"
-                    formdataUploadLimitInKB="-1"
-                    addHttpRequestToContext="false"/>
+    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="-1" formdataUploadLimitInKB="-1" addHttpRequestToContext="false"/>
       -->
     <!-- Let the config generator easily inject additional stuff. -->
     &requestdispatcher;
@@ -497,12 +490,12 @@
 
        By default, the following components are available:
 
-       <searchComponent name="query"     class="solr.QueryComponent" />
-       <searchComponent name="facet"     class="solr.FacetComponent" />
-       <searchComponent name="mlt"       class="solr.MoreLikeThisComponent" />
+       <searchComponent name="query" class="solr.QueryComponent" />
+       <searchComponent name="facet" class="solr.FacetComponent" />
+       <searchComponent name="mlt" class="solr.MoreLikeThisComponent" />
        <searchComponent name="highlight" class="solr.HighlightComponent" />
-       <searchComponent name="stats"     class="solr.StatsComponent" />
-       <searchComponent name="debug"     class="solr.DebugComponent" />
+       <searchComponent name="stats" class="solr.StatsComponent" />
+       <searchComponent name="debug" class="solr.DebugComponent" />
 
        Default configuration in a requestHandler would look like:
 
@@ -536,7 +529,7 @@
   <!-- Following is a dynamic way to include other components or any customized solrconfig.xml stuff, added by other contrib modules -->
   &extra;
 
-  <!-- Highlighting Component
+    <!-- Highlighting Component
 
        http://wiki.apache.org/solr/HighlightingParameters
     -->
@@ -544,9 +537,7 @@
     <highlighting>
       <!-- Configure the standard fragmenter -->
       <!-- This could most likely be commented out in the "default" case -->
-      <fragmenter name="gap"
-                  default="true"
-                  class="solr.highlight.GapFragmenter">
+      <fragmenter name="gap" default="true" class="solr.highlight.GapFragmenter">
         <lst name="defaults">
           <int name="hl.fragsize">100</int>
         </lst>
@@ -555,8 +546,7 @@
       <!-- A regular-expression-based fragmenter
            (for sentence extraction)
         -->
-      <fragmenter name="regex"
-                  class="solr.highlight.RegexFragmenter">
+      <fragmenter name="regex" class="solr.highlight.RegexFragmenter">
         <lst name="defaults">
           <!-- slightly smaller fragsizes work better because of slop -->
           <int name="hl.fragsize">70</int>
@@ -568,9 +558,7 @@
       </fragmenter>
 
       <!-- Configure the standard formatter -->
-      <formatter name="html"
-                 default="true"
-                 class="solr.highlight.HtmlFormatter">
+      <formatter name="html" default="true" class="solr.highlight.HtmlFormatter">
         <lst name="defaults">
           <str name="hl.simple.pre"><![CDATA[<em>]]></str>
           <str name="hl.simple.post"><![CDATA[</em>]]></str>
@@ -578,26 +566,19 @@
       </formatter>
 
       <!-- Configure the standard encoder -->
-      <encoder name="html"
-               class="solr.highlight.HtmlEncoder" />
+      <encoder name="html" class="solr.highlight.HtmlEncoder" />
 
       <!-- Configure the standard fragListBuilder -->
-      <fragListBuilder name="simple"
-                       class="solr.highlight.SimpleFragListBuilder"/>
+      <fragListBuilder name="simple" class="solr.highlight.SimpleFragListBuilder"/>
 
       <!-- Configure the single fragListBuilder -->
-      <fragListBuilder name="single"
-                       class="solr.highlight.SingleFragListBuilder"/>
+      <fragListBuilder name="single" class="solr.highlight.SingleFragListBuilder"/>
 
       <!-- Configure the weighted fragListBuilder -->
-      <fragListBuilder name="weighted"
-                       default="true"
-                       class="solr.highlight.WeightedFragListBuilder"/>
+      <fragListBuilder name="weighted" default="true" class="solr.highlight.WeightedFragListBuilder"/>
 
       <!-- default tag FragmentsBuilder -->
-      <fragmentsBuilder name="default"
-
-                        class="solr.highlight.ScoreOrderFragmentsBuilder">
+      <fragmentsBuilder name="default" class="solr.highlight.ScoreOrderFragmentsBuilder">
         <!--
         <lst name="defaults">
           <str name="hl.multiValuedSeparatorChar">/</str>
@@ -606,9 +587,7 @@
       </fragmentsBuilder>
 
       <!-- multi-colored tag FragmentsBuilder -->
-      <fragmentsBuilder name="colored"
-                        class="solr.highlight.ScoreOrderFragmentsBuilder"
-                        default="true">
+      <fragmentsBuilder name="colored" class="solr.highlight.ScoreOrderFragmentsBuilder" default="true">
         <lst name="defaults">
           <str name="hl.tag.pre"><![CDATA[
                <b style="background:yellow">,<b style="background:lawgreen">,
@@ -620,17 +599,14 @@
         </lst>
       </fragmentsBuilder>
 
-      <boundaryScanner name="default"
-                       default="true"
-                       class="solr.highlight.SimpleBoundaryScanner">
+      <boundaryScanner name="default" default="true" class="solr.highlight.SimpleBoundaryScanner">
         <lst name="defaults">
           <str name="hl.bs.maxScan">10</str>
           <str name="hl.bs.chars">.,!? &#9;&#10;&#13;</str>
         </lst>
       </boundaryScanner>
 
-      <boundaryScanner name="breakIterator"
-                       class="solr.highlight.BreakIteratorBoundaryScanner">
+      <boundaryScanner name="breakIterator" class="solr.highlight.BreakIteratorBoundaryScanner">
         <lst name="defaults">
           <!-- type should be one of CHARACTER, WORD(default), LINE and SENTENCE -->
           <str name="hl.bs.type">WORD</str>
@@ -686,15 +662,15 @@
        See more about langId at http://wiki.apache.org/solr/LanguageDetection
     -->
 
-   <updateRequestProcessorChain name="langid" >
-     <processor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory">
-       <str name="langid.fl">abstract,title</str>
-       <str name="langid.langField">language_s</str>
-       <str name="langid.fallback">en</str>
-     </processor>
-     <processor class="solr.LogUpdateProcessorFactory" />
-     <processor class="solr.RunUpdateProcessorFactory" />
-   </updateRequestProcessorChain>
+  <updateRequestProcessorChain name="langid">
+    <processor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory">
+      <str name="langid.fl">abstract,title</str>
+      <str name="langid.langField">language_s</str>
+      <str name="langid.fallback">en</str>
+    </processor>
+    <processor class="solr.LogUpdateProcessorFactory" />
+    <processor class="solr.RunUpdateProcessorFactory" />
+  </updateRequestProcessorChain>
 
 
   <!-- Script update processor
@@ -730,9 +706,7 @@
        overridden...
     -->
   <!--
-     <queryResponseWriter name="xml"
-                          default="true"
-                          class="solr.XMLResponseWriter" />
+     <queryResponseWriter name="xml" default="true" class="solr.XMLResponseWriter" />
      <queryResponseWriter name="json" class="solr.JSONResponseWriter"/>
      <queryResponseWriter name="python" class="solr.PythonResponseWriter"/>
      <queryResponseWriter name="ruby" class="solr.RubyResponseWriter"/>
@@ -748,9 +722,9 @@
   <!--
      Custom response writers can be declared as needed...
     -->
-    <!-- The solr.velocity.enabled flag is used by Solr's test cases so that this response writer is not
+  <!-- The solr.velocity.enabled flag is used by Solr's test cases so that this response writer is not
          loaded (causing an error if contrib/velocity has not been built fully) -->
-    <!--
+  <!--
     <queryResponseWriter name="velocity" class="solr.VelocityResponseWriter" startup="lazy">
       <str name="template.base.dir">${velocity.template.base.dir:}</str>
     </queryResponseWriter>
@@ -786,8 +760,7 @@
     -->
   <!-- example of registering a custom function parser  -->
   <!--
-     <valueSourceParser name="myfunc"
-                        class="com.mycompany.MyValueSourceParser" />
+     <valueSourceParser name="myfunc" class="com.mycompany.MyValueSourceParser" />
     -->
 
 
@@ -796,17 +769,17 @@
     -->
   <!--
      Could be something like:
-     <transformer name="db" class="com.mycompany.LoadFromDatabaseTransformer" >
+     <transformer name="db" class="com.mycompany.LoadFromDatabaseTransformer">
        <int name="connection">jdbc://....</int>
      </transformer>
 
      To add a constant value to all docs, use:
-     <transformer name="mytrans2" class="org.apache.solr.response.transform.ValueAugmenterFactory" >
+     <transformer name="mytrans2" class="org.apache.solr.response.transform.ValueAugmenterFactory">
        <int name="value">5</int>
      </transformer>
 
      If you want the user to still be able to change it with _value:something_ use this:
-     <transformer name="mytrans3" class="org.apache.solr.response.transform.ValueAugmenterFactory" >
+     <transformer name="mytrans3" class="org.apache.solr.response.transform.ValueAugmenterFactory">
        <double name="defaultValue">5</double>
      </transformer>
 
@@ -815,29 +788,28 @@
      <transformer name="qecBooster" class="org.apache.solr.response.transform.EditorialMarkerFactory" />
     -->
 
-    <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
-          <str name="fieldRegex">keywords_.*</str>
-          <str name="fieldRegex">personnel_.*</str>
-          <str name="fieldRegex">text_suggester</str>
-          <str name="fieldRegex">sm_*</str>
-    </updateProcessor>
+  <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
+    <str name="fieldRegex">personnel_.*</str>
+    <str name="fieldRegex">text_suggester</str>
+    <str name="fieldRegex">sm_*</str>
+  </updateProcessor>
 
-    <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
-          <str name="langid.fl">mmd_abstract,mmd_title</str>
-          <str name="langid.langField">ss_language</str>
-          <str name="langid.fallback">en</str>
-          <bool name="langid.map">true</bool>
-          <str name="langid.map.fl">abstract,title</str>
-          <bool name="langid.map.keepOrig">true</bool>
-    </updateProcessor>
+  <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
+    <str name="langid.fl">mmd_abstract,mmd_title</str>
+    <str name="langid.langField">ss_language</str>
+    <str name="langid.fallback">en</str>
+    <bool name="langid.map">true</bool>
+    <str name="langid.map.fl">abstract,title</str>
+    <bool name="langid.map.keepOrig">true</bool>
+  </updateProcessor>
 
-    <updateRequestProcessorChain name="metsis" default="true"  post-processor="dedups,lang">
-      <processor class="solr.DistributedUpdateProcessorFactory"/>
-       <processor class="solr.LogUpdateProcessorFactory" />
-       <processor class="solr.RunUpdateProcessorFactory" />
+  <updateRequestProcessorChain name="metsis" default="true" post-processor="dedups,lang">
+    <processor class="solr.DistributedUpdateProcessorFactory"/>
+    <processor class="solr.LogUpdateProcessorFactory" />
+    <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
-    <!-- Config for dataimport handler 
+  <!-- Config for dataimport handler
     <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
       <str name="update.chain">metsis</str>
@@ -846,27 +818,27 @@
   </requestHandler>
     -->
   <initParams path="/update/**">
-  <lst name="defaults">
-    <str name="update.chain">metsis</str>
-  </lst>
-</initParams>
-<initParams path="/dataimport/**">
-<lst name="defaults">
-  <str name="update.chain">metsis</str>
-</lst>
-</initParams>
+    <lst name="defaults">
+      <str name="update.chain">metsis</str>
+    </lst>
+  </initParams>
+  <initParams path="/dataimport/**">
+    <lst name="defaults">
+      <str name="update.chain">metsis</str>
+    </lst>
+  </initParams>
 
 
 
   <updateRequestProcessorChain name="uuid">
-  <processor class="solr.UUIDUpdateProcessorFactory">
-    <str name="fieldName">uuid</str>
-  </processor>
-  <processor class="UniqFieldsUpdateProcessorFactory">
-        <str name="fieldRegex">.keywords_level*</str>
+    <processor class="solr.UUIDUpdateProcessorFactory">
+      <str name="fieldName">uuid</str>
+    </processor>
+    <processor class="UniqFieldsUpdateProcessorFactory">
+      <str name="fieldRegex">.keywords_level*</str>
     </processor>
 
-  <processor class="solr.RunUpdateProcessorFactory" />
-</updateRequestProcessorChain>
+    <processor class="solr.RunUpdateProcessorFactory" />
+  </updateRequestProcessorChain>
 
 </config>
