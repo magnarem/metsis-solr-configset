@@ -1,6 +1,10 @@
-name: Solr Core Test
+name: Solr Core Creation
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -10,11 +14,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Start Solr container
-      run: |
-        docker run -d --name metsus_solr -p 8983:8983 -v ${{ github.workspace }}:/var/solr/data/configsets/adc_configset solr:9
+    - name: Build Docker image
+      run: docker build -t my_solr_image .
+
+    - name: Run Docker container
+      run: docker run -d -p 8983:8983 --name adc my_solr_image
 
     - name: Create Solr core
       run: |
-        sleep 10  # give Solr some time to start
-        curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=adc&configSet=adc_configset"
+        sleep 30 # Give Solr some time to start
+        docker exec -it adc solr create_core -c adc -d /var/solr/data/configsets/adc || exit 1
