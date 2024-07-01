@@ -1,0 +1,22 @@
+name: XML Lint
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  xmllint:
+    name: Check XML
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install xmllint
+      run: sudo apt-get install libxml2-utils
+
+    - name: Run xmllint
+      run: find . -type f -name "*.xml" -exec xmllint {} \;
