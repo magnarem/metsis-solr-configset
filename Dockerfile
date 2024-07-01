@@ -1,4 +1,7 @@
-
+#
+# This file is used by the .github/workflows/solr.yaml action to verify
+# that the solr config can be used to create a solr core
+#
 FROM docker.io/library/solr:latest
 WORKDIR ../..
 
