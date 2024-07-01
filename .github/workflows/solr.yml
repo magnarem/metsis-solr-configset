@@ -23,4 +23,4 @@ jobs:
     - name: Create Solr core
       run: |
         sleep 30 # Give Solr some time to start
-        docker exec -it adc solr create_core -c adc -d /var/solr/data/configsets/adc || exit 1
+        docker exec adc solr create_core -c adc -d /var/solr/data/configsets/adc || exit 1
