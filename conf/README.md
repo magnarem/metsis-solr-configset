@@ -1,5 +1,5 @@
-![Create SolR core](https://img.shields.io/github/workflow/status/magnarem/metsis-solr-configset/solr/master)
-![Xml-lint](https://img.shields.io/github/workflow/status/magnarem/metsis-solr-configset/xmllint/master)
+![Create SolR core](https://img.shields.io/github/actions/workflow/status/magnarem/metsis-solr-configset/solr.yml?branch=master)
+![Xml-lint](https://img.shields.io/github/actions/workflow/status/magnarem/metsis-solr-configset/xmllint.yml?branch=master)
 
 ## metsis-solr-configset
 This repository contains Solr configset for indexing MMD files.
