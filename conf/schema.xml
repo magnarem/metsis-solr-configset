@@ -893,6 +893,7 @@
 
   <!-- Thumbnail specific fields -->
   <field name="thumbnail" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="thumbnail_url" type="string" indexed="false" stored="true" required="false" multiValued="false" />
   <!-- <field name="thumbnail_data" type="binary" indexed="false" stored="true" required="false" multiValued="false" /> -->
   <field name="thumbnail_data" type="lowercase" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="base_map" type="lowercase" indexed="true" stored="true" required="false" multiValued="false" />
