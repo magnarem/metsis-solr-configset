@@ -827,6 +827,8 @@
   <field name="keywords_level7" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
   <!-- Field for storing analyzed and stemmed keywords -->
   <field name="text_keywords_stemmed" indexed="true" stored="true" multiValued="true" type="text_keyword_processed"/>
+  <field name="cfstdn_keywords_stemmed" indexed="true" stored="true" multiValued="true" type="text_keyword_processed"/>
+  <field name="gcmd_keywords_stemmed" indexed="true" stored="true" multiValued="true" type="text_keyword_processed"/>
 
 
   <!-- some internal mmd info -->
@@ -1007,6 +1009,8 @@
   <copyField source="keywords_level6" dest="phrase_suggester" />
   <copyField source="keywords_level7" dest="phrase_suggester" />
   <copyField source="keywords_keyword" dest="text_keywords_stemmed" />
+  <copyField source="keywords_gcmd" dest="gcmd_keywords_stemmed" />
+  <copyField source="keywords_cfstdn" dest="cfstdn_keywords_stemmed" />
   <copyField source="*_resource" dest="urls" />
   <copyField source="*_name" dest="personnel" />
 </schema>
