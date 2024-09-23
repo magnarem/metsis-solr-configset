@@ -789,7 +789,6 @@
     -->
 
   <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
-    <str name="fieldRegex">personnel_.*</str>
     <str name="fieldRegex">text_suggester</str>
     <str name="fieldRegex">sm_*</str>
   </updateProcessor>
@@ -803,7 +802,7 @@
     <bool name="langid.map.keepOrig">true</bool>
   </updateProcessor>
 
-  <updateRequestProcessorChain name="metsis" default="true" post-processor="dedups,lang">
+  <updateRequestProcessorChain name="metsis" default="true" post-processor="dedups">
     <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.LogUpdateProcessorFactory" />
     <processor class="solr.RunUpdateProcessorFactory" />
