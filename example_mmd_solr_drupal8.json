@@ -235,8 +235,5 @@
       "mmd_file_name":"mmd_example.xml",
       "mmd_file_path":"/path/to/file",
       "mmd_repo_path":"https://github/path/to/mmd/file",
-      "thumbnail":"the same field and content as old mmd drupal7",
-      "thumbnail_data":"thumbnail data as Base64 encoded string",
-      "base_map":"basemap thumb location",
       "feature_type":"timeSeries",
 }
