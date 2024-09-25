@@ -27,4 +27,4 @@ jobs:
     - name: Ingest test docuement
       run: |
         sleep 5 # Give Solr some time to start
-        idocker exec adc solr post -c adc -out -verbose example_mmd_solr_drupal8.json || exit 1
+        docker exec adc solr post -c adc -out -verbose example_mmd_solr_drupal8.json || exit 1
