@@ -24,3 +24,7 @@ jobs:
       run: |
         sleep 30 # Give Solr some time to start
         docker exec adc solr create_core -c adc -d /var/solr/data/configsets/adc || exit 1
+    - name: Ingest test docuement
+      run: |
+        sleep 5 # Give Solr some time to start
+        idocker exec adc solr post -c adc -out -verbose example_mmd_solr_drupal8.json || exit 1
