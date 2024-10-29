@@ -265,22 +265,40 @@
 
 -->
 
-  <fieldType name="phrase_suggest" class="solr.TextField" positionIncrementGap="100">
-    <analyzer>
-      <tokenizer class="solr.KeywordTokenizerFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.TrimFilterFactory"/>
-    </analyzer>
-  </fieldType>
+ <fieldType name="phrase_suggest" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+		<filter class="solr.PatternReplaceFilterFactory"
+            pattern="(https?://)?doi\.org/"
+		replacement="" />-->
+          <tokenizer class="solr.KeywordTokenizerFactory"/>
+	  <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.TrimFilterFactory"/>
+       </analyzer>
+        <analyzer type="query">
+          <tokenizer class="solr.KeywordTokenizerFactory"/>
+	  <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.TrimFilterFactory"/>
+       </analyzer>
 
-  <fieldType name="text_suggest" class="solr.TextField" positionIncrementGap="100">
-    <analyzer>
-      <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.ASCIIFoldingFilterFactory"/>
-      <filter class="solr.EnglishPossessiveFilterFactory"/>
-    </analyzer>
-  </fieldType>
+    </fieldType>
+
+<fieldType name="text_suggest" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+	      <filter class="solr.PatternReplaceFilterFactory"
+            pattern="^(https?://)?doi\.org/"
+            replacement="" />
+            <tokenizer class="solr.ClassicTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+      </analyzer>
+    </fieldType>
 
   <fieldType name="_nest_path_" class="solr.NestPathField" omitTermFreqAndPositions="true" omitNorms="true" maxCharsForDocValues="-1" stored="false"/>
   <field name="_nest_path_" type="_nest_path_"/>
@@ -938,79 +956,122 @@
 
   <!-- Copy some fields for full_text search and other helper fields -->
   <copyField source="id" dest="full_text" />
-  <copyField source="metadata_identifier" dest="full_text" />
+	<copyField source="metadata_identifier" dest="full_text" />
 
-  <copyField source="abstract" dest="full_text" />
-  <copyField source="abstract_en" dest="full_text" />
-  <copyField source="abstract_no" dest="full_text" />
+        <copyField source="abstract" dest="full_text" />
+        <copyField source="abstract_en" dest="full_text" />
+        <copyField source="abstract_no" dest="full_text" />
 
-  <copyField source="personnel_name" dest="full_text" />
-  <copyField source="personnel_name" dest="sm_personnel_name" />
+        <copyField source="personnel_name" dest="full_text" />
+        <copyField source="personnel_name" dest="text_suggester" />
+        <copyField source="personnel_name" dest="phrase_suggester" />
+        <copyField source="personnel_name" dest="sm_personnel_name" />
 
-  <copyField source="platform_instrument_long_name" dest="sm_platform_instrument" />
-  <copyField source="platform_instrument_long_name" dest="full_text" />
+        <copyField source="platform_instrument_long_name" dest="sm_platform_instrument" />
+        <copyField source="platform_instrument_long_name" dest="full_text" />
+        <copyField source="platform_instrument_short_name" dest="full_text" />
+        <copyField source="platform_instrument_long_name" dest="text_suggester" />
+        <copyField source="platform_instrument_short_name" dest="text_suggester" />
+	<copyField source="platform_instrument_long_name" dest="phrase_suggester" />
+        <copyField source="platform_instrument_short_name" dest="phrase_suggester" />
 
-  <copyField source="title" dest="full_text" />
-  <copyField source="title_en" dest="full_text" />
-  <copyField source="title_no" dest="full_text" />
 
-  <copyField source="project_long_name" dest="full_text" />
-  <copyField source="project_long_name" dest="sm_project_long_name" />
+        <copyField source="title" dest="full_text" />
+        <copyField source="title_en" dest="full_text" />
+        <copyField source="title_no" dest="full_text" />
 
-  <copyField source="iso_topic_category" dest="full_text" />
+        <copyField source="project_long_name" dest="full_text" />
+        <copyField source="project_short_name" dest="full_text" />
+        <copyField source="project_long_name" dest="sm_project_long_name" />
+        <copyField source="project_long_name" dest="phrase_suggester" />
+        <copyField source="project_short_name" dest="phrase_suggester" />
+        <copyField source="project_long_name" dest="text_suggester" />
+        <copyField source="project_short_name" dest="text_suggester" />
 
-  <copyField source="personnel_organisation" dest="full_text" />
-  <copyField source="personnel_organisation" dest="sm_personnel_organisation" />
+        <copyField source="platform_long_name" dest="full_text" />
+        <copyField source="platform_short_name" dest="full_text" />
+        <copyField source="platform_long_name" dest="phrase_suggester" />
+        <copyField source="platform_short_name" dest="phrase_suggester" />
+        <copyField source="platform_long_name" dest="text_suggester" />
+        <copyField source="platform_short_name" dest="text_suggester" />
 
-  <copyField source="personnel_role" dest="full_text" />
-  <copyField source="personnel_role" dest="sm_personnel_role" />
+        <copyField source="iso_topic_category" dest="full_text" />
+        <copyField source="iso_topic_category" dest="text_suggester" />
+        <copyField source="iso_topic_category" dest="phrase_suggester" />
 
-  <copyField source="access_constraint" dest="full_text" />
-  <copyField source="access_constraint" dest="ss_access" />
+        <copyField source="personnel_organisation" dest="full_text" />
+        <copyField source="personnel_organisation" dest="text_suggester" />
+        <copyField source="personnel_organisation" dest="phrase_suggester" />
+        <copyField source="personnel_organisation" dest="sm_personnel_organisation" />
 
-  <copyField source="keywords_keyword" dest="full_text" />
-  <copyField source="keywords_keyword" dest="sm_keywords" />
+        <copyField source="personnel_role" dest="full_text" />
+        <copyField source="personnel_role" dest="sm_personnel_role" />
 
-  <copyField source="data_center_short_name" dest="sm_data_center_short_name" />
+        <copyField source="access_constraint" dest="full_text" />
+        <copyField source="access_constraint" dest="ss_access" />
 
-  <copyField source="data_center_long_name" dest="full_text" />
+        <copyField source="keywords_keyword" dest="full_text" />
+        <copyField source="keywords_keyword" dest="sm_keywords" />
 
-  <copyField source="dataset_citation_publication_place" dest="sm_citation_place" />
-  <copyField source="dataset_citation_publisher" dest="sm_citation_publisher" />
-  <copyField source="dataset_citation_author" dest="sm_citation_author" />
+        <copyField source="data_center_short_name" dest="sm_data_center_short_name" />
 
-  <copyField source="dataset_citation_publisher" dest="full_text" />
-  <copyField source="dataset_citation_author" dest="full_text" />
-  <copyField source="bbox" dest="bbox_rpt" />
+        <copyField source="data_center_long_name" dest="full_text" />
+        <copyField source="data_center_long_name" dest="phrase_suggester" />
+        <copyField source="data_center_long_name" dest="text_suggester" />
+        <copyField source="data_center_short_name" dest="full_text" />
+        <copyField source="data_center_short_name" dest="phrase_suggester" />
+        <copyField source="data_center_short_name" dest="text_suggester" />
 
-  <copyField source="dataset_citation_author" dest="full_text" />
-  <copyField source="dataset_citation_title" dest="full_text" />
-  <copyField source="dataset_citation_doi" dest="full_text" />
-  <copyField source="dataset_citation_publisher" dest="full_text" />
-  <copyField source="dataset_citation_isbn" dest="full_text" />
-  <copyField source="dataset_citation_other" dest="full_text" />
+        <copyField source="dataset_citation_publication_place" dest="sm_citation_place" />
+        <copyField source="dataset_citation_publisher" dest="sm_citation_publisher" />
+        <copyField source="dataset_citation_author" dest="sm_citation_author" />
 
-  <copyField source="title" dest="text_suggester" />
-  <copyFiled source="dataset_citation_doi" dest="text_suggester"/>
-  <copyField source="metadata_identifier" dest="text_suggester" />
-  <copyField source="abstract" dest="text_suggester" />
-  <copyField source="personnel_name" dest="text_suggester" />
-  <copyField source="project_long_name" dest="text_suggester" />
-  <copyField source="platform_instrument_long_name" dest="text_suggester" />
-  <copyField source="data_center_long_name" dest="text_suggester" />
-  <copyField source="personnel_organisation" dest="text_suggester" />
-  <copyField source="iso_topic_category" dest="text_suggester" />
-  <copyField source="keywords_keyword" dest="phrase_suggester" />
-  <copyField source="keywords_level1" dest="phrase_suggester" />
-  <copyField source="keywords_level2" dest="phrase_suggester" />
-  <copyField source="keywords_level3" dest="phrase_suggester" />
-  <copyField source="keywords_level4" dest="phrase_suggester" />
-  <copyField source="keywords_level5" dest="phrase_suggester" />
-  <copyField source="keywords_level6" dest="phrase_suggester" />
-  <copyField source="keywords_level7" dest="phrase_suggester" />
-  <copyField source="keywords_keyword" dest="text_keywords_stemmed" />
-  <copyField source="keywords_gcmd" dest="gcmd_keywords_stemmed" />
-  <copyField source="keywords_cfstdn" dest="cfstdn_keywords_stemmed" />
-  <copyField source="*_resource" dest="urls" />
-  <copyField source="*_name" dest="personnel" />
+        <copyField source="dataset_citation_publisher" dest="full_text" />
+        <copyField source="dataset_citation_author" dest="full_text" />
+        <copyField source="dataset_citation_publisher" dest="text_suggester" />
+        <copyField source="dataset_citation_author" dest="text_suggester" />
+        <copyField source="dataset_citation_publisher" dest="phrase_suggester" />
+        <copyField source="dataset_citation_author" dest="phrase_text" />
+        
+        <copyField source="bbox" dest="bbox_rpt" />
+
+	<copyField source="dataset_citation_title" dest="full_text" />
+	<copyField source="dataset_citation_title" dest="text_suggester" />
+	<copyField source="dataset_citation_title" dest="phrase_suggester" />	
+        <copyField source="dataset_citation_doi" dest="full_text" />
+        <copyField source="dataset_citation_isbn" dest="full_text" />
+        <copyField source="dataset_citation_other" dest="full_text" />
+
+        <copyField source="title" dest="text_suggester" />
+        <copyField source="title" dest="phrase_suggester" />
+	
+	<copyField source="dataset_citation_doi" dest="text_suggester"/>
+	<copyField source="dataset_citation_doi" dest="phrase_suggester"/>
+        
+        <copyField source="metadata_identifier" dest="text_suggester" />
+        <copyField source="metadata_identifier" dest="phrase_suggester" />
+        
+        <copyField source="related_dataset" dest="text_suggester" />
+        <copyField source="related_dataset" dest="phrase_suggester" />
+        
+        <copyField source="abstract" dest="text_suggester" />
+        
+        <copyField source="personnel_name" dest="text_suggester" />
+        <copyField source="personnel_name" dest="phrase_suggester" />
+        
+        <copyField source="keywords_keyword" dest="phrase_suggester" />
+        <copyField source="keywords_keyword" dest="text_suggester" />
+
+        <copyField source="keywords_level1" dest="phrase_suggester" />
+        <copyField source="keywords_level2" dest="phrase_suggester" />
+        <copyField source="keywords_level3" dest="phrase_suggester" />
+        <copyField source="keywords_level4" dest="phrase_suggester" />
+        <copyField source="keywords_level5" dest="phrase_suggester" />
+        <copyField source="keywords_level6" dest="phrase_suggester" />
+        <copyField source="keywords_level7" dest="phrase_suggester" />
+        <copyField source="keywords_keyword" dest="text_keywords_stemmed" />
+        <copyField source="keywords_gcmd" dest="gcmd_keywords_stemmed" />
+        <copyField source="keywords_cfstdn" dest="cfstdn_keywords_stemmed" />
+        <copyField source="*_resource" dest="urls" />
+        <copyField source="*_name" dest="personnel" />
 </schema>
