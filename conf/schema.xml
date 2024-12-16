@@ -443,7 +443,7 @@
     relevancy. -->
   <fieldType name="bbox" class="solr.BBoxField" geo="false" distanceUnits="kilometers" numberType="_bbox_coord" worldBounds="ENVELOPE(-360, 360, 180, -180)"/>
 
-  <fieldType name="_bbox_coord" class="solr.DoublePointField" precisionStep="8" stored="false"/>
+  <fieldType name="_bbox_coord" class="solr.DoublePointField" stored="false"/>
   <dynamicField name="bbox__*" type="_bbox_coord" stored="false"/>
   <!-- For storing urls-->
   <fieldType name="url" class="solr.TextField" positionIncrementGap="100">
