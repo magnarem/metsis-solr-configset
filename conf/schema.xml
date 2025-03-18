@@ -178,7 +178,7 @@
   <dynamicField name="bm_*" type="boolean" indexed="true" stored="false" multiValued="true" docValues="true" termVectors="true"/>
   <dynamicField name="bs_*" type="boolean" indexed="true" stored="false" multiValued="false" docValues="true" termVectors="true"/>
   <!-- Regular text (without processing) can be stored in a string field-->
-  <dynamicField name="ss_*" type="string" indexed="true" stored="false" multiValued="false" termVectors="true"/>
+  <dynamicField name="ss_*" type="string" indexed="true" stored="false" multiValued="false" termVectors="true" docValues="false" />
   <!-- For field types using SORTED_SET, multiple identical entries are collapsed into a single value.
        Thus if I insert values 4, 5, 2, 4, 1, my return will be 1, 2, 4, 5 when enabling docValues.
        If you need to preserve the order and duplicate entries, consider to store the values as zm_* (twice). -->
@@ -443,8 +443,8 @@
     relevancy. -->
   <fieldType name="bbox" class="solr.BBoxField" geo="false" distanceUnits="kilometers" numberType="_bbox_coord" worldBounds="ENVELOPE(-360, 360, 180, -180)"/>
 
-  <fieldType name="_bbox_coord" class="solr.DoublePointField" stored="false"/>
-  <dynamicField name="bbox__*" type="_bbox_coord" stored="false"/>
+  <fieldType name="_bbox_coord" class="solr.DoublePointField" stored="false" docValues="false"/>
+  <dynamicField name="bbox__*" type="_bbox_coord" stored="false" docValues="false"/>
   <!-- For storing urls-->
   <fieldType name="url" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
@@ -556,7 +556,7 @@
   <!-- <field name="uuid" type="uuid" indexed="true" stored="true" required="true" />
           NOT used...creates duolicates Check in solr doc if this can be avioided -->
 
-  <field name="bbox" type="bbox" indexed="true" stored="true"/>
+  <field name="bbox" type="bbox" indexed="true" stored="true" docValues="false"/>
   <field name="bbox_rpt" type="location_rpt" indexed="true" stored="false"/>
   <field name="polygon_rpt" type="location_rpt_spatial" indexed="true" stored="true"/>
   <!-- GeoJSON geometry for spatial search. -->
@@ -890,6 +890,7 @@
   <field name="related_url_data_management_plan" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_other_documentation" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_software" type="string" indexed="false" stored="true" multiValued="true"/>
+  <field name="related_url_data_server_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
 
 
   <!-- Process description for data access urls -->
@@ -910,6 +911,7 @@
   <field name="related_url_data_management_plan_desc" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_other_documentation_desc" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_software_desc" type="string" indexed="false" stored="true" multiValued="true"/>
+  <field name="related_url_data_server_landing_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
 
   <!-- Thumbnail specific fields -->
   <field name="thumbnail" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
