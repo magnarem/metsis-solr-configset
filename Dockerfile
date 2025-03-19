@@ -6,8 +6,8 @@ FROM docker.io/library/solr:latest
 WORKDIR /var/solr
 
 # Install JTS Spatial library for spatial indexing and search
-ENV JTS_SHA=dbb8644cf324123d06c27aa982f570811e10b4cb1f2aef893b00de237d33efc0
-ENV JTS_VERSION=1.19.0
+ENV JTS_SHA=6a783d8f9dba3d3cf7265435f134402f63c05838aa6cbcc4297ad3a5b2842baf
+ENV JTS_VERSION=1.20.0
 
 #Set solr specific environment variables
 ENV SOLR_HEAP=8192m
