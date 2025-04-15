@@ -11,7 +11,7 @@ ENV JTS_VERSION=1.20.0
 
 #Set solr specific environment variables
 ENV SOLR_HEAP=8192m
-ENV SOLR_MODULES=ltr,clustering,analysis-extras,prometheus-exporter,scripting,langid
+ENV SOLR_MODULES=ltr,clustering,analysis-extras,scripting,langid
 
 USER root
 
