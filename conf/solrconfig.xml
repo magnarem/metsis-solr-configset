@@ -38,61 +38,6 @@
     -->
   <luceneMatchVersion>9.11</luceneMatchVersion>
 
-  <!-- <lib/> directives can be used to instruct Solr to load any Jars
-       identified and use them to resolve any "plugins" specified in
-       your solrconfig.xml or schema.xml (ie: Analyzers, Request
-       Handlers, etc...).
-
-       All directories and paths are resolved relative to the
-       instanceDir.
-
-       Please note that <lib/> directives are processed in the order
-       that they appear in your solrconfig.xml file, and are "stacked"
-       on top of each other when building a ClassLoader - so if you have
-       plugin jars with dependencies on other jars, the "lower level"
-       dependency jars should be loaded first.
-
-       If a "./lib" directory exists in your instanceDir, all files
-       found in it are included as if you had used the following
-       syntax...
-
-              <lib dir="./lib" />
-    -->
-
-  <!-- A 'dir' option by itself adds any files found in the directory
-       to the classpath, this is useful for including all jars in a
-       directory.
-
-       When a 'regex' is specified in addition to a 'dir', only the
-       files in that directory which completely match the regex
-       (anchored on both ends) will be included.
-
-       If a 'dir' option (with or without a regex) is used and nothing
-       is found that matches, a warning will be logged.
-
-       The examples below can be used to load some solr-contribs along
-       with their external dependencies.
-    -->
-  <!--
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar" />
-
-  <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
-
-  <lib dir="${solr.install.dir:../../../..}/contrib/langid/lib/" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-langid-\d.*\.jar" />
-
-  <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lib" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lucene-libs" regex=".*\.jar" />
-  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-analysis-extras-\d.*\.jar" />
--->
-  <!-- an exact 'path' can be used instead of a 'dir' to specify a
-       specific jar file.  This will cause a serious error to be logged
-       if it can't be loaded.
-    -->
-  <!--
-     <lib path="../a-jar-that-does-not-exist.jar" />
-  -->
 
   <!-- Data Directory
 
@@ -117,23 +62,10 @@
 
        solr.RAMDirectoryFactory is memory based and not persistent.
     -->
-  <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}">
+  <directoryFactory name="DirectoryFactory" 
+	            class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
 
 
-    <!-- These will be used if you are using the solr.HdfsDirectoryFactory,
-         otherwise they will be ignored. If you don't plan on using hdfs,
-         you can safely remove this section. -->
-    <!-- The root directory that collection data should be written to. -->
-    <str name="solr.hdfs.home">${solr.hdfs.home:}</str>
-    <!-- The hadoop configuration files to use for the hdfs client. -->
-    <str name="solr.hdfs.confdir">${solr.hdfs.confdir:}</str>
-    <!-- Enable/Disable the hdfs cache. -->
-    <str name="solr.hdfs.blockcache.enabled">${solr.hdfs.blockcache.enabled:true}</str>
-    <!-- Enable/Disable using one global cache for all SolrCores.
-         The settings used will be from the first HdfsDirectoryFactory created. -->
-    <str name="solr.hdfs.blockcache.global">${solr.hdfs.blockcache.global:true}</str>
-
-  </directoryFactory>
 
   <!-- The CodecFactory for defining the format of the inverted index.
        The default implementation is SchemaCodecFactory, which is the official Lucene
@@ -259,17 +191,16 @@
     <!--
     </deletionPolicy>
     -->
-
-    <!-- Lucene Infostream
+ <!-- Lucene Infostream
 
          To aid in advanced debugging, Lucene provides an "InfoStream"
          of detailed information when indexing.
 
-         Setting the value to true will instruct the underlying Lucene
-         IndexWriter to write its info stream to solr's log. By default,
-         this is enabled here, and controlled through log4j2.xml
+         Setting The value to true will instruct the underlying Lucene
+         IndexWriter to write its debugging info the specified file
       -->
-    <infoStream>true</infoStream>
+    <!-- <infoStream file="INFOSTREAM.txt">false</infoStream> -->
+
 
     <!-- Let the config generator easily inject additional stuff. -->
     &index;
@@ -322,7 +253,7 @@
       -->
 
     <autoSoftCommit>
-      <maxTime>${solr.autoSoftCommit.MaxTime:600000}</maxTime>
+      <maxTime>${solr.autoSoftCommit.MaxTime:180000}</maxTime>
     </autoSoftCommit>
 
     <!-- Update Related Event Listeners
@@ -416,16 +347,54 @@
       -->
     <listener event="newSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
-        <!--
-           <lst><str name="q">solr</str><str name="sort">price asc</str></lst>
-           <lst><str name="q">rocks</str><str name="sort">weight asc</str></lst>
-          -->
+	      <lst>
+		        <str name="q">*:* OR _query_:{!join from=related_dataset_id to=id v='*:*'}</str>
+                      <str name="q.op">OR</str>
+                      <str name="rows">60</str>
+                      <str name="fl">id,related_dataset_id,platform_instrument_product_type,thumbnail_url,isParent,isChild,related_url_landing_page,title,data_access_url_ogc_wms,project_long_name,project_short_name,personnel_organisation,last_metadata_update_datetime,dataset_citation_doi,temporal_extent_start_date,temporal_extent_end_date,abstract,related_url_landing_page_desc,data_access_url_opendap,feat
+ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odata,use_constraint_resource,use_constraint_license_text,use_constraint_identifier,access_constraint,score,hash,uuid,geographic_extent_rectangle_south,geographic_extent_rectangle_north,geographic_extent_rectangle_west,geographic_extent_rectangle_east,use_constraint,activity_type,dataset_production_status,metadata_status,personnel_name,metadata_identifier,collection,data_access_wms_layers,total_children:[subquery],found_children:[subquery],parent:[subquery]</str>
+                      <str name="df">full_text</str>
+                      <str name="sort">temporal_extent_start_date desc</str>
+                      <str name="fq">(+metadata_status:"Active" +isChild:"false")</str>
+                      <str name="fq">(isParent:"true" isParent:"false")</str>
+                      <str name="fq">collection:(ADC SIOS METNCS NBS NMDC NSDN)</str>
+                      <str name="found_children.q">*:*</str>
+                      <str name="found_children.fq">(+metadata_status:"Active" +isChild:"true")</str>
+                      <str name="found_children.fq">{!terms f=related_dataset_id v=$row.id}</str>
+                      <str name="found_children.rows">0</str>
+                      <str name="total_children.q">{!terms f=related_dataset_id v=$row.id}</str>
+                      <str name="total_children.fq">+metadata_status:"Active"</str>
+                      <str name="total_children.rows">0</str>
+                      <str name="parent.q">{!terms f=id v=$row.related_dataset_id}</str>
+                      <str name="parent.fq">isParent:"true"</str>
+                      <str name="parent.rows">1</str>
+                      <str name="parent.fl">id,metadata_identifier,title, abstract, related_url_landing*,temporal*date*</str>
+	      </lst>
       </arr>
     </listener>
     <listener event="firstSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
         <lst>
-          <str name="q">static firstSearcher warming in solrconfig.xml</str>
+		  <str name="q">*:* OR _query_:{!join from=related_dataset_id to=id v='*:*'}</str>
+		      <str name="q.op">OR</str>
+		      <str name="rows">60</str>
+		      <str name="fl">id,related_dataset_id,platform_instrument_product_type,thumbnail_url,isParent,isChild,related_url_landing_page,title,data_access_url_ogc_wms,project_long_name,project_short_name,personnel_organisation,last_metadata_update_datetime,dataset_citation_doi,temporal_extent_start_date,temporal_extent_end_date,abstract,related_url_landing_page_desc,data_access_url_opendap,feature_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odata,use_constraint_resource,use_constraint_license_text,use_constraint_identifier,access_constraint,score,hash,uuid,geographic_extent_rectangle_south,geographic_extent_rectangle_north,geographic_extent_rectangle_west,geographic_extent_rectangle_east,use_constraint,activity_type,dataset_production_status,metadata_status,personnel_name,metadata_identifier,collection,data_access_wms_layers,total_children:[subquery],found_children:[subquery],parent:[subquery]</str>
+		      <str name="df">full_text</str>
+		      <str name="sort">temporal_extent_start_date desc</str>
+		      <str name="fq">(+metadata_status:"Active" +isChild:"false")</str>
+		      <str name="fq">(isParent:"true" isParent:"false")</str>
+		      <str name="fq">collection:(ADC SIOS METNCS NBS NMDC NSDN)</str>
+		      <str name="found_children.q">*:*</str>
+		      <str name="found_children.fq">(+metadata_status:"Active" +isChild:"true")</str>
+		      <str name="found_children.fq">{!terms f=related_dataset_id v=$row.id}</str>
+		      <str name="found_children.rows">0</str>
+		      <str name="total_children.q">{!terms f=related_dataset_id v=$row.id}</str>
+		      <str name="total_children.fq">+metadata_status:"Active"</str>
+		      <str name="total_children.rows">0</str>
+		      <str name="parent.q">{!terms f=id v=$row.related_dataset_id}</str>
+		      <str name="parent.fq">isParent:"true"</str>
+		      <str name="parent.rows">1</str>
+		      <str name="parent.fl">id,metadata_identifier,title, abstract, related_url_landing*,temporal*date*</str>
         </lst>
       </arr>
     </listener>
@@ -802,9 +771,9 @@
     <bool name="langid.map.keepOrig">true</bool>
   </updateProcessor>
 
-  <updateRequestProcessorChain name="metsis" default="true" post-processor="dedups">
-    <processor class="solr.DistributedUpdateProcessorFactory"/>
+  <updateRequestProcessorChain name="metsis" default="true" processor="dedups">
     <processor class="solr.LogUpdateProcessorFactory" />
+    <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
@@ -845,7 +814,6 @@
       <str name="fieldRegex">.keywords_level*</str>
     </processor>
 
-    <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
 </config>

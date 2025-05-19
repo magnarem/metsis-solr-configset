@@ -244,7 +244,7 @@
        field name or dynamic field, rather than reporting them as an error.
        Alternately, change the type="ignored" to some other type e.g. "text" if you want
        unknown fields indexed and/or stored by default -->
-  <dynamicField name="*" type="ignored" multiValued="true" />
+  <dynamicField name="ignored_*" type="ignored"/>
 
 
   <!-- field type definitions. The "name" attribute is
@@ -1033,7 +1033,7 @@
         <copyField source="dataset_citation_publisher" dest="text_suggester" />
         <copyField source="dataset_citation_author" dest="text_suggester" />
         <copyField source="dataset_citation_publisher" dest="phrase_suggester" />
-        <copyField source="dataset_citation_author" dest="phrase_text" />
+        <copyField source="dataset_citation_author" dest="phrase_suggester" />
         
         <copyField source="bbox" dest="bbox_rpt" />
 
@@ -1075,5 +1075,4 @@
         <copyField source="keywords_gcmd" dest="gcmd_keywords_stemmed" />
         <copyField source="keywords_cfstdn" dest="cfstdn_keywords_stemmed" />
         <copyField source="*_resource" dest="urls" />
-        <copyField source="*_name" dest="personnel" />
 </schema>
