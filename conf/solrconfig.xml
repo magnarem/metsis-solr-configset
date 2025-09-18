@@ -11,7 +11,7 @@
      For more details about configurations options that may appear in
      this file, see http://wiki.apache.org/solr/SolrConfigXml.
 -->
-<config name="metsis-senda-adc">
+<config name="metsis-adc-3.x">
   <!-- In all configuration below, a prefix of "solr." for class names
        is an alias that causes solr to search appropriate packages,
        including org.apache.solr.(search|update|request|core|analysis)
@@ -36,7 +36,7 @@
        that you fully re-index after changing this setting as it can
        affect both how text is indexed and queried.
     -->
-  <luceneMatchVersion>9.11</luceneMatchVersion>
+  <luceneMatchVersion>9.12</luceneMatchVersion>
 
   <!-- Data Directory
 
