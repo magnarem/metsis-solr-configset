@@ -2,7 +2,7 @@
 # This file is used by the .github/workflows/solr.yaml action to verify
 # that the solr config can be used to create a solr core
 #
-FROM docker.io/library/solr:latest
+FROM docker.io/library/solr:9.8.1
 WORKDIR /var/solr
 
 # Install JTS Spatial library for spatial indexing and search
