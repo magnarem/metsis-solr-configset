@@ -1,86 +1,75 @@
+<!-- Spellchecker -->
 <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+  <str name="queryAnalyzerFieldType">text_und</str>
+  <lst name="spellchecker">
+    <str name="name">und</str>
+    <str name="field">text_suggester</str>
+    <str name="classname">solr.DirectSolrSpellChecker</str>
+    <str name="distanceMeasure">internal</str>
+    <str name="accuracy">0.5</str>
+    <str name="maxEdits">2</str>
+    <str name="minPrefix">1</str>
+    <str name="maxInspections">5</str>
+    <str name="minQueryLength">4</str>
+    <str name="maxQueryFrequency">0.01</str>
+    <str name="thresholdTokenFrequency">.01</str>
+    <str name="onlyMorePopular">true</str>
+  </lst>
+
+  <lst name="spellchecker">
+    <str name="name">en</str>
+    <str name="field">full_text</str>
+    <str name="classname">solr.DirectSolrSpellChecker</str>
+    <str name="distanceMeasure">internal</str>
+    <str name="accuracy">0.5</str>
+    <str name="maxEdits">2</str>
+    <str name="minPrefix">1</str>
+    <str name="maxInspections">5</str>
+    <str name="minQueryLength">4</str>
+    <str name="maxQueryFrequency">0.01</str>
+    <str name="thresholdTokenFrequency">.01</str>
+    <str name="onlyMorePopular">true</str>
+  </lst>
+
+    <!-- a spellchecker that can break or combine words.  See "/spell" handler below for usage -->
     <lst name="spellchecker">
-      <str name="name">en</str>
-      <str name="field">spellcheck_en</str>
-      <str name="classname">solr.DirectSolrSpellChecker</str>
-      <str name="distanceMeasure">internal</str>
-      <str name="accuracy">0.5</str>
-      <str name="maxEdits">2</str>
-      <str name="minPrefix">1</str>
-      <str name="maxInspections">5</str>
-      <str name="minQueryLength">4</str>
-      <str name="maxQueryFrequency">0.01</str>
-      <str name="thresholdTokenFrequency">.01</str>
-      <str name="onlyMorePopular">true</str>
+      <str name="name">wordbreak</str>
+      <str name="classname">solr.WordBreakSolrSpellChecker</str>
+      <str name="field">title</str>
+      <str name="combineWords">true</str>
+      <str name="breakWords">true</str>
+      <int name="maxChanges">10</int>
     </lst>
-  
-    <lst name="spellchecker">
-      <str name="name">und</str>
-      <str name="field">spellcheck_und</str>
-      <str name="classname">solr.DirectSolrSpellChecker</str>
-      <str name="distanceMeasure">internal</str>
-      <str name="accuracy">0.5</str>
-      <str name="maxEdits">2</str>
-      <str name="minPrefix">1</str>
-      <str name="maxInspections">5</str>
-      <str name="minQueryLength">4</str>
-      <str name="maxQueryFrequency">0.01</str>
-      <str name="thresholdTokenFrequency">.01</str>
-      <str name="onlyMorePopular">true</str>
-    </lst>
-  
-    <lst name="spellchecker">
-      <str name="name">nb</str>
-      <str name="field">spellcheck_nb</str>
-      <str name="classname">solr.DirectSolrSpellChecker</str>
-      <str name="distanceMeasure">internal</str>
-      <str name="accuracy">0.5</str>
-      <str name="maxEdits">2</str>
-      <str name="minPrefix">1</str>
-      <str name="maxInspections">5</str>
-      <str name="minQueryLength">4</str>
-      <str name="maxQueryFrequency">0.01</str>
-      <str name="thresholdTokenFrequency">.01</str>
-      <str name="onlyMorePopular">true</str>
-    </lst>
-  </searchComponent>
+
+</searchComponent>
+<!-- Suggester -->
 <searchComponent name="suggest" class="solr.SuggestComponent">
-    <lst name="suggester">
-      <str name="name">en</str>
-      <str name="indexPath">./en</str>
-      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_en</str>
-      <str name="contextField">sm_context_tags</str>
-      <str name="buildOnCommit">false</str>
-      <str name="buildOnStartup">false</str>
-    </lst>
-  
-    <lst name="suggester">
-      <str name="name">und</str>
-      <str name="indexPath">./und</str>
-      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_und</str>
-      <str name="contextField">sm_context_tags</str>
-      <str name="buildOnCommit">false</str>
-      <str name="buildOnStartup">false</str>
-    </lst>
-  
-    <lst name="suggester">
-      <str name="name">nb</str>
-      <str name="indexPath">./nb</str>
-      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="field">twm_suggest</str>
-      <str name="suggestAnalyzerFieldType">text_nb</str>
-      <str name="contextField">sm_context_tags</str>
-      <str name="buildOnCommit">false</str>
-      <str name="buildOnStartup">false</str>
-    </lst>
-  </searchComponent>
+  <lst name="suggester">
+    <str name="name">und</str>
+    <str name="lookupImpl">FuzzyLookupFactory</str>
+    <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+    <str name="field">phrase_suggester</str>
+    <str name="suggestAnalyzerFieldType">phrase_suggest</str>
+    <!-- <str name="contextField">text_keywords_stemmed</str> -->
+    <str name="buildOnCommit">false</str>
+    <str name="buildOnStartup">false</str>
+    <str name="indexPath">./suggester_und</str>
+  </lst>
+
+  <lst name="suggester">
+    <str name="name">en</str>
+    <str name="lookupImpl">FuzzyLookupFactory</str>
+    <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+    <str name="field">phrase_suggester</str>
+    <str name="suggestAnalyzerFieldType">phrase_suggest</str>
+    <!-- <str name="contextField">text_keywords_stemmed</str> -->
+    <str name="buildOnCommit">false</str>
+    <str name="buildOnStartup">false</str>
+    <str name="indexPath">./suggester_und</str>
+  </lst>
+</searchComponent>
+
+
 <!--
   Autocomplete
   7.0.0
@@ -136,8 +125,7 @@
 -->
 <requestHandler name="/select" class="solr.SearchHandler">
   <lst name="defaults">
-    <str name="defType">lucene</str>
-    <str name="df">id</str>
+    <str name="df">full_text</str>
     <str name="echoParams">explicit</str>
     <str name="omitHeader">true</str>
     <str name="timeAllowed">${solr.selectSearchHandler.timeAllowed:-1}</str>
@@ -149,20 +137,21 @@
   </arr>
 </requestHandler>
 <!-- A request handler that returns indented JSON by default -->
-  <requestHandler name="/query" class="solr.SearchHandler">
-    <lst name="defaults">
-      <str name="echoParams">explicit</str>
-      <str name="wt">json</str>
-      <str name="indent">true</str>
-    </lst>
-  </requestHandler>
+<requestHandler name="/query" class="solr.SearchHandler">
+  <lst name="defaults">
+    <str name="echoParams">explicit</str>
+    <str name="wt">json</str>
+    <str name="indent">true</str>
+    <str name="df">full_text</str>
+  </lst>
+</requestHandler>
 
-  <!-- Shared parameters for multiple Request Handlers -->
-  <initParams path="/update/**,/query,/select,/spell">
-    <lst name="defaults">
-      <str name="df">full_text</str>
-    </lst>
-  </initParams>
+<!-- Shared parameters for multiple Request Handlers -->
+<initParams path="/update/**,/query,/select,/spell">
+  <lst name="defaults">
+    <str name="df">full_text</str>
+  </lst>
+</initParams>
 
 <!--
   Spellcheck
@@ -170,11 +159,11 @@
 -->
 <requestHandler name="/spell" class="solr.SearchHandler" startup="lazy">
   <lst name="defaults">
-    <str name="df">id</str>
     <str name="spellcheck.dictionary">und</str>
+    <str name="spellcheck.dictionary">wordbreak</str>
     <str name="spellcheck">on</str>
     <str name="spellcheck.onlyMorePopular">false</str>
-    <str name="spellcheck.extendedResults">false</str>
+    <str name="spellcheck.extendedResults">true</str>
     <str name="spellcheck.count">1</str>
     <str name="spellcheck.alternativeTermCount">5</str>
     <str name="spellcheck.maxResultsForSuggest">5</str>
@@ -221,13 +210,101 @@
   Special configs for Elevator
   7.0.0
 -->
-  <searchComponent name="elevator" class="solr.QueryElevationComponent">
-    <str name="queryFieldType">string</str>
-    <str name="config-file">elevate.xml</str>
-  </searchComponent>
+<searchComponent name="elevator" class="solr.QueryElevationComponent">
+  <str name="queryFieldType">string</str>
+  <str name="config-file">elevate.xml</str>
+</searchComponent>
 <!--
   Special configs for Term Vector
   7.0.0
 -->
-  <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+<searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+<!-- Terms request handler -->
+<!--<requestHandler name="/terms" class="solr.TermsRequestHandler" startup="lazy" /> -->
+
 <statsCache class="org.apache.solr.search.stats.LRUStatsCache" />
+
+
+<!-- Search results clustering component
+
+       You'll need to set the solr.clustering.enabled system property
+       when running solr to run with clustering enabled:
+       -Dsolr.clustering.enabled=true
+
+       https://solr.apache.org/guide/solr/latest/query-guide/result-clustering.html
+    -->
+  <searchComponent name="clustering"
+                   enable="${solr.clustering.enabled:false}"
+                   class="solr.clustering.ClusteringComponent" >
+    <!--
+    Declaration of "engines" (named sets of configuration parameters).
+
+    Various algorithms are available (names are loaded via service provider
+    extension point). The open source algorithms from Carrot2.org project:
+      * Lingo
+      * STC
+      * Bisecting K-Means
+
+    Commercial algorithm Lingo3G from Carrot Search (needs to be installed separately):
+      * Lingo3G
+    -->
+ <lst name="engine">
+      <str name="name">lingo3g</str>
+      <bool name="optional">true</bool>
+      <str name="clustering.algorithm">Lingo3G</str>
+      <str name="clustering.fields">name, features</str>
+      <bool name="clustering.includeOtherTopics">true</bool>
+      <str name="clustering.language">English</str>
+    </lst>
+
+    <lst name="engine">
+      <str name="name">lingo</str>
+      <str name="clustering.algorithm">Lingo</str>
+      <str name="clustering.fields">name, features</str>
+      <bool name="clustering.includeOtherTopics">true</bool>
+      <str name="clustering.language">English</str>
+    </lst>
+
+    <lst name="engine">
+      <str name="name">stc</str>
+      <str name="clustering.algorithm">STC</str>
+      <str name="clustering.fields">name, features</str>
+      <bool name="clustering.includeOtherTopics">true</bool>
+      <str name="clustering.language">English</str>
+    </lst>
+
+    <lst name="engine">
+      <str name="name">kmeans</str>
+      <str name="clustering.algorithm">Bisecting K-Means</str>
+      <str name="clustering.fields">name, features</str>
+      <bool name="clustering.includeOtherTopics">true</bool>
+      <str name="clustering.language">English</str>
+    </lst>
+  </searchComponent>
+
+  <!-- A request handler for demonstrating the clustering component.
+       This is meant as an example - in reality you will likely want
+       to add the clustering component to your default request handler.
+  -->
+  <requestHandler name="/clustering"
+                  startup="lazy"
+                  enable="${solr.clustering.enabled:false}"
+                  class="solr.SearchHandler">
+    <lst name="defaults">
+      <!-- Enable clustering component by default. -->
+      <bool name="clustering">true</bool>
+
+      <str name="defType">edismax</str>
+      <str name="qf">
+        text^0.5 features^1.0 name^1.2 sku^1.5 id^10.0 manu^1.1 cat^1.4
+      </str>
+      <str name="q.alt">*:*</str>
+      <str name="rows">100</str>
+      <str name="fl">*,score</str>
+    </lst>
+
+    <!-- Append the clustering component at the end of the search handler's list of components. -->
+    <arr name="last-components">
+      <str>clustering</str>
+    </arr>
+  </requestHandler>

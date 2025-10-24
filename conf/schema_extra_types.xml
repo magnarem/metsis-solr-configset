@@ -40,6 +40,27 @@
   </analyzer>
 </fieldType>
 <!--
+  English Nouns Field
+  7.0.0
+-->
+<!-- <fieldType name="text_nouns_en" class="solr.TextField" positionIncrementGap="100">
+  <analyzer type="index">
+    <tokenizer class="solr.OpenNLPTokenizerFactory" sentenceModel="file:/var/solr/models/en-sent.bin" tokenizerModel="file:/var/solr/models/en-token.bin"/>
+    <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="file:/var/solr/models/en-pos-maxent.bin"/>
+    <filter class="solr.TypeTokenFilterFactory" types="pos_nouns_en.txt" useWhitelist="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+  </analyzer>
+  <analyzer type="query">
+    <tokenizer class="solr.OpenNLPTokenizerFactory" sentenceModel="file:/var/solr/models/en-sent.bin" tokenizerModel="file:/var/solr/models/en-token.bin"/>
+    <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="file:/var/solr/models/en-pos-maxent.bin"/>
+    <filter class="solr.TypeTokenFilterFactory" types="pos_nouns_en.txt" useWhitelist="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_nouns_en.txt"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+  </analyzer>
+</fieldType> -->
+<!--
   English Text Field
   7.0.0
 -->
@@ -161,6 +182,49 @@
   </analyzer>
 </fieldType>
 <!--
+  Language Undefined Edge NGram Nouns Field
+  7.0.0
+-->
+<!-- <fieldType name="text_edge_nouns_und" class="solr.TextField" positionIncrementGap="100">
+  <analyzer type="index">
+    <tokenizer class="solr.OpenNLPTokenizerFactory" sentenceModel="file:/var/solr/models/en-sent.bin" tokenizerModel="file:/var/solr/models/en-token.bin"/>
+    <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="file:/var/solr/models/en-pos-maxent.bin"/>
+    <filter class="solr.TypeTokenFilterFactory" types="pos_edge_nouns_und.txt" useWhitelist="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="25"/>
+  </analyzer>
+  <analyzer type="query">
+    <tokenizer class="solr.OpenNLPTokenizerFactory" sentenceModel="file:/var/solr/models/en-sent.bin" tokenizerModel="file:/var/solr/models/en-token.bin"/>
+    <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="file:/var/solr/models/en-pos-maxent.bin"/>
+    <filter class="solr.TypeTokenFilterFactory" types="pos_edge_nouns_und.txt" useWhitelist="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_edge_nouns_und.txt"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+  </analyzer>
+</fieldType> -->
+<!--
+  Language Undefined Nouns Field
+  7.0.0
+-->
+<!-- <fieldType name="text_nouns_und" class="solr.TextField" positionIncrementGap="100">
+  <analyzer type="index">
+    <tokenizer class="solr.OpenNLPTokenizerFactory" sentenceModel="file:/var/solr/models/en-sent.bin" tokenizerModel="file:/var/solr/models/en-token.bin"/>
+    <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="file:/var/solr/models/en-pos-maxent.bin"/>
+    <filter class="solr.TypeTokenFilterFactory" types="pos_nouns_und.txt" useWhitelist="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+  </analyzer>
+  <analyzer type="query">
+    <tokenizer class="solr.OpenNLPTokenizerFactory" sentenceModel="file:/var/solr/models/en-sent.bin" tokenizerModel="file:/var/solr/models/en-token.bin"/>
+    <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="file:/var/solr/models/en-pos-maxent.bin"/>
+    <filter class="solr.TypeTokenFilterFactory" types="pos_nouns_und.txt" useWhitelist="true"/>
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_nouns_und.txt"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+  </analyzer>
+</fieldType> -->
+<!--
   Language Undefined Text Field
   7.0.0
 -->
@@ -245,6 +309,7 @@
     <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
   </analyzer>
 </fieldType>
+
 <!--
   Norwegian Bokmal Text Field
   7.0.0
