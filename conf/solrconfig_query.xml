@@ -1,8 +1,8 @@
 <!--
   Document Cache
   9.0.0
--->
 <documentCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="0"/>
+-->
 
 <!--
   Field Value Cache
@@ -14,7 +14,7 @@
   Filter Cache
   9.0.0
 -->
-<filterCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="0"/>
+<filterCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="32"/>
 
 <!--
   Per Segment Filter Cache
@@ -25,8 +25,26 @@
 <!--
   Query Result Cache
   9.0.0
--->
 <queryResultCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="0"/>
+-->
+
+<!-- Feature Values Cache
+
+         Cache used by the Learning To Rank (LTR) module.
+
+         You will need to set the solr.ltr.enabled system property
+         when running solr to run with ltr enabled:
+           -Dsolr.ltr.enabled=true
+
+         https://solr.apache.org/guide/solr/latest/query-guide/learning-to-rank.html
+      -->
+    <cache enable="${solr.ltr.enabled:false}" name="QUERY_DOC_FV"
+           class="solr.CaffeineCache"
+           size="4096"
+           initialSize="2048"
+           autowarmCount="4096"
+           regenerator="solr.search.NoOpRegenerator" />
+
 
 <!--
   Special configs for Field Value Cache
@@ -37,11 +55,23 @@
   Special configs for Filter Cache
   9.0.0
 -->
-  <query name="useFilterForSortedQuery">false</query>
-<!--
-  Special configs for Query Result Cache
-  9.0.0
--->
-  <query name="queryResultWindowSize">20</query>
-  <query name="queryResultMaxDocsCached">200</query>
-  <query name="maxBooleanClauses">1024</query>
+<!-- Use Filter For Sorted Query
+
+        A possible optimization that attempts to use a filter to
+        satisfy a search.  If the requested sort does not include
+        score, then the filterCache will be checked for a filter
+        matching the query. If found, the filter will be used as the
+        source of document ids, and then the sort will be applied to
+        that.
+
+        For most situations, this will not be useful unless you
+        frequently get the same search repeatedly with different sort
+        options, and none of them ever use "score"
+     -->
+   <!--
+      <useFilterForSortedQuery>true</useFilterForSortedQuery>
+     -->
+<!-- Other query related configs -->
+<query name="useFilterForSortedQuery">false</query>
+<query name="queryResultWindowSize">20</query>
+<query name="queryResultMaxDocsCached">200</query>
