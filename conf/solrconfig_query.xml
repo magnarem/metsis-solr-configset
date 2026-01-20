@@ -71,6 +71,22 @@
    <!--
       <useFilterForSortedQuery>true</useFilterForSortedQuery>
      -->
+     <!-- Cache for RptWithGeometrySpatialFields -->
+<cache name="perSegSpatialFieldCache_geometry_rpt_geo3d"
+           class="solr.CaffeineCache"
+           size="256"
+           initialSize="0"
+           autowarmCount="100%"
+           regenerator="solr.NoOpRegenerator"/>
+
+
+<cache name="perSegSpatialFieldCache_location_rpt_jts"
+           class="solr.CaffeineCache"
+           size="256"
+           initialSize="0"
+           autowarmCount="100%"
+           regenerator="solr.NoOpRegenerator"/>
+
 <!-- Other query related configs -->
 <query name="useFilterForSortedQuery">false</query>
 <query name="queryResultWindowSize">20</query>

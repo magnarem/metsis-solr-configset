@@ -2,9 +2,9 @@
 
 <!DOCTYPE config [
   <!ENTITY extra SYSTEM "solrconfig_extra.xml">
-  <!ENTITY index SYSTEM "solrconfig_index.xml">
-  <!ENTITY query SYSTEM "solrconfig_query.xml">
-  <!ENTITY requestdispatcher SYSTEM "solrconfig_requestdispatcher.xml">
+<!ENTITY index SYSTEM "solrconfig_index.xml">
+<!ENTITY query SYSTEM "solrconfig_query.xml">
+<!ENTITY requestdispatcher SYSTEM "solrconfig_requestdispatcher.xml">
 ]>
 
 <!--
@@ -363,7 +363,7 @@
     <!-- Let the config generator easily inject additional stuff. -->
     &query;
 
-    <!-- Query Related Event Listeners
+        <!-- Query Related Event Listeners
 
          Various IndexSearcher related events can trigger Listeners to
          take actions.
@@ -540,7 +540,7 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
   <!-- Following is a dynamic way to include other components or any customized solrconfig.xml stuff, added by other contrib modules -->
   &extra;
 
-        <!-- Highlighting Component
+          <!-- Highlighting Component
 
        http://wiki.apache.org/solr/HighlightingParameters
     -->
@@ -799,7 +799,6 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
 
   <updateProcessor class="org.apache.solr.update.processor.UniqFieldsUpdateProcessorFactory" name="dedups">
     <str name="fieldRegex">text_suggester</str>
-    <str name="fieldRegex">sm_*</str>
   </updateProcessor>
 
   <updateProcessor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory" name="lang">
@@ -811,7 +810,21 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
     <bool name="langid.map.keepOrig">true</bool>
   </updateProcessor>
 
-  <updateRequestProcessorChain name="metsis" default="true" post-processor="dedups">
+  <updateProcessor class="solr.ParseDateFieldUpdateProcessorFactory" name="parse-date">
+    <arr name="format">
+      <str>yyyy-MM-dd['T'[HH:mm[:ss[.SSS]][z</str>
+      <str>yyyy-MM-dd['T'[HH:mm[:ss[,SSS]][z</str>
+      <str>yyyy-MM-dd HH:mm[:ss[.SSS]][z</str>
+      <str>yyyy-MM-dd HH:mm[:ss[,SSS]][z</str>
+      <str>[EEE, ]dd MMM yyyy HH:mm[:ss] z</str>
+      <str>EEEE, dd-MMM-yy HH:mm:ss z</str>
+      <str>EEE MMM ppd HH:mm:ss [z ]yyyy</str>
+    </arr>
+  </updateProcessor>
+
+
+  <updateRequestProcessorChain name="metsis" default="true" processor="parse-date" post-processor="dedups">
+    <processor class="solr.IgnoreFieldUpdateProcessorFactory"/>
     <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.LogUpdateProcessorFactory" />
     <processor class="solr.RunUpdateProcessorFactory" />
