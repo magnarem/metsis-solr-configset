@@ -48,8 +48,8 @@
     <str name="name">und</str>
     <str name="lookupImpl">FuzzyLookupFactory</str>
     <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-    <str name="field">phrase_suggester</str>
-    <str name="suggestAnalyzerFieldType">phrase_suggest</str>
+    <str name="field">text_suggester</str>
+    <str name="suggestAnalyzerFieldType">text_suggest</str>
     <!-- <str name="contextField">text_keywords_stemmed</str> -->
     <str name="buildOnCommit">false</str>
     <str name="buildOnStartup">false</str>
@@ -60,8 +60,8 @@
     <str name="name">en</str>
     <str name="lookupImpl">FuzzyLookupFactory</str>
     <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-    <str name="field">phrase_suggester</str>
-    <str name="suggestAnalyzerFieldType">phrase_suggest</str>
+    <str name="field">text_suggester</str>
+    <str name="suggestAnalyzerFieldType">text_suggest</str>
     <!-- <str name="contextField">text_keywords_stemmed</str> -->
     <str name="buildOnCommit">false</str>
     <str name="buildOnStartup">false</str>
