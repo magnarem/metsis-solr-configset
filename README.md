@@ -1,7 +1,7 @@
+# metsis-solr-configset
+
 ![Create SolR core](https://img.shields.io/github/actions/workflow/status/magnarem/metsis-solr-configset/solr.yml?branch=master&label=solrcore)
 ![Xml-lint](https://img.shields.io/github/actions/workflow/status/magnarem/metsis-solr-configset/xmllint.yml?branch=master&label=xmllint)
-
-# metsis-solr-configset
 
 This repository contains Solr configset for indexing MMD files.
 This repo should always be compatible with the latest [release](https://github.com/metno/mmd/releases) of the
@@ -12,6 +12,7 @@ Tagging releases from this repository should follow the versioning from the MMD 
 ## Releases
 
 ### Latest release
+
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/magnarem/metsis-solr-configset)
 
 ### Previous releases
@@ -24,11 +25,10 @@ Tagging releases from this repository should follow the versioning from the MMD 
 This script uploads this schema configset to a given Solr cloud.
 
 |Argument       |Description                                               | Required|
-|---------------|----------------------------------------------------------|---------|
+|:--------------|----------------------------------------------------------|--------:|
 | --user        | The Solr username for authentication.                    | Yes     |
-| --url         | The Solr Cloud base url (e.g., <<http://localhost:8983>).|  Yes    |
+| --url         | The Solr Cloud base url (e.g., <<http://solr:8983>).     |  Yes    |
 | --config-name | The name of the configset to be upladed (e.g. adc-4.1.0).|  Yes    |
 | --source-dir  | Path to the directory to compress (default: 'conf')      | No      |
 
-
-Example: `./upload_config.py --user solr --url http://solr:8983 --config-name metsis`
+Example: `./upload_config.py --user solr --url http://solr:8983 --config-name adc-4.1.0`
