@@ -240,6 +240,7 @@
   <field name="use_constraint_license_text" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- Fields used for facets. This contains concatination of the different personnel roles names and organisations -->
+  <field name="personnel" type="string" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="personnel_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_organisation" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
@@ -253,7 +254,6 @@
   <field name="personnel_investigator_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_investigator_organisation_uri" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
-  <field name="personnel_investigator_address" type="string" indexed="false" stored="true" required="false" multiValued="true" />
   <field name="personnel_investigator_address_address" type="string" indexed="false" stored="true" required="false" multiValued="true" />
   <field name="personnel_investigator_address_city" type="string" indexed="false" stored="true" required="false" multiValued="true" />
   <field name="personnel_investigator_address_province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -271,7 +271,6 @@
   <field name="personnel_technical_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_technical_organisation_uri" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
-  <field name="personnel_technical_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_technical_address_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_technical_address_city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_technical_address_province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -288,7 +287,6 @@
   <field name="personnel_metadata_author_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_metadata_author_organisation_uri" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
-  <field name="personnel_metadata_author_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_metadata_author_address_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_metadata_author_address_city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_metadata_author_address_province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -307,7 +305,6 @@
   <field name="personnel_datacenter_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_datacenter_organisation_uri" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
-  <field name="personnel_datacenter_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_datacenter_address_address" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_datacenter_address_city" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_datacenter_address_province_or_state" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -442,7 +439,7 @@
   <field name="gcmd_keywords_stemmed" indexed="true" stored="false" multiValued="true" type="text_keyword_processed"/>
 
   <!-- copy field for highlightning -->
-  <field name="hl_snippets" type="text_hl" indexed="true" stored="true" multiValued="true" storeOffsetsWithPositions="true" termVectors="true"/>
+  <field name="hl_snippets" type="text_hl" indexed="true" stored="false" docValues="true" multiValued="true" storeOffsetsWithPositions="true" termVectors="true"/>
 
   <!-- some internal mmd info -->
   <!-- the file_name.xml -->
