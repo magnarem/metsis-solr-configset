@@ -134,7 +134,7 @@
   <!-- Drupal Search Api specific fields -->
 
   <!-- The Highlighter Component requires the id field to be "stored" even if docValues are set. -->
-  <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" docValues="true"/>
+  <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
 
   <!-- Here, default is used to create a "timestamp" field indicating
        when each document was indexed.-->
@@ -178,22 +178,27 @@
   <!-- NEW MMD SPECIFICATION version 4.x -->
 
   <!-- mmd/metadata_identifier -->
-  <field name="metadata_identifier" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="metadata_identifier" type="string" indexed="true" stored="true" required="false" multiValued="false"/>
 
   <!-- mmd/alternate_identifier -->
   <field name="alternate_identifier" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="alternate_identifier_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/last_metadata_update -->
+  <field name="last_metadata_update_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="last_metadata_created_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="last_metadata_updated_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
+
+ <!-- TODO: Deprecated, will be removed in the future-->
   <field name="last_metadata_update_datetime" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="last_metadata_update_type" type="string" indexed="false" stored="true" required="false" multiValued="true" />
+  <field name="last_metadata_update_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="last_metadata_update_note" type="string" indexed="false" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/metadata_status -->
-  <field name="metadata_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="metadata_status" type="string" indexed="true" stored="false" docValues="true" useDocValuesAsStored="true" required="false" multiValued="false" />
 
-  <!-- mmd/metadata_source -->
-  <field name="metadata_source" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <!-- mmd/metadata_source (Internal/External)-->
+  <field name="metadata_source" type="string" indexed="true" stored="true" required="false" multiValued="false" docValues="true" useDocValuesAsStored="true"/>
 
   <!-- mmd/collection -->
   <field name="collection" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
@@ -240,10 +245,10 @@
   <field name="use_constraint_license_text" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- Fields used for facets. This contains concatination of the different personnel roles names and organisations -->
-  <field name="personnel" type="string" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="personnel_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="personnel_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="personnel_name" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="personnel_organisation" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="personnel_name" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
+  <field name="personnel_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
 
   <!-- mmd/personnel ROLE: Investigator -->
   <field name="personnel_investigator_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -315,14 +320,14 @@
   <field name="data_center_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="data_center_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <!-- Combined field using either short or long name depends on whats provided -->
-  <field name="data_center_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="data_center_name" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
 
-  <field name="data_center_url" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="data_center_url" type="string" indexed="false" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/data_access -->
   <!-- NOTE: The data access resources are normalized with respect to data access type. See fields
         specified further down -->
-  <field name="data_access_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="data_access_type" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <field name="data_access_wms_layers" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/related_dataset -->
@@ -346,48 +351,51 @@
 
   <!-- NOTE: The related information resources are normalized with respect to related information type. See fields
         specified further down -->
+  <field name="related_information_json" type="string" indexed="false" stored="true" required="false" multiValued="true" />
   <field name="related_information_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_description" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
+  <!-- related information obeservation facility-->
+  <field name="observation_facility" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
+
   <!-- mmd/iso_topic_category -->
-  <field name="iso_topic_category" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="iso_topic_category" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
 
   <!-- mmd/keywords -->
-  <field name="keywords_vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="keywords_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="keywords_separator" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="keywords_keyword" type="text_general" indexed="false" stored="true" required="false" multiValued="true" />
+  <field name="keywords_vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
+  <field name="keywords_keyword" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- GCMDSK keywords -->
-  <field name="keywords_gcmd" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_gcmd" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <!-- GCMDPLT keywords -->
-  <field name="keywords_gcmdplt" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_gcmdplt" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true" />
   <!-- GCMDINST keywords -->
-  <field name="keywords_gcmdinst" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_gcmdinst" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <!-- GCMDLOC keywords -->
-  <field name="keywords_gcmdloc" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_gcmdloc" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <!-- GCMDPROV keywords -->
-  <field name="keywords_gcmdprov" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_gcmdprov" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <!-- CFSTDN keywords -->
-  <field name="keywords_cfstdn" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_cfstdn" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <!-- GEMET keywords -->
-  <field name="keywords_gemet" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_gemet" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <!-- NORTHEMES keywords -->
-  <field name="keywords_northemes" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_northemes" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
 
   <!-- ECV keywords https://vocab.nerc.ac.uk/collection/EXV/current/ -->
-  <field name="keywords_ecv" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_ecv" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
 
   <!-- NONE keywords -->
-  <field name="keywords_none" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_none" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
 
   <!-- mmd/project -->
   <field name="project_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="project_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="project_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="project_name" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
 
   <!-- mmd/platform -->
+  <field name="platform_json" type="string" indexed="true" stored="true" required="false" multiValued="false" />
   <field name="platform_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -439,7 +447,7 @@
   <field name="gcmd_keywords_stemmed" indexed="true" stored="false" multiValued="true" type="text_keyword_processed"/>
 
   <!-- copy field for highlightning -->
-  <field name="hl_snippets" type="text_hl" indexed="true" stored="false" docValues="true" multiValued="true" storeOffsetsWithPositions="true" termVectors="true"/>
+  <field name="hl_snippets" type="text_hl" indexed="true" stored="false" multiValued="true" storeOffsetsWithPositions="true" termVectors="true"/>
 
   <!-- some internal mmd info -->
   <!-- the file_name.xml -->
@@ -536,9 +544,6 @@
 
 
   <!-- Index the temporal_extent dates in differnt data formats/granularity for faceting/filtering  -->
-
-  <field name="personnel" type="text_general" indexed="true" stored="false" multiValued="true" termVectors="true" />
-
   <!-- CopyField definitions -->
 
   <!-- Catch all full text search-->
@@ -619,8 +624,8 @@
   <copyField source="title" dest="text_suggester" />
 
   <!-- Copyfields used for faceting -->
-  <copyField source="personnel_name" dest="personnel_name_ss" />
-  <copyField source="personnel_organisation" dest="personnel_organisation_ss" />
+  <copyField source="personnel_name" dest="personnel_name_facet" />
+  <copyField source="personnel_organisation" dest="personnel_organisation_facet" />
 
   <!-- Urls copyfield-->
   <copyField source="*_resource" dest="urls" />
@@ -645,6 +650,9 @@
 
   <dynamicField name="random_*" type="random"/>
   <dynamicField name="ignored_*" type="ignored"/>
+
+  <dynamicField name="*_facet" type="strings" indexed="true" stored="false" docValues="false"/>
+
 
 
   <!-- Field types from Solr _default schema-->
