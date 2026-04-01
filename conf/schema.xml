@@ -189,7 +189,7 @@
   <field name="last_metadata_created_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
   <field name="last_metadata_updated_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
 
- <!-- TODO: Deprecated, will be removed in the future-->
+  <!-- TODO: Deprecated, will be removed in the future-->
   <field name="last_metadata_update_datetime" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="last_metadata_update_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="last_metadata_update_note" type="string" indexed="false" stored="true" required="false" multiValued="true" />
@@ -247,8 +247,8 @@
   <!-- Fields used for facets. This contains concatination of the different personnel roles names and organisations -->
   <field name="personnel_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="personnel_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="personnel_name" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
-  <field name="personnel_organisation" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
+  <field name="personnel_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true"/>
+  <field name="personnel_organisation" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true"/>
 
   <!-- mmd/personnel ROLE: Investigator -->
   <field name="personnel_investigator_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -354,7 +354,7 @@
   <field name="related_information_json" type="string" indexed="false" stored="true" required="false" multiValued="true" />
   <field name="related_information_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="related_information_description" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="related_information_description" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- related information obeservation facility-->
   <field name="observation_facility" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
@@ -364,7 +364,7 @@
 
   <!-- mmd/keywords -->
   <field name="keywords_vocabulary" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
-  <field name="keywords_keyword" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="keywords_keyword" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- GCMDSK keywords -->
   <field name="keywords_gcmd" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
@@ -421,14 +421,14 @@
   <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/dataset_citation -->
-  <field name="dataset_citation_author" type="text_general" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="dataset_citation_author" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_title" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_series" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_edition" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_volume" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_issue" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_publication_place" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="dataset_citation_publication_place" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_publisher" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_pages" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_isbn" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -445,9 +445,6 @@
   <field name="text_keywords_stemmed" indexed="true" stored="false" multiValued="true" type="text_keyword_processed"/>
   <field name="cfstdn_keywords_stemmed" indexed="true" stored="false" multiValued="true" type="text_keyword_processed"/>
   <field name="gcmd_keywords_stemmed" indexed="true" stored="false" multiValued="true" type="text_keyword_processed"/>
-
-  <!-- copy field for highlightning -->
-  <field name="hl_snippets" type="text_hl" indexed="true" stored="false" multiValued="true" storeOffsetsWithPositions="true" termVectors="true"/>
 
   <!-- some internal mmd info -->
   <!-- the file_name.xml -->
@@ -499,7 +496,7 @@
   <field name="related_url_landing_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_user_guide_desc" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_home_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_obs_facility_desc" type="string" indexed="true" stored="true" multiValued="true"/>
+  <field name="related_url_obs_facility_desc" type="text_gen_sort" indexed="true" stored="true" multiValued="true"/>
   <field name="related_url_ext_metadata_desc" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_scientific_publication_desc" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="related_url_data_paper_desc" type="string" indexed="false" stored="true" multiValued="true"/>
@@ -623,12 +620,11 @@
   <copyField source="keywords_keyword" dest="text_suggester" />
   <copyField source="title" dest="text_suggester" />
 
-  <!-- Copyfields used for faceting -->
-  <copyField source="personnel_name" dest="personnel_name_facet" />
-  <copyField source="personnel_organisation" dest="personnel_organisation_facet" />
-
   <!-- Urls copyfield-->
   <copyField source="*_resource" dest="urls" />
+  <copyField source="*_url" dest="urls" />
+  <copyField source="*_uri" dest="urls" />
+
 
   <!-- Define some dynamic field types. Not stored as they should only be used by copyField-->
   <dynamicField name="*_i" type="pint" indexed="true" stored="false"/>
@@ -651,7 +647,7 @@
   <dynamicField name="random_*" type="random"/>
   <dynamicField name="ignored_*" type="ignored"/>
 
-  <dynamicField name="*_facet" type="strings" indexed="true" stored="false" docValues="false"/>
+  <dynamicField name="*_facet" type="strings" indexed="true" stored="true" docValues="true"/>
 
 
 
@@ -744,7 +740,7 @@
     -->
   <dynamicField name="*_t_sort" type="text_gen_sort" indexed="true" stored="true" multiValued="false"/>
   <dynamicField name="*_txt_sort" type="text_gen_sort" indexed="true" stored="true"/>
-  <fieldType name="text_gen_sort" class="solr.SortableTextField" positionIncrementGap="100" multiValued="true">
+  <fieldType name="text_gen_sort" class="solr.SortableTextField" positionIncrementGap="100" multiValued="true" storeOffsetsWithPositions="true" termVectors="true">
     <analyzer type="index">
       <tokenizer name="standard"/>
       <filter name="stop" ignoreCase="true" words="stopwords.txt" />
@@ -950,10 +946,17 @@
 
   <!-- For storing urls-->
   <fieldType name="url" class="solr.TextField" positionIncrementGap="100">
-    <analyzer>
-      <tokenizer class="solr.StandardTokenizerFactory"/>
+    <analyzer type="index">
+      <!-- Tokenizer for breaking URL paths into hierarchy levels -->
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/" />
       <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1"/>
+      <filter class="solr.PatternReplaceFilterFactory" pattern="(https?|ftp)://" replacement="" replace="all"/>
+
+    </analyzer>
+    <analyzer type="query">
+      <!-- Same tokenizer for query analysis -->
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/" />
+      <filter class="solr.LowerCaseFilterFactory"/>
     </analyzer>
   </fieldType>
 

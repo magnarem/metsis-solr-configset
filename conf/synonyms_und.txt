@@ -1,1 +1,2 @@
 drupal, durpal
+satellite, sattelite,satelitte, sentinel, metop => Space Borne Instrument

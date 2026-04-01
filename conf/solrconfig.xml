@@ -824,9 +824,10 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
 
 
   <updateRequestProcessorChain name="metsis" default="true" processor="parse-date" post-processor="dedups">
-    <processor class="solr.IgnoreFieldUpdateProcessorFactory"/>
-    <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.LogUpdateProcessorFactory" />
+    <!-- <processor class="solr.IgnoreFieldUpdateProcessorFactory"/> -->
+    <!-- <processor class="solr.RemoveBlankFieldValuesUpdateProcessorFactory"/> -->
+    <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
@@ -846,14 +847,15 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
     <str name="healthcheckFile">adc-enabled.txt</str>
   </requestHandler>
 
-  <initParams path="/update/**">
+ <initParams path="/update/**">
     <lst name="defaults">
       <str name="update.chain">metsis</str>
     </lst>
   </initParams>
-  <initParams path="/dataimport/**">
+
+ <initParams path="/query,/select,/spell">
     <lst name="defaults">
-      <str name="update.chain">metsis</str>
+      <str name="df">full_text</str>
     </lst>
   </initParams>
 
@@ -866,7 +868,7 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
     <processor class="UniqFieldsUpdateProcessorFactory">
       <str name="fieldRegex">.keywords_level*</str>
     </processor>
-
+    <processor class="solr.DistributedUpdateProcessorFactory"/>
     <processor class="solr.RunUpdateProcessorFactory" />
   </updateRequestProcessorChain>
 
