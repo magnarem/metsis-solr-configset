@@ -18,7 +18,7 @@ jobs:
       run: docker build -t my_solr_image .
 
     - name: Run Docker container
-      run: docker run -d -p 8983:8983 -e SOLR_MODE=standalone --name adc my_solr_image solr bash -c "solr start --user-managed"
+      run: docker run -d -p 8983:8983 -e SOLR_MODE=standalone --name adc my_solr_image solr
 
     - name: Wait for Solr readiness
       run: |
@@ -38,4 +38,4 @@ jobs:
 
     - name: Ingest test document
       run: |
-        docker exec adc solr post -c adc -out -verbose /var/solr/data/configsets/adc/example_mmd_solr_drupal8.json || exit 1
+        docker exec adc solr post -c adc -out -verbose /var/solr/data/configsets/adc/example_mmd_solr.json || exit 1

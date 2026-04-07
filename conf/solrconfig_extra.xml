@@ -248,15 +248,6 @@
     Commercial algorithm Lingo3G from Carrot Search (needs to be installed separately):
       * Lingo3G
     -->
- <lst name="engine">
-      <str name="name">lingo3g</str>
-      <bool name="optional">true</bool>
-      <str name="clustering.algorithm">Lingo3G</str>
-      <str name="clustering.fields">name, features</str>
-      <bool name="clustering.includeOtherTopics">true</bool>
-      <str name="clustering.language">English</str>
-    </lst>
-
     <lst name="engine">
       <str name="name">lingo</str>
       <str name="clustering.algorithm">Lingo</str>
