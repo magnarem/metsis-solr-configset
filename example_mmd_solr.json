@@ -29,8 +29,5 @@
         "isChild":false,
         "dataset_type":"Level-1",
         "metadata_status":"Active",
-        "_version_":1861735347285655552,
-        "_root_":"no-met-adc-43f02cf0-8d83-5b12-8cca-dbd4c8d48202",
-        "iso_topic_category":["climatologyMeteorologyAtmosphere"],
-        "timestamp":"2026-04-06T15:26:24.649Z"
+        "iso_topic_category":["climatologyMeteorologyAtmosphere"]
 }
