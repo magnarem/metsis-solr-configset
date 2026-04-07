@@ -730,7 +730,7 @@
       For more information about this and other Spatial fields new to Solr 4, see:
       http://wiki.apache.org/solr/SolrAdaptersForLuceneSpatial4
     -->
-  <fieldType name="location_rpt_jts" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" distErrPct="0.15" maxDistErr="0.05" distanceUnits="kilometers" autoIndex="true" validationRule="repairBuffer0" spatialContextFactory="JTS" datelineRule="ccwRect" normWrapLongitude="true"/>
+  <fieldType name="location_rpt_jts" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" distErrPct="0.15" maxDistErr="0.05" distanceUnits="kilometers" autoIndex="true" validationRule="repairBuffer0" datelineRule="ccwRect" normWrapLongitude="true"/>
   <fieldType name="geometry_rpt_geo3d" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" distErrPct="0.15" maxDistErr="0.05" spatialContextFactory="Geo3D" prefixTree="s2" planetModel="WGS84" normWrapLongitude="true"/>
 
   <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
