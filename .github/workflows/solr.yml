@@ -18,7 +18,7 @@ jobs:
       run: docker build -t my_solr_image .
 
     - name: Run Docker container
-      run: docker run -d -p 8983:8983 --name adc my_solr_image
+      run: docker run -d -p 8983:8983 --name adc my_solr_image -v $(pwd)/conf:/var/solr/data/configsets/adc
 
     - name: Create Solr core
       run: |
