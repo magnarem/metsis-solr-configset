@@ -2,40 +2,26 @@ name: Solr Core Creation
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ master ]
+    branches: [ "master" ]
 
 jobs:
   test-solr-schema:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
-    - name: Build Docker image
-      run: docker build -t my_solr_image .
-
-    - name: Run Docker container
-      run: docker run -d -p 8983:8983 -e SOLR_MODE=standalone --name adc my_solr_image solr
-
-    - name: Wait for Solr readiness
+    - name: Setup Apache Solr Infrastructure
+      uses: dhavalgojiya/setup-solr-action@v1
+      with:
+        solr-version: "9.10.0"
+        solr-core-name: "test"
+        solr-custom-configset-path: "conf/"
+    - name: Add test document
       run: |
-        for i in {1..30}; do
-          if curl -fsS http://localhost:8983/solr/admin/info/system >/dev/null; then
-            exit 0
-          fi
-          sleep 2
-        done
-        echo "Solr did not become ready in time"
-        docker logs adc
-        exit 1
-
-    - name: Create Solr core
-      run: |
-        docker exec adc solr create -c adc -d /var/solr/data/configsets/adc || exit 1
-
-    - name: Ingest test document
-      run: |
-        docker exec adc solr post -c adc -out -verbose /var/solr/data/configsets/adc/example_mmd_solr.json || exit 1
+        curl --fail --show-error --silent \
+        -X POST "http://localhost:8983/solr/test/update?commit=true" \
+        -H "Content-Type: application/json" \
+        --data-binary @example_mmd_solr.json
