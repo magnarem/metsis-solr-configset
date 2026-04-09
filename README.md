@@ -3,7 +3,7 @@
 ![Create SolR core](https://img.shields.io/github/actions/workflow/status/magnarem/metsis-solr-configset/solr.yml?branch=master&label=solrcore)
 ![Xml-lint](https://img.shields.io/github/actions/workflow/status/magnarem/metsis-solr-configset/xmllint.yml?branch=master&label=xmllint)
 
-This repository contains Solr configset for indexing MMD files.
+This repository contains Solr configset and solr schema for indexing MMD files. Atomic updates are supported.
 This repo should always be compatible with the latest [release](https://github.com/metno/mmd/releases) of the
 [MMD specification](https://github.com/metno/mmd).
 
