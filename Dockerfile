@@ -2,7 +2,7 @@
 # This file is used by the .github/workflows/solr.yaml action to verify
 # that the solr config can be used to create a solr core
 #
-FROM docker.io/library/solr:latest
+FROM docker.io/library/solr:9
 WORKDIR /var/solr
 
 # Install JTS Spatial library for spatial indexing and search
@@ -11,7 +11,7 @@ ENV JTS_VERSION=1.20.0
 
 #Set solr specific environment variables
 ENV SOLR_HEAP=8192m
-ENV SOLR_MODULES=ltr,clustering,analysis-extras,prometheus-exporter,scripting,langid
+ENV SOLR_MODULES=ltr,clustering,analysis-extras,scripting,langid
 
 USER root
 
@@ -23,4 +23,8 @@ RUN set -x \
 USER solr
 # Copy the configset to temporary dir (moved to the right path in kubernetes
 RUN mkdir -p /var/solr/data/configsets/adc
-COPY . /var/solr/data/configsets/adc
+COPY conf/ /var/solr/data/configsets/adc/
+
+# Copy the models directory into the Docker image
+RUN mkdir -p /var/solr/models
+COPY models/ /var/solr/models/

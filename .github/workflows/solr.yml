@@ -12,13 +12,13 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Build Docker image
       run: docker build -t my_solr_image .
 
     - name: Run Docker container
-      run: docker run -d -p 8983:8983 --name adc my_solr_image
+      run: docker run -d -p 8983:8983 -v ./:/var/solr/data/configsets/adc --name adc my_solr_image
 
     - name: Create Solr core
       run: |
@@ -27,4 +27,4 @@ jobs:
     - name: Ingest test docuement
       run: |
         sleep 5 # Give Solr some time to start
-        docker exec adc solr post -c adc -out -verbose /var/solr/data/configsets/adc/example_mmd_solr_drupal8.json || exit 1
+        docker exec adc solr post -c adc -out -verbose /var/solr/data/configsets/adc/example_mmd_solr.json || exit 1
