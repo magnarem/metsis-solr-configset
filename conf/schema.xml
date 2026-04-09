@@ -290,7 +290,7 @@
   <field name="dataset_citation_publisher" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_pages" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_isbn" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_doi" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="dataset_citation_doi" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_url" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_other" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
 
