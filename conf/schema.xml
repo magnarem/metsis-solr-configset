@@ -185,6 +185,7 @@
   <!-- mmd/data_access -->
   <!-- NOTE: The data access resources are normalized with respect to data access type. See fields
         specified further down -->
+  <field name="data_access_json" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
   <field name="data_access_type" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <field name="data_access_wms_layers" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
@@ -494,7 +495,7 @@
   <dynamicField name="random_*" type="random"/>
   <dynamicField name="ignored_*" type="ignored"/>
 
-  <dynamicField name="*_facet" type="strings" indexed="true" stored="true" docValues="true"/>
+  <dynamicField name="*_facet" type="strings" indexed="true" stored="false" docValues="true"/>
 
   <!-- Field types from Solr _default schema-->
 
