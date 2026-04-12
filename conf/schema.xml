@@ -210,7 +210,7 @@
 
   <!-- NOTE: The related information resources are normalized with respect to related information type. See fields
         specified further down -->
-  <field name="related_information_json" type="string" indexed="false" stored="true" required="false" multiValued="true" />
+    <field name="related_information_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="related_information_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_description" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />

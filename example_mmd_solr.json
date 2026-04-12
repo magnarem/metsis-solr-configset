@@ -128,9 +128,7 @@
                         "WIGOS Station: KVITOYA (0-20000-0-01011)",
                         "Other documentation"
                 ],
-                "related_information_json": [
-                        "[{\"type\":\"Observation facility\",\"description\":\"WIGOS Station: KVITOYA (0-20000-0-01011)\",\"resource\":\"https://oscar.wmo.int/surface/#/search/station/stationReportDetails/0-20000-0-01011\"},{\"type\":\"Other documentation\",\"description\":\"Other documentation\",\"resource\":\"https://doi.org/10.XXXXX/AABBCCDD\"}]"
-                ],
+                "related_information_json": "[{\"type\":\"Observation facility\",\"description\":\"WIGOS Station: KVITOYA (0-20000-0-01011)\",\"resource\":\"https://oscar.wmo.int/surface/#/search/station/stationReportDetails/0-20000-0-01011\"},{\"type\":\"Other documentation\",\"description\":\"Other documentation\",\"resource\":\"https://doi.org/10.XXXXX/AABBCCDD\"}]",
                 "project_short_name": [
                         "MYPR1",
                         "MYPR2"
