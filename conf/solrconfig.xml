@@ -834,19 +834,16 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
   <!-- ping/healthcheck -->
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
     <lst name="invariants">
-      <str name="q">solrpingquery</str>
+      <!-- Replace 'solrpingquery' with a valid query to check the health -->
+      <str name="q">*:*</str>
+      <str name="rows">0</str>      <!-- Ensure no documents are returned -->
     </lst>
     <lst name="defaults">
       <str name="echoParams">all</str>
     </lst>
-    <!-- An optional feature of the PingRequestHandler is to configure the
-         handler with a "healthcheckFile" which can be used to enable/disable
-         the PingRequestHandler.
-         relative paths are resolved against the data dir
-      -->
-    <str name="healthcheckFile">adc-enabled.txt</str>
   </requestHandler>
 
+ <!-- Configure the update handler defaults -->
  <initParams path="/update/**">
     <lst name="defaults">
       <str name="update.chain">metsis</str>

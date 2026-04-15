@@ -424,7 +424,7 @@
   <copyField source="keywords_cfstdn" dest="text_keywords_stemmed" />
   <copyField source="keywords_gemet" dest="text_keywords_stemmed" />
   <copyField source="keywords_northemes" dest="text_keywords_stemmed" />
-  <copyField source="keywords_ecv" dest="text_keywords_stemmed" />
+  <copyField source="keywords_exv" dest="text_keywords_stemmed" />
   <copyField source="keywords_none" dest="text_keywords_stemmed" />
 
   <!-- Copy fields for suggester-->
