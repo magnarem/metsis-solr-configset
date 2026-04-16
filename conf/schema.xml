@@ -212,7 +212,7 @@
   <field name="platform_json" type="string" indexed="true" stored="true" required="false" multiValued="false" />
   <field name="platform_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="platform_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="platform_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
 
   <field name="platform_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_orbit_relative" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
@@ -221,7 +221,7 @@
 
   <field name="platform_instrument_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_instrument_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="platform_instrument_name" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="platform_instrument_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_instrument_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_instrument_mode" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_instrument_polarisation" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -235,6 +235,7 @@
   <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/dataset_citation -->
+  <field name="dataset_citation_json" type="string" indexed="true" stored="true" required="false" multiValued="false" />
   <field name="dataset_citation_author" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_title" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
@@ -286,38 +287,6 @@
   <field name="data_access_url_http" type="string" indexed="true" stored="true" multiValued="true"/>
   <field name="data_access_url_odata" type="string" indexed="true" stored="true" multiValued="true"/>
   <field name="data_access_url_ftp" type="string" indexed="true" stored="true" multiValued="true"/>
-  <field name="related_url_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_user_guide" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_home_page" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_obs_facility" type="string" indexed="true" stored="true" multiValued="true"/>
-  <field name="related_url_ext_metadata" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_scientific_publication" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_data_paper" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_data_management_plan" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_other_documentation" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_software" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_data_server_landing_page" type="string" indexed="false" stored="true" multiValued="true"/>
-
-
-  <!-- Process description for data access urls -->
-  <field name="data_access_url_opendap_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="data_access_url_ogc_wms_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="data_access_url_ogc_wfs_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="data_access_url_ogc_wcs_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="data_access_url_http_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="data_access_url_odata_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="data_access_url_ftp_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_landing_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_user_guide_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_home_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_obs_facility_desc" type="text_gen_sort" indexed="true" stored="true" multiValued="true"/>
-  <field name="related_url_ext_metadata_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_scientific_publication_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_data_paper_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_data_management_plan_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_other_documentation_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_software_desc" type="string" indexed="false" stored="true" multiValued="true"/>
-  <field name="related_url_data_server_landing_page_desc" type="string" indexed="false" stored="true" multiValued="true"/>
 
   <!-- Thumbnail specific fields -->
   <field name="thumbnail" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
@@ -348,9 +317,18 @@
   <!-- dummy field -->
   <field name="text" type="string" indexed="true" stored="true" />
 
-  <!-- Helper fields that are not stored or indexed, but used by the copyField -->
-  <field name="descriptions" type="string" indexed="false" stored="false" multiValued="true"/>
-  <field name="resources" type="string" indexed="false" stored="false" multiValued="true"/>
+  <!-- Descriptions is a catch all field for any description fields in the MMD.
+        Used for highlighting and display.
+        Added by the solrindexer.
+  -->
+  <field name="descriptions" type="text_gen_sort" indexed="true" stored="true" multiValued="true"/>
+
+  <!-- Resources field
+      Catch all resource urls and identifeiers.
+      Added by the solrindexer.
+      Not stored or indexed, copied to urls, full_text and match_exact for search and faceting.
+    -->
+  <field name="resources" type="ignored" indexed="false" stored="false" multiValued="true" docValues="false"/>
 
   <!-- NBS Specific fields -->
   <field name="platform_sentinel" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -388,7 +366,9 @@
   <copyField source="project_long_name" dest="full_text" />
   <copyField source="project_short_name" dest="full_text" />
   <copyField source="title" dest="full_text" />
-  <copyField source="*_desc" dest="full_text" />
+  <copyField source="descriptions" dest="full_text" />
+  <copyField source="resources" dest="full_text" />
+
 
   <!-- Copy fields for exact match search. No stemming/tokenizing-->
   <copyField source="metadata_identifier" dest="match_exact" />
@@ -414,6 +394,8 @@
   <copyField source="project_short_name" dest="match_exact" />
   <copyField source="related_dataset" dest="match_exact" />
   <copyField source="title" dest="match_exact" />
+  <copyField source="descriptions" dest="match_exact" />
+  <copyField source="resources" dest="match_exact" />
 
   <!-- Copy fields for stemmed keyword searches -->
   <copyField source="keywords_gcmd" dest="text_keywords_stemmed" />
@@ -447,7 +429,7 @@
   <copyField source="title" dest="text_suggester" />
 
   <!-- Urls copyfield-->
-  <copyField source="*_resource" dest="urls" />
+  <copyField source="resources" dest="urls" />
   <copyField source="*_url" dest="urls" />
   <copyField source="*_uri" dest="urls" />
 

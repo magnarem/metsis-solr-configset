@@ -60,10 +60,17 @@ echo "Waiting for Solr core to be ready..."
 wait_for_solr
 
 echo "Indexing ${INPUT_FILE} using Solr update API..."
-curl -fsS \
+if ! curl -fsS \
   -H 'Content-Type: application/json' \
   --data-binary "@${INPUT_FILE}" \
-  "${solr_core_url}/update?commit=true" >/dev/null
+  "${solr_core_url}/update?commit=true" >/dev/null; then
+  echo "Failed to index ${INPUT_FILE}, retrying without -f to show error:" >&2
+  curl -sS \
+    -H 'Content-Type: application/json' \
+    --data-binary "@${INPUT_FILE}" \
+    "${solr_core_url}/update?commit=true"
+  exit 1
+fi
 
 echo "Fetching indexed document..."
 indexed_response="$(fetch_doc)"

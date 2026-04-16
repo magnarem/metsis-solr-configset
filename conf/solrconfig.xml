@@ -843,6 +843,13 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
     </lst>
   </requestHandler>
 
+<!-- Realtime get handler -->
+<requestHandler name="/get" class="solr.RealTimeGetHandler">
+  <lst name="defaults">
+    <str name="omitHeader">true</str>
+  </lst>
+</requestHandler>
+
  <!-- Configure the update handler defaults -->
  <initParams path="/update/**">
     <lst name="defaults">
