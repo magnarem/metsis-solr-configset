@@ -272,7 +272,7 @@
   <field name="mmd_repo_path" type="string" indexed="false" stored="true"/>
 
   <!-- The mmd xml file -->
-  <field name="mmd_xml_file" type="string" indexed="false" stored="true"/>
+  <field name="mmd_xml_file" type="string" indexed="false" stored="true" docValues="false"/>
   <!-- Catch field for urls -->
   <field name="urls" type="url" indexed="true" stored="false" multiValued="true" />
 
