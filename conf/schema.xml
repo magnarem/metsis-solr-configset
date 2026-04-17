@@ -52,7 +52,7 @@
         last_metadata_created_date are the created date. i.e the first entry
         last_metadata_updated_date are the updated date. i.e the last entry (or first if only one entry).
   -->
-  <field name="last_metadata_update_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="last_metadata_update_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
   <field name="last_metadata_created_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
   <field name="last_metadata_updated_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
 
@@ -60,10 +60,10 @@
   <field name="metadata_status" type="string" indexed="true" stored="false" docValues="true" useDocValuesAsStored="true" required="false" multiValued="false" />
 
   <!-- mmd/metadata_source (Internal/External)-->
-  <field name="metadata_source" type="string" indexed="true" stored="true" required="false" multiValued="false" docValues="true" useDocValuesAsStored="true"/>
+  <field name="metadata_source" type="string" indexed="true" stored="false" required="false" multiValued="false" docValues="true" useDocValuesAsStored="true"/>
 
   <!-- mmd/collection -->
-  <field name="collection" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
+  <field name="collection" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
 
   <!-- mmd/title -->
   <field name="title" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -111,7 +111,7 @@
 
         personnel_organisation_facet and personnel_name_facet are added by the solrindexer, and are used for faceting and filtering.
    -->
-  <field name="personnel_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="personnel_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
   <field name="personnel_role" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="personnel_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true"/>
   <field name="personnel_organisation" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true"/>
@@ -128,7 +128,7 @@
           data_access_type is the type of data access url, e.g. OPeNDAP, WMS, HTTP, etc. Used for faceting and filtering.
           data_access_wms_layers is the WMS layers if the data access type is WMS.
   -->
-  <field name="data_access_json" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+  <field name="data_access_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
   <field name="data_access_type" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
   <field name="data_access_wms_layers" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
@@ -160,7 +160,7 @@
         related_information_resource is the url or identifier of the related information.
         related_information_description is the description of the related information. Used for highlighting and display.
   -->
-  <field name="related_information_json" type="string" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="related_information_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
   <field name="related_information_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_description" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
@@ -209,7 +209,7 @@
   <field name="project_name" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
 
   <!-- mmd/platform -->
-  <field name="platform_json" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="platform_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
   <field name="platform_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="platform_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
@@ -235,7 +235,7 @@
   <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/dataset_citation -->
-  <field name="dataset_citation_json" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="dataset_citation_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
   <field name="dataset_citation_author" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_title" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
