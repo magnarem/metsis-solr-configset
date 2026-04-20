@@ -57,7 +57,7 @@
   <field name="last_metadata_updated_date" type="pdate" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- mmd/metadata_status -->
-  <field name="metadata_status" type="string" indexed="true" stored="false" docValues="true" useDocValuesAsStored="true" required="false" multiValued="false" />
+  <field name="metadata_status" type="metadata_status_enum" indexed="true" stored="true" docValues="true" required="false" multiValued="false" />
 
   <!-- mmd/metadata_source (Internal/External)-->
   <field name="metadata_source" type="string" indexed="true" stored="false" required="false" multiValued="false" docValues="true" useDocValuesAsStored="true"/>
@@ -441,6 +441,10 @@
   <!-- Dynamic field optimised for facetting. Fields of this type have to be added by the solr-indexer
        to  be compatible with atomic-updates -->
   <dynamicField name="*_facet" type="strings" indexed="true" stored="false" docValues="true"/>
+
+  <!-- Enum type for metadata_status -->
+  <fieldType name="metadata_status_enum" class="solr.EnumFieldType" enumsConfig="enumsConfig.xml" enumName="metadata_status"/>
+
 
   <!-- Custom METSIS fieldTypes -->
   <fieldType name="match_exact" class="solr.TextField" positionIncrementGap="100">
