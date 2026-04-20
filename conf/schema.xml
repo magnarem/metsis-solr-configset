@@ -137,6 +137,8 @@
            related_dataset and related_dataset_id are the metadata_identifier and solrid of the parent relation type.
            related_dataset_relation_type is the relation type e.g. parent, child, auxiliary, etc.
            related_dataset_auxiliary, related_dataset_auxiliary_id are the metadata_identifier and solrid of the auxiliary relation type.
+  TODO: Consider naming related_dataset to related_parent_dataset and set multiValued false.
+        Also consider removing/chaning field structure for other relation types.
   -->
   <field name="related_dataset" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_dataset_relation_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
@@ -293,8 +295,6 @@
   <field name="thumbnail_data" type="binary" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="thumbnail_url" type="string" indexed="false" stored="true" required="false" multiValued="false" />
   <field name="feature_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-  <!-- Internal dataset level: Level-1 or Level-2 -->
-  <field name="dataset_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- Aggregated field for full text searches. Using Drupal Search api text_und -->
   <field name="full_text" type="text_und" indexed="true" stored="false" required="false" multiValued="true" />
