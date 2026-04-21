@@ -167,6 +167,9 @@
   <field name="related_information_resource" type="string" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="related_information_description" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
 
+  <!-- We store the related url landing page here so we do not need to extract it from the related information json -->
+  <field name="related_url_landing_page" type="string" indexed="false" stored="true" required="false" multiValued="false" />
+
   <!-- related information obeservation facility. used for faceting and filtering. -->
   <field name="observation_facility" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
 
@@ -238,20 +241,9 @@
 
   <!-- mmd/dataset_citation -->
   <field name="dataset_citation_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
-  <field name="dataset_citation_author" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_publication_date" type="pdate" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_title" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_series" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_edition" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_volume" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_issue" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_publication_place" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_publisher" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_pages" type="pint" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_isbn" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="dataset_citation_title" type="text_en" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="dataset_citation_doi" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_url" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="dataset_citation_other" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- Common fields for new and old MMD specification, specific for Drupal 8
    -->
@@ -314,8 +306,9 @@
   <!-- Quality control  -->
   <field name="quality_control" type="string" indexed="true" stored="true" multiValued="false"/>
 
+
   <!-- dummy field -->
-  <field name="text" type="string" indexed="true" stored="true" />
+  <field name="text" type="string" indexed="false" stored="false" />
 
   <!-- Descriptions is a catch all field for any description fields in the MMD.
         Used for highlighting and display.
@@ -347,13 +340,8 @@
   <copyField source="abstract" dest="full_text" />
   <copyField source="data_center_long_name" dest="full_text" />
   <copyField source="data_center_short_name" dest="full_text" />
-  <copyField source="dataset_citation_author" dest="full_text" />
   <copyField source="dataset_citation_doi" dest="full_text" />
-  <copyField source="dataset_citation_isbn" dest="full_text" />
-  <copyField source="dataset_citation_other" dest="full_text" />
-  <copyField source="dataset_citation_publisher" dest="full_text" />
   <copyField source="dataset_citation_title" dest="full_text" />
-  <copyField source="dataset_citation_publication_place" dest="full_text" />
   <copyField source="iso_topic_category" dest="full_text" />
   <copyField source="keywords_keyword" dest="full_text" />
   <copyField source="personnel_name" dest="full_text" />
@@ -376,11 +364,8 @@
   <copyField source="activity_type" dest="match_exact" />
   <copyField source="data_center_long_name" dest="match_exact" />
   <copyField source="data_center_short_name" dest="match_exact" />
-  <copyField source="dataset_citation_author" dest="match_exact" />
   <copyField source="dataset_citation_doi" dest="match_exact"/>
-  <copyField source="dataset_citation_publisher" dest="match_exact" />
   <copyField source="dataset_citation_title" dest="match_exact" />
-  <copyField source="dataset_citation_publication_place" dest="full_text" />
   <copyField source="iso_topic_category" dest="match_exact" />
   <copyField source="keywords_keyword" dest="match_exact" />
   <copyField source="metadata_identifier" dest="match_exact" />
@@ -421,12 +406,10 @@
   <copyField source="iso_topic_category" dest="text_suggester" />
   <copyField source="data_center_long_name" dest="text_suggester" />
   <copyField source="data_center_short_name" dest="text_suggester" />
-  <copyField source="dataset_citation_publisher" dest="text_suggester" />
-  <copyField source="dataset_citation_author" dest="text_suggester" />
-  <copyField source="dataset_citation_title" dest="text_suggester" />
-  <copyField source="dataset_citation_doi" dest="text_suggester"/>
   <copyField source="keywords_keyword" dest="text_suggester" />
   <copyField source="title" dest="text_suggester" />
+  <copyField source="descriptions" dest="text_suggester" />
+
 
   <!-- Urls copyfield-->
   <copyField source="resources" dest="urls" />

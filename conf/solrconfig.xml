@@ -857,25 +857,6 @@ ure_type,ss_access,data_access_url_http,data_access_url_ftp,data_access_url_odat
     </lst>
   </initParams>
 
- <initParams path="/query,/select,/spell">
-    <lst name="defaults">
-      <str name="df">full_text</str>
-    </lst>
-  </initParams>
-
-
-
-  <updateRequestProcessorChain name="uuid">
-    <processor class="solr.UUIDUpdateProcessorFactory">
-      <str name="fieldName">uuid</str>
-    </processor>
-    <processor class="UniqFieldsUpdateProcessorFactory">
-      <str name="fieldRegex">.keywords_level*</str>
-    </processor>
-    <processor class="solr.DistributedUpdateProcessorFactory"/>
-    <processor class="solr.RunUpdateProcessorFactory" />
-  </updateRequestProcessorChain>
-
   <!--  LTR query parser
 
         You will need to set the solr.ltr.enabled system property
