@@ -128,18 +128,10 @@
                         "MYPR1",
                         "MYPR2"
                 ],
-                "data_center_short_name": [
-                        "NO/MET/ADC"
-                ],
-                "data_center_long_name": [
-                        "Norwegian Meteorological Institute / Arctic Data Centre"
-                ],
-                "data_center_name": [
-                        "NO/MET/ADC"
-                ],
-                "data_center_url": [
-                        "https://adc.met.no/"
-                ],
+                "data_center_short_name": "NO/MET/ADC",
+                "data_center_long_name": "Norwegian Meteorological Institute / Arctic Data Centre",
+                "data_center_name": "NO/MET/ADC",
+                "data_center_url": "https://adc.met.no/",
                 "storage_information_file_name": "S1A_WV_OCN__2SSV_20240302T191855_20240302T192435_052807_0663FD_9E80.nc",
                 "storage_information_file_location": "/some/path/that/should/not/be/exposed",
                 "storage_information_file_format": "NetCDF-CF",
@@ -271,6 +263,6 @@
                         "CTD",
                         "SAR-C"
                 ],
-                "timestamp": "2026-04-22T11:42:48.813Z"
+                "timestamp": "2026-04-22T14:33:55.322Z"
         }
 ]
