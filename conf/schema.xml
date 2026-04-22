@@ -350,10 +350,18 @@
   <copyField source="personnel_role" dest="full_text" />
   <copyField source="platform_instrument_long_name" dest="full_text" />
   <copyField source="platform_instrument_short_name" dest="full_text" />
+  <copyField source="platform_instrument_mode" dest="full_text" />
+  <copyField source="platform_instrument_polarisation" dest="full_text" />
+  <copyField source="platform_instrument_product_type" dest="full_text" />
+  <copyField source="platform_ancillary_timeliness" dest="full_text" />
+  <copyField source="platform_orbit_direction" dest="full_text" />
   <copyField source="platform_long_name" dest="full_text" />
   <copyField source="platform_short_name" dest="full_text" />
   <copyField source="project_long_name" dest="full_text" />
   <copyField source="project_short_name" dest="full_text" />
+  <copyField source="storage_information_file_name" dest="full_text" />
+  <copyField source="storage_information_file_format" dest="full_text" />
+  <copyField source="related_dataset" dest="full_text"/>
   <copyField source="title" dest="full_text" />
   <copyField source="descriptions" dest="full_text" />
   <copyField source="resources" dest="full_text" />
@@ -374,6 +382,13 @@
   <copyField source="personnel_organisation" dest="match_exact" />
   <copyField source="platform_instrument_long_name" dest="match_exact" />
   <copyField source="platform_instrument_short_name" dest="match_exact" />
+  <copyField source="platform_instrument_mode" dest="match_exact" />
+  <copyField source="platform_instrument_polarisation" dest="match_exact" />
+  <copyField source="platform_instrument_product_type" dest="match_exact" />
+  <copyField source="platform_ancillary_timeliness" dest="match_exact" />
+  <copyField source="platform_orbit_direction" dest="match_exact" />
+  <copyField source="storage_information_file_name" dest="match_exact" />
+  <copyField source="storage_information_file_format" dest="match_exact" />
   <copyField source="platform_long_name" dest="match_exact" />
   <copyField source="platform_short_name" dest="match_exact" />
   <copyField source="project_long_name" dest="match_exact" />
@@ -407,6 +422,9 @@
   <copyField source="iso_topic_category" dest="text_suggester" />
   <copyField source="data_center_long_name" dest="text_suggester" />
   <copyField source="data_center_short_name" dest="text_suggester" />
+  <copyField source="metadata_identifier" dest="text_suggester" />
+  <copyField source="alternate_identifier" dest="text_suggester" />
+  <copyField source="activity_type" dest="text_suggester" />
   <copyField source="keywords_keyword" dest="text_suggester" />
   <copyField source="title" dest="text_suggester" />
   <copyField source="descriptions" dest="text_suggester" />
