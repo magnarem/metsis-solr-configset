@@ -207,11 +207,12 @@
   <!-- mmd/project
         project_short_name used for highlighting and display.
         project_long_name used for highlighting and display.
-        project_name is the short or long name of the project. Used for faceting and filtering.
+        project_name is the short or long name of the project. Used for highlighting and display.
+        project_name_facet is the short or long name of the project. Used for faceting and filtering. Added by the solrindexer.
   -->
   <field name="project_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
   <field name="project_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="project_name" type="string" indexed="true" stored="false" required="false" multiValued="true" docValues="true" useDocValuesAsStored="true"/>
+  <field name="project_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true"/>
 
   <!-- mmd/platform -->
   <field name="platform_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
