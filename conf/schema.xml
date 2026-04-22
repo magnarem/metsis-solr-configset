@@ -117,11 +117,11 @@
   <field name="personnel_organisation" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true"/>
 
   <!-- mmd/data_center -->
-  <field name="data_center_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
-  <field name="data_center_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="data_center_short_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="data_center_long_name" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="false" />
   <!-- Combined field using either short or long name depends on whats provided. Used for faceting and filtering -->
-  <field name="data_center_name" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
-  <field name="data_center_url" type="string" indexed="false" stored="true" required="false" multiValued="true" />
+  <field name="data_center_name" type="string" indexed="true" stored="true" required="false" multiValued="false" docValues="true"/>
+  <field name="data_center_url" type="string" indexed="false" stored="true" required="false" multiValued="false" />
 
   <!-- mmd/data_access
           data_access_json is the full mmd/data_access extracted as a json structure.
