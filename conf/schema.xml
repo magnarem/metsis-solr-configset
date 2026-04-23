@@ -365,6 +365,8 @@
   <copyField source="title" dest="full_text" />
   <copyField source="descriptions" dest="full_text" />
   <copyField source="resources" dest="full_text" />
+  <copyField source="use_constraint_license_text" dest="full_text" />
+  <copyField source="use_constraint_identifier" dest="full_text" />
 
 
   <!-- Copy fields for exact match search. No stemming/tokenizing-->
@@ -397,6 +399,8 @@
   <copyField source="title" dest="match_exact" />
   <copyField source="descriptions" dest="match_exact" />
   <copyField source="resources" dest="match_exact" />
+  <copyField source="use_constraint_identifier" dest="match_exact" />
+
 
   <!-- Copy fields for stemmed keyword searches -->
   <copyField source="keywords_gcmd" dest="text_keywords_stemmed" />
