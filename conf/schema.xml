@@ -389,6 +389,8 @@
   <copyField source="platform_instrument_product_type" dest="match_exact" />
   <copyField source="platform_ancillary_timeliness" dest="match_exact" />
   <copyField source="platform_orbit_direction" dest="match_exact" />
+  <copyField source="platform_orbit_relative" dest="match_exact" />
+  <copyField source="platform_orbit_absolute" dest="match_exact" />
   <copyField source="storage_information_file_name" dest="match_exact" />
   <copyField source="storage_information_file_format" dest="match_exact" />
   <copyField source="platform_long_name" dest="match_exact" />
@@ -400,6 +402,7 @@
   <copyField source="descriptions" dest="match_exact" />
   <copyField source="resources" dest="match_exact" />
   <copyField source="use_constraint_identifier" dest="match_exact" />
+
 
 
   <!-- Copy fields for stemmed keyword searches -->
