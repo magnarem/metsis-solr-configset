@@ -458,7 +458,6 @@
   <!-- Custom METSIS fieldTypes -->
   <fieldType name="match_exact" class="solr.TextField" positionIncrementGap="100">
     <analyzer type="index">
-      <filter class="solr.PatternReplaceFilterFactory" pattern="(https?://)?doi\.org/" replacement="" />
       <tokenizer class="solr.KeywordTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.TrimFilterFactory"/>
