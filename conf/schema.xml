@@ -67,12 +67,14 @@
 
   <!-- mmd/title -->
   <field name="title" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-  <field name="title_en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="title_hl" type="text_gen_sort" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="title_en" type="text_en" indexed="true" stored="false" required="false" multiValued="false" />
   <field name="title_no" type="text_nb" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- mmd/abstract -->
   <field name="abstract" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-  <field name="abstract_en" type="text_en" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="abstract_hl" type="text_gen_sort" indexed="false" stored="true" required="false" multiValued="false" />
+  <field name="abstract_en" type="text_en" indexed="true" stored="false" required="false" multiValued="false" />
   <field name="abstract_no" type="text_nb" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- mmd/temporal_extent -->
@@ -290,7 +292,7 @@
   <field name="feature_type" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- Aggregated field for full text searches. Using Drupal Search api text_und -->
-  <field name="full_text" type="text_und" indexed="true" stored="false" required="false" multiValued="true" />
+  <field name="full_text" type="text_en" indexed="true" stored="false" required="false" multiValued="true" />
 
   <!-- Boolean set to true for datasets which are parent datasets -->
   <field name="isParent" type="boolean" stored="true" />
@@ -367,6 +369,12 @@
   <copyField source="resources" dest="full_text" />
   <copyField source="use_constraint_license_text" dest="full_text" />
   <copyField source="use_constraint_identifier" dest="full_text" />
+  <copyField source="operational_status" dest="full_text" />
+  <copyField source="quality_control" dest="full_text" />
+  <copyField source="spatial_representation" dest="full_text" />
+
+
+
 
 
   <!-- Copy fields for exact match search. No stemming/tokenizing-->
@@ -402,6 +410,9 @@
   <copyField source="descriptions" dest="match_exact" />
   <copyField source="resources" dest="match_exact" />
   <copyField source="use_constraint_identifier" dest="match_exact" />
+  <copyField source="operational_status" dest="match_exact" />
+  <copyField source="quality_control" dest="match_exact" />
+  <copyField source="spatial_representation" dest="match_exact" />
 
 
 

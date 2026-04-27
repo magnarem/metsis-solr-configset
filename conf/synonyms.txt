@@ -25,7 +25,8 @@ Television, Televisions, TV, TVs
 #after us won't split it into two words.
 
 # Match space borne instrument with potensial misspelling
-satellite,sattelite,Space Borne Instrument
+satellite,satelite,sattelite,Space Borne Instrument
+
 
 # English / American
 organisation,organization
