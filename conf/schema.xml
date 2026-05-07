@@ -90,19 +90,19 @@
   <!-- mmd/geographic_extent/polygon added to geopatial_bounds if provided  -->
 
   <!-- mmd/dataset_production_status -->
-  <field name="dataset_production_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="dataset_production_status" type="string" indexed="true" stored="true" required="false" multiValued="false" docValues="true"/>
 
   <!-- mmd/dataset_language -->
   <field name="dataset_language" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- mmd/operational_status -->
-  <field name="operational_status" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="operational_status" type="string" indexed="true" stored="true" required="false" multiValued="false" docValues="true"/>
 
   <!-- mmd/access_constraint -->
   <field name="access_constraint" type="string" indexed="true" stored="true" required="false" multiValued="false" />
 
   <!-- mmd/use_constraint -->
-  <field name="use_constraint_identifier" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+  <field name="use_constraint_identifier" type="string" indexed="true" stored="true" required="false" multiValued="false" docValues="true"/>
   <field name="use_constraint_resource" type="string" indexed="true" stored="true" required="false" multiValued="false" />
   <field name="use_constraint_license_text" type="text_gen_sort" indexed="true" stored="true" required="false" multiValued="false" />
 
@@ -240,7 +240,7 @@
   <field name="platform_ancillary_timeliness" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
   <!-- mmd/activity_type -->
-  <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+  <field name="activity_type" type="string" indexed="true" stored="true" required="false" multiValued="true" docValues="true"/>
 
   <!-- mmd/dataset_citation -->
   <field name="dataset_citation_json" type="string" indexed="false" stored="true" required="false" multiValued="false" docValues="false"/>
@@ -317,14 +317,14 @@
         Used for highlighting and display.
         Added by the solrindexer.
   -->
-  <field name="descriptions" type="text_gen_sort" indexed="true" stored="true" multiValued="true"/>
+  <field name="descriptions" type="text_gen_sort" indexed="false" stored="true" multiValued="true"/>
 
   <!-- Resources field
       Catch all resource urls and identifeiers.
       Added by the solrindexer.
       Not stored or indexed, copied to urls, full_text and match_exact for search and faceting.
     -->
-  <field name="resources" type="ignored" indexed="false" stored="false" multiValued="true" docValues="false"/>
+  <field name="resources" type="text_gen_sort" indexed="false" stored="true" multiValued="true"/>
 
   <!-- NBS Specific fields -->
   <field name="platform_sentinel" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -340,7 +340,7 @@
   <copyField source="alternate_identifier" dest="full_text" />
   <copyField source="activity_type" dest="full_text" />
   <copyField source="access_constraint" dest="full_text" />
-  <copyField source="abstract" dest="full_text" />
+  <copyField source="abstract_en" dest="full_text" />
   <copyField source="data_center_long_name" dest="full_text" />
   <copyField source="data_center_short_name" dest="full_text" />
   <copyField source="dataset_citation_doi" dest="full_text" />
@@ -364,7 +364,7 @@
   <copyField source="storage_information_file_name" dest="full_text" />
   <copyField source="storage_information_file_format" dest="full_text" />
   <copyField source="related_dataset" dest="full_text"/>
-  <copyField source="title" dest="full_text" />
+  <copyField source="title_hl" dest="full_text" />
   <copyField source="descriptions" dest="full_text" />
   <copyField source="resources" dest="full_text" />
   <copyField source="use_constraint_license_text" dest="full_text" />
@@ -372,8 +372,6 @@
   <copyField source="operational_status" dest="full_text" />
   <copyField source="quality_control" dest="full_text" />
   <copyField source="spatial_representation" dest="full_text" />
-
-
 
 
 
@@ -413,7 +411,7 @@
   <copyField source="operational_status" dest="match_exact" />
   <copyField source="quality_control" dest="match_exact" />
   <copyField source="spatial_representation" dest="match_exact" />
-
+  <copyField source="keywords_cfstdn" dest="match_exact" />
 
 
   <!-- Copy fields for stemmed keyword searches -->
@@ -740,6 +738,25 @@
       <filter class="solr.PatternReplaceFilterFactory" pattern="_" replacement=" " replace="all" />
       <filter class="solr.PatternReplaceFilterFactory" pattern="&gt;" replacement="" replace="all" />
       <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
+
+  <fieldType name="text_keywords" class="solr.TextField" positionIncrementGap="100" storeOffsetsWithPositions="true">
+    <analyzer type="index">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" expand="false" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" preserveOriginal="1"/>
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" expand="true" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" preserveOriginal="1"/>
       <filter class="solr.EnglishMinimalStemFilterFactory"/>
     </analyzer>
   </fieldType>
